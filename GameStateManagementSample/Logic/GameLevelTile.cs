@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace GameStateManagementSample.Screens
+namespace GameStateManagementSample.Logic
 {
 
 
@@ -12,7 +12,7 @@ namespace GameStateManagementSample.Screens
         private bool buildfield;
         private int x;
         private int y;
-        private Logic.Tower tower = null;
+        private Tower tower = null;
 
         public GameLevelTile(bool buildfield,int x,int y)
         {
@@ -21,7 +21,7 @@ namespace GameStateManagementSample.Screens
             this.y = y;
         }
 
-        public void build(Logic.Tower tower)
+        public void build(Tower tower)
         {
             if (buildfield == true)
             {

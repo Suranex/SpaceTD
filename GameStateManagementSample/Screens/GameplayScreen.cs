@@ -28,6 +28,8 @@ namespace GameStateManagementSample
     {
         #region Fields
 
+        Logic.Level level;
+
         ContentManager content;
         SpriteFont gameFont;
 
@@ -50,6 +52,8 @@ namespace GameStateManagementSample
         /// </summary>
         public GameplayScreen()
         {
+            level = new Logic.Level();
+
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
@@ -82,24 +86,11 @@ namespace GameStateManagementSample
                 // it should not try to catch up.
                 ScreenManager.Game.ResetElapsedTime();
             }
-
-#if WINDOWS_PHONE
-            if (Microsoft.Phone.Shell.PhoneApplicationService.Current.State.ContainsKey("PlayerPosition"))
-            {
-                playerPosition = (Vector2)Microsoft.Phone.Shell.PhoneApplicationService.Current.State["PlayerPosition"];
-                enemyPosition = (Vector2)Microsoft.Phone.Shell.PhoneApplicationService.Current.State["EnemyPosition"];
-            }
-#endif
         }
 
 
         public override void Deactivate()
         {
-#if WINDOWS_PHONE
-            Microsoft.Phone.Shell.PhoneApplicationService.Current.State["PlayerPosition"] = playerPosition;
-            Microsoft.Phone.Shell.PhoneApplicationService.Current.State["EnemyPosition"] = enemyPosition;
-#endif
-
             base.Deactivate();
         }
 
@@ -110,11 +101,6 @@ namespace GameStateManagementSample
         public override void Unload()
         {
             content.Unload();
-
-#if WINDOWS_PHONE
-            Microsoft.Phone.Shell.PhoneApplicationService.Current.State.Remove("PlayerPosition");
-            Microsoft.Phone.Shell.PhoneApplicationService.Current.State.Remove("EnemyPosition");
-#endif
         }
 
 
@@ -185,11 +171,7 @@ namespace GameStateManagementSample
             PlayerIndex player;
             if (pauseAction.Evaluate(input, ControllingPlayer, out player) || gamePadDisconnected)
             {
-#if WINDOWS_PHONE
-                ScreenManager.AddScreen(new PhonePauseScreen(), ControllingPlayer);
-#else
                 ScreenManager.AddScreen(new PauseMenuScreen(), ControllingPlayer);
-#endif
             }
             else
             {
@@ -243,12 +225,19 @@ namespace GameStateManagementSample
 
             spriteBatch.Begin();
 
+            level.Draw(spriteBatch, ScreenManager.GraphicsDevice);
+
             spriteBatch.DrawString(gameFont, "// TODO", playerPosition, Color.Green);
 
             spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
                                    enemyPosition, Color.DarkRed);
 
             spriteBatch.End();
+
+
+            // Level zeichnen
+
+
 
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)
