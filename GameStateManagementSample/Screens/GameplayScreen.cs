@@ -243,10 +243,21 @@ namespace GameStateManagementSample
 
             spriteBatch.Begin();
 
-            spriteBatch.DrawString(gameFont, "// TODO", playerPosition, Color.Green);
+            Texture2D SimpleTexture = new Texture2D(ScreenManager.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
 
-            spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
-                                   enemyPosition, Color.DarkRed);
+            Int32[] pixel = { 0xFFFFFF }; // White. 0xFF is Red, 0xFF0000 is Blue
+            SimpleTexture.SetData<Int32>(pixel, 0, SimpleTexture.Width * SimpleTexture.Height);
+
+            // Line Draw Example
+            //for(int i = 20; i < ScreenManager.GraphicsDevice.DisplayMode.Height; i+=20)
+            //    for (int j = 20; j < ScreenManager.GraphicsDevice.DisplayMode.Width; j += 20)
+            //    {
+            //        spriteBatch.Draw(SimpleTexture, new Rectangle(i, j, 100, 1), Color.Red);
+            //    }
+
+
+
+
 
             spriteBatch.End();
 
@@ -257,6 +268,8 @@ namespace GameStateManagementSample
 
                 ScreenManager.FadeBackBufferToBlack(alpha);
             }
+
+
         }
 
 
