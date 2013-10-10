@@ -21,6 +21,7 @@ Thumbs.db
 *.log
 [Bb]in
 [Dd]ebug*/
+*.cachefile
 *.lib
 *.sbr
 obj/
@@ -32,3 +33,4 @@ Content/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 GameStateManagement/obj/x86/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 Content/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 GameStateManagementSample/GameStateManagementSample (Windows).csproj.Debug.cachefile
+GameStateManagementSample/GameStateManagementSample (Windows).csproj.Release.cachefile

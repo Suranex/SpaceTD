@@ -83,7 +83,7 @@ namespace GameStateManagementSample
         /// </summary>
         protected override void Draw(GameTime gameTime)
         {
-            graphics.GraphicsDevice.Clear(Color.Green);
+            graphics.GraphicsDevice.Clear(Color.Blue);
 
             // The real drawing happens inside the screen manager component.
             base.Draw(gameTime);
