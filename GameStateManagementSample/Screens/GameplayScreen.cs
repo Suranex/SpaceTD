@@ -76,6 +76,8 @@ namespace GameStateManagementSample
 
                 gameFont = content.Load<SpriteFont>("gamefont");
 
+                level.Initialize(ScreenManager);
+
                 // A real game would probably have more content than this sample, so
                 // it would take longer to load. We simulate that by delaying for a
                 // while, giving you a chance to admire the beautiful loading screen.
@@ -216,16 +218,23 @@ namespace GameStateManagementSample
         /// </summary>
         public override void Draw(GameTime gameTime)
         {
+            // -----------------------
+            // http://stackoverflow.com/questions/3270507/changing-rendertarget-results-in-purple-screen
+            // Laut einer Antwort, muss man aufs RenderTarget schreiben, bevor man clear benutzt.
+            level.DrawRenderTarget();
+            // -----------------------
+
             // This game has a blue background. Why? Because!
             ScreenManager.GraphicsDevice.Clear(ClearOptions.Target,
                                                Color.CornflowerBlue, 0, 0);
+
+            // Level zeichnen
+            level.Draw();
 
             // Our player and enemy are both actually just text strings.
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
             spriteBatch.Begin();
-
-            level.Draw(spriteBatch, ScreenManager.GraphicsDevice);
 
             spriteBatch.DrawString(gameFont, "// TODO", playerPosition, Color.Green);
 
