@@ -33,7 +33,6 @@ namespace GameStateManagementSample.Logic
         GameStateManagement.ScreenManager screenManager;
         GraphicsDevice graphicsDevice;
         RenderTarget2D renderTarget;
-        BasicEffect basicEffect;
         Texture2D txPixel;
 
         public Level()
@@ -50,14 +49,6 @@ namespace GameStateManagementSample.Logic
                 graphicsDevice.PresentationParameters.BackBufferWidth,
                 graphicsDevice.PresentationParameters.BackBufferHeight
             );
-
-            /*basicEffect = new BasicEffect(graphicsDevice);
-            basicEffect.VertexColorEnabled = true;
-            basicEffect.Projection = Matrix.CreateOrthographicOffCenter(
-                0, graphicsDevice.Viewport.Width,
-                graphicsDevice.Viewport.Height, 0,
-                0, 1
-            );*/
 
             txPixel = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
             txPixel.SetData<Color>(new Color[] { Color.White });
@@ -76,22 +67,11 @@ namespace GameStateManagementSample.Logic
         public void DrawRenderTarget()
         {
             graphicsDevice.SetRenderTarget(renderTarget);
-            graphicsDevice.Clear(ClearOptions.Target, Color.DarkCyan, 0, 0);
-            /*
-            var vertices = new VertexPositionColor[5];
-
-            vertices[0] = new VertexPositionColor(new Vector3(0, 0, 0), Color.White);
-            vertices[1] = new VertexPositionColor(new Vector3(Width * tileWidth, 0, 0), Color.Red);
-            vertices[2] = new VertexPositionColor(new Vector3(Width * tileWidth, Height * tileHeight, 0), Color.Green);
-            vertices[3] = new VertexPositionColor(new Vector3(0, Height * tileHeight, 0), Color.Blue);
-            vertices[4] = vertices[0];
-
-            basicEffect.CurrentTechnique.Passes[0].Apply();
-            graphicsDevice.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.LineStrip, vertices, 0, 4);
-            */
+            graphicsDevice.Clear(ClearOptions.Target, new Color(0, 82, 82), 0, 0);
 
             SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);
             Matrix Transform = Matrix.CreateTranslation(2, 2, 0);
+
             spriteBatch.Begin(
                 SpriteSortMode.FrontToBack,
                 BlendState.AlphaBlend,
@@ -101,6 +81,7 @@ namespace GameStateManagementSample.Logic
                 null,
                 Transform
             );
+
             for (int y = 0; y <= Height; y++)
             {
                 for (int x = 0; x <= Width; x++)
@@ -179,13 +160,10 @@ namespace GameStateManagementSample.Logic
                             }
                         }
                     }
-
-                    // Nach unten
                 }
             }
+
             spriteBatch.End();
-
-
 
             graphicsDevice.SetRenderTarget(null);
         }
@@ -201,31 +179,6 @@ namespace GameStateManagementSample.Logic
                 Color.White
             );
             spriteBatch.End();
-        
-            
-            /*
-            // Zwischenlinien zeichnen
-            for (int x = 0; x < Width-1; x++)
-            {
-                for (int y = 0; y < Height-1; y++)
-                {
-                    // Momentanes Feld mit Feld rechts vergleichen
-                    if (gridMap[y, x] != gridMap[y, x + 1])
-                        //spriteBatch.Draw(txPixel, new Rectangle((x+1) * tileWidth, y * tileWidth, 2, tileHeight), Color.Red);
-                    else
-                        //spriteBatch.Draw(txPixel, new Rectangle((x+1) * tileWidth, y * tileWidth, 1, tileHeight), Color.LightCyan);
-
-                    // Momentanes Feld mit Feld darunter vergleichen
-                    if(gridMap[y,x] != gridMap[y+1,x])
-                        //spriteBatch.Draw(txPixel, new Rectangle(x * tileWidth, (y+1) * tileWidth, tileWidth, 2), Color.Red);
-                    else
-                        //spriteBatch.Draw(txPixel, new Rectangle(x * tileWidth, (y+1) * tileWidth, tileWidth, 1), Color.LightCyan);
-                }
-            }
-             */
-
-            // Device Render Target wieder auf den back buffer wechseln
-            
         }
     }
 }
