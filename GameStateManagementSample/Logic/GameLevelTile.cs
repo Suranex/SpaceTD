@@ -21,19 +21,29 @@ namespace GameStateManagementSample.Logic
             this.y = y;
         }
 
-        public void build(Tower tower)
+        public bool build(Tower tower)
         {
-            if (buildfield == true)
-            {
-                //TODO tower unterscheidung der Towertypen und anlegung des Towerobjektes
-            }
+            if (!buildfield || this.tower != null)
+                return false;
 
+            this.tower = tower;
+            return true;
+        }
+
+        public void destroy()
+        {
+            tower = null;
         }
 
         public bool Buildfield
         {
             get { return buildfield; }
             set { buildfield = value; }
+        }
+
+        public Tower Tower
+        {
+            get { return tower; }
         }
 
     }
