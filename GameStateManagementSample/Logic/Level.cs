@@ -30,6 +30,9 @@ namespace GameStateManagementSample.Logic
         private int tileWidth = 32;
         private int tileHeight = 32;
 
+        private int startx = 50;
+        private int starty = 50;
+
         GameStateManagement.ScreenManager screenManager;
         GraphicsDevice graphicsDevice;
         RenderTarget2D renderTarget;
@@ -174,7 +177,7 @@ namespace GameStateManagementSample.Logic
             SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);
             spriteBatch.Begin();
             spriteBatch.Draw((Texture2D)renderTarget,
-                new Vector2(10, 10),
+                new Vector2(startx, starty),
                 new Rectangle(0, 0, 3+Width*tileWidth, 3+Height*tileHeight),
                 Color.White
             );
