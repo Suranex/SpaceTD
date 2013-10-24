@@ -15,6 +15,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using GameStateManagement;
+using GameStateManagementSample.Logic;
+using GameStateManagementSample.Logic.Towers;
 #endregion
 
 namespace GameStateManagementSample
@@ -121,6 +123,7 @@ namespace GameStateManagementSample
         {
             base.Update(gameTime, otherScreenHasFocus, false);
 
+
             // Gradually fade in or out depending on whether we are covered by the pause screen.
             if (coveredByOtherScreen)
                 pauseAlpha = Math.Min(pauseAlpha + 1f / 32, 1);
@@ -129,6 +132,16 @@ namespace GameStateManagementSample
 
             if (IsActive)
             {
+
+                int[] fieldClicked;
+                MouseState mouseState = Mouse.GetState();
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                    if ((fieldClicked = level.GetFieldCoordinates(mouseState.X, mouseState.Y)) != null)
+                        level.placerTower(fieldClicked[0], fieldClicked[1], new LaserTower()); // LaserTower for testing
+
+                        
+
+
                 // Apply some random jitter to make the enemy move around.
                 const float randomization = 10;
 

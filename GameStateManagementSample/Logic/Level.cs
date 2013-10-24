@@ -12,7 +12,7 @@ namespace GameStateManagementSample.Logic
     class Level
     {
         //private GameLevelTile[,] gridMap;
-        int[,] gridMap = new int[,] {
+        int[,] initMap = new int[,] {
             {0,0,1,0,0,0,0,0,0,0,},
             {0,0,1,1,1,1,0,0,0,0,},
             {0,0,0,0,0,1,1,1,1,0,},
@@ -24,6 +24,8 @@ namespace GameStateManagementSample.Logic
             {0,0,0,0,1,0,0,0,0,0,},
             {0,0,0,0,1,0,0,0,0,0,},
         };
+
+        GameLevelTile[,] gridMap;
 
         private Queue<Vector2> waypoints = new Queue<Vector2>();
 
@@ -40,7 +42,10 @@ namespace GameStateManagementSample.Logic
 
         public Level()
         {
-
+            gridMap = new GameLevelTile[initMap.GetLength(1), initMap.GetLength(0)];
+            for (int i = 0; i<Width; i++)
+                for (int j = 0; j < Height; j++)
+                    gridMap[j,i] = new GameLevelTile(initMap[j,i] == 0, i, j);
         }
 
         public void Initialize(GameStateManagement.ScreenManager sm)
@@ -109,17 +114,17 @@ namespace GameStateManagementSample.Logic
                         else
                         {
                             // Wand/Wand
-                            if (gridMap[y, x] == 0 && gridMap[y - 1, x] == 0)
+                            if (gridMap[y, x].Buildfield && gridMap[y - 1, x].Buildfield)
                             {
                                 spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2((x + 1) * tileWidth, y * tileWidth), Color.White, 1f);
                             }
                             // Wand/Pfad
-                            else if (gridMap[y, x] != gridMap[y - 1, x])
+                            else if (gridMap[y, x].Buildfield != gridMap[y - 1, x].Buildfield)
                             {
                                 spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2((x + 1) * tileWidth, y * tileWidth), Color.Red, 3f, 0.5f);
                             }
                             // Pfad/Pfad
-                            else if (gridMap[y, x] == 1 && gridMap[y - 1, x] == 1)
+                            else if (gridMap[y, x].Buildfield && gridMap[y - 1, x].Buildfield)
                             {
                                 // Keine Linie!
                             }
@@ -147,20 +152,20 @@ namespace GameStateManagementSample.Logic
                         else
                         {
                             // Wand/Wand
-                            if (gridMap[y, x] == 0 && gridMap[y, x - 1] == 0)
+                            if (gridMap[y, x].Buildfield && gridMap[y, x - 1].Buildfield)
                             {
                                 spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2(x * tileWidth, (y+1) * tileWidth), Color.White, 1f);
                             }
                             // Wand/Pfad
-                            else if (gridMap[y, x] != gridMap[y, x - 1])
+                            else if (gridMap[y, x].Buildfield != gridMap[y, x - 1].Buildfield)
                             {
                                 spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2(x * tileWidth, (y+1) * tileWidth), Color.Red, 3f, 0.5f);
                             }
                             // Pfad/Pfad
-                            else if (gridMap[y, x] == 1 && gridMap[y, x - 1] == 1)
-                            {
-                                // Keine Linie!
-                            }
+                            //else if (!gridMap[y, x].Buildfield && !gridMap[y, x - 1].Buildfield)
+                            //{
+                            //    // Keine Linie!
+                            //}
                         }
                     }
                 }
@@ -182,6 +187,31 @@ namespace GameStateManagementSample.Logic
                 Color.White
             );
             spriteBatch.End();
+        }
+
+        /// <summary>
+        /// Get the Coodinates of the clicked position. Returns null if out of field.
+        /// </summary>
+        public int[] GetFieldCoordinates(int x, int y)
+        {
+            x = x - startx;
+            y = y - starty;
+            if (x < 0 || y < 0) // Check if click is out of level field (left or top)
+                return null;
+            int[] feld = new int[2];
+            feld[0] = (int) x / tileWidth;
+            feld[1] = (int) y / tileHeight;
+            if (feld[0] >= 10 || feld[1] >= 10) // Check if cklick is out of level field (right or bottom)
+                return null;
+            return feld;
+        }
+
+        public void placerTower(int x, int y, Tower tower)
+        {
+            if (gridMap[y, x].build(tower))
+                Console.Out.WriteLine("Gebaut");
+            else
+                Console.Out.WriteLine("Besetzt");
         }
     }
 }

@@ -43,6 +43,9 @@ namespace GameStateManagementSample
             screenManager = new ScreenManager(this);
             Components.Add(screenManager);
 
+            // make mouse Visible
+            IsMouseVisible = true;
+
             // On Windows and Xbox we just add the initial screens
             AddInitialScreens();
         }
