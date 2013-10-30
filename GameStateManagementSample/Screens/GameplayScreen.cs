@@ -31,6 +31,7 @@ namespace GameStateManagementSample
         #region Fields
 
         Logic.Level level;
+        Logic.GameMenuRight gmr;
 
         ContentManager content;
         SpriteFont gameFont;
@@ -55,6 +56,7 @@ namespace GameStateManagementSample
         public GameplayScreen()
         {
             level = new Logic.Level();
+            gmr = new Logic.GameMenuRight();
 
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
@@ -79,6 +81,7 @@ namespace GameStateManagementSample
                 gameFont = content.Load<SpriteFont>("gamefont");
 
                 level.Initialize(ScreenManager);
+                gmr.Initialize(ScreenManager);
 
                 // A real game would probably have more content than this sample, so
                 // it would take longer to load. We simulate that by delaying for a
@@ -243,7 +246,8 @@ namespace GameStateManagementSample
 
             // Level zeichnen
             level.Draw();
-
+            //Menu rechts zeichnen
+            gmr.draw();
             // Our player and enemy are both actually just text strings.
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 

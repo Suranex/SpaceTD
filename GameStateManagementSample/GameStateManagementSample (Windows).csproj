@@ -64,8 +64,12 @@
     <PlatformTarget>x86</PlatformTarget>
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'XNA|x86'">
+    <OutputPath>bin\x86\XNA\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game.cs" />
+    <Compile Include="Logic\GameMenuRight.cs" />
     <Compile Include="Logic\Towers\LaserTower.cs" />
     <Compile Include="Logic\Level.cs" />
     <Compile Include="Logic\Tower.cs" />

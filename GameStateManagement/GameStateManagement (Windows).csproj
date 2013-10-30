@@ -59,6 +59,9 @@
     <PlatformTarget>x86</PlatformTarget>
     <XnaCompressContent>false</XnaCompressContent>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'XNA|x86'">
+    <OutputPath>bin\x86\XNA\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="GameScreen.cs" />
     <Compile Include="InputAction.cs" />
