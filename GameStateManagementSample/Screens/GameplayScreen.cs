@@ -34,7 +34,7 @@ namespace GameStateManagementSample
         Logic.GameMenuRight gmr;
 
         ContentManager content;
-        SpriteFont gameFont;
+        public static SpriteFont gameFont;
 
         Vector2 playerPosition = new Vector2(100, 100);
         Vector2 enemyPosition = new Vector2(100, 100);
