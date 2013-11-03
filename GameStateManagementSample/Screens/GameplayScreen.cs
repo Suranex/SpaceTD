@@ -42,6 +42,7 @@ namespace GameStateManagementSample
         Random random = new Random();
 
         float pauseAlpha;
+        float clickacceptpausetime;
 
         InputAction pauseAction;
 
@@ -56,7 +57,7 @@ namespace GameStateManagementSample
         public GameplayScreen()
         {
             level = new Logic.Level();
-            gmr = new Logic.GameMenuRight();
+            gmr = new Logic.GameMenuRight(600,0,200,600);
 
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
@@ -80,8 +81,10 @@ namespace GameStateManagementSample
 
                 gameFont = content.Load<SpriteFont>("gamefont");
 
+                clickacceptpausetime = 1;
                 level.Initialize(ScreenManager);
                 gmr.Initialize(ScreenManager);
+                gmr.Activelayer = true;
 
                 // A real game would probably have more content than this sample, so
                 // it would take longer to load. We simulate that by delaying for a
@@ -132,15 +135,26 @@ namespace GameStateManagementSample
                 pauseAlpha = Math.Min(pauseAlpha + 1f / 32, 1);
             else
                 pauseAlpha = Math.Max(pauseAlpha - 1f / 32, 0);
-
             if (IsActive)
             {
-
                 int[] fieldClicked;
                 MouseState mouseState = Mouse.GetState();
-                if (mouseState.LeftButton == ButtonState.Pressed)
+                if (mouseState.LeftButton == ButtonState.Pressed && clickacceptpausetime<0)
+                {
+                    clickacceptpausetime = 500;
                     if ((fieldClicked = level.GetFieldCoordinates(mouseState.X, mouseState.Y)) != null)
+                    {
                         level.placerTower(fieldClicked[0], fieldClicked[1], new LaserTower()); // LaserTower for testing
+                    }
+
+                    foreach (Clickable i in Clickable.clickelements)
+                    {
+                        if (i.isClicked(mouseState.X, mouseState.Y))
+                        {
+                            i.clickaction();
+                        }
+                    }
+                }
 
                         
 
@@ -157,7 +171,10 @@ namespace GameStateManagementSample
                     200);
 
                 enemyPosition = Vector2.Lerp(enemyPosition, targetPosition, 0.05f);
-
+                if(clickacceptpausetime > 0)
+                {
+                 clickacceptpausetime=clickacceptpausetime-gameTime.ElapsedGameTime.Milliseconds;
+                }
                 // TODO: this game isn't very fun! You could probably improve
                 // it by inserting something more interesting in this space :-)
             }

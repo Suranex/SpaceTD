@@ -10,33 +10,18 @@ using GameStateManagementSample.Logic.Towers;
 
 namespace GameStateManagementSample.Logic
 {
-    class GameMenuRight
-    {
-        private int x;
-        private int y;
-        private int width;
-        private int height;
 
+    //TODO noch ein dickes TODO die einzelnen Menüelemente müssen ausgelagert werden, ich derern zeichnung soll nicht hier stattfinden die beiden kästen die ihr seht sind nur zum testen
+    //die werden nacher eigen...
+
+    class GameMenuRight : Clickable
+    {
         GameStateManagement.ScreenManager screenManager;
         GraphicsDevice graphicsDevice;
 
-
-        public GameMenuRight(int x,int y,int width,int height)
+        public GameMenuRight(int x, int y, int width, int height) : base (x,y,width,height)
         {
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
-        }
-
-        public GameMenuRight()
-        {
-            this.x = 600;
-            this.y = 0;
-            this.width = 200;
-            this.height = 600;
-
-
+            
         }
 
         Texture2D txPixel;
@@ -61,7 +46,6 @@ namespace GameStateManagementSample.Logic
             spriteBatch.Draw(txPixel,rec,Color.Black);
             spriteBatch.Draw(txPixel,new Rectangle(x+(width/100*5),(y+(height/100*70)),width/100*40,height/100*7),Color.Red);
             spriteBatch.Draw(txPixel, new Rectangle(x + (width / 100 * 55), (y + (height / 100 * 70)), width / 100 * 40, height / 100 * 7), Color.Red);
-            GameplayScreen.gameFont.MeasureString("5");
             spriteBatch.DrawString(GameplayScreen.gameFont, "Send new", new Vector2(x + (width / 100 * 8), (y + (height / 100 * 70))), Color.White);
             spriteBatch.DrawString(GameplayScreen.gameFont, "Wave!", new Vector2(x + (width / 100 * 10), (y + (height / 100 * 73))), Color.White);
             spriteBatch.DrawString(GameplayScreen.gameFont, "Sell", new Vector2(x + (width / 100 * 60), (y + (height / 100 * 70))), Color.White);
@@ -73,6 +57,11 @@ namespace GameStateManagementSample.Logic
         private void drawTowerPicture(SpriteBatch spriteBatch)
         {
             //TODO Tower VorschauBilder rendern
+        }
+
+        public override void clickaction()
+        {
+            Console.WriteLine("Wuhu das rechte Menu wurde angeklickt :)");
         }
     }
 }
