@@ -30,6 +30,9 @@ namespace GameStateManagementSample
     {
         #region Fields
 
+        // Sollte hinterher in nen Array oder einer Liste sein.
+        Logic.Enemy enemy1;
+
         Logic.Level level;
         Logic.GameMenuRight gmr;
 
@@ -80,6 +83,10 @@ namespace GameStateManagementSample
                     content = new ContentManager(ScreenManager.Game.Services, "Content");
 
                 gameFont = content.Load<SpriteFont>("gamefont");
+
+                Texture2D enemyTexture = content.Load<Texture2D>("enemy");
+                enemy1 = new Enemy(enemyTexture, Vector2.Zero, 100, 10, 1.5f);
+                enemy1.SetWaypoints(level.waypoints);
 
                 clickacceptpausetime = 1;
                 level.Initialize(ScreenManager);
@@ -156,27 +163,15 @@ namespace GameStateManagementSample
                     }
                 }
 
-                        
-
-
-                // Apply some random jitter to make the enemy move around.
-                const float randomization = 10;
-
-                enemyPosition.X += (float)(random.NextDouble() - 0.5) * randomization;
-                enemyPosition.Y += (float)(random.NextDouble() - 0.5) * randomization;
-
-                // Apply a stabilizing force to stop the enemy moving off the screen.
-                Vector2 targetPosition = new Vector2(
-                    ScreenManager.GraphicsDevice.Viewport.Width / 2 - gameFont.MeasureString("Insert Gameplay Here").X / 2, 
-                    200);
-
-                enemyPosition = Vector2.Lerp(enemyPosition, targetPosition, 0.05f);
                 if(clickacceptpausetime > 0)
                 {
                  clickacceptpausetime=clickacceptpausetime-gameTime.ElapsedGameTime.Milliseconds;
                 }
                 // TODO: this game isn't very fun! You could probably improve
                 // it by inserting something more interesting in this space :-)
+
+                //enemy1.CurrentHealth -= 0.5f;
+                enemy1.Update(gameTime);
             }
         }
 
@@ -265,20 +260,14 @@ namespace GameStateManagementSample
             level.Draw();
             //Menu rechts zeichnen
             gmr.draw();
-            // Our player and enemy are both actually just text strings.
+
+
+            // Gegner!
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-
             spriteBatch.Begin();
-
-           // spriteBatch.DrawString(gameFont, "// TODO", playerPosition, Color.Green);
-
-          //  spriteBatch.DrawString(gameFont, "Insert Gameplay Here", enemyPosition, Color.DarkRed);
+            enemy1.Draw(spriteBatch);
 
             spriteBatch.End();
-
-
-            // Level zeichnen
-
 
 
             // If the game is transitioning on or off, fade it out to black.

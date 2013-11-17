@@ -27,7 +27,7 @@ namespace GameStateManagementSample.Logic
 
         GameLevelTile[,] gridMap;
 
-        private Queue<Vector2> waypoints = new Queue<Vector2>();
+        public Queue<Vector2> waypoints = new Queue<Vector2>();
 
         private int tileWidth = 32;
         private int tileHeight = 32;
@@ -42,6 +42,24 @@ namespace GameStateManagementSample.Logic
 
         public Level()
         {
+            // Erstmal hardcoden, kann man hinterher aus einer XML auslesen
+            // Außerdem wird angenommen das tileWidth == tileHeight... ist eigentlich eh überflüssig dafür zwei Attribute
+            // zu haben, wenn die doch eh immer den gleichen Wert haben.
+            waypoints.Enqueue(new Vector2(2, 0) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(2, 1) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(5, 1) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(5, 2) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(8, 2) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(8, 4) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(3, 4) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(3, 3) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(1, 3) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(1, 6) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(4, 6) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(4, 9) * tileWidth + new Vector2(startx, starty));
+
+
+
             gridMap = new GameLevelTile[initMap.GetLength(1), initMap.GetLength(0)];
             for (int i = 0; i<Width; i++)
                 for (int j = 0; j < Height; j++)

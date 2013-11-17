@@ -70,7 +70,9 @@
   <ItemGroup>
     <Compile Include="Game.cs" />
     <Compile Include="Logic\Clickable.cs" />
+    <Compile Include="Logic\Enemy.cs" />
     <Compile Include="Logic\GameMenuRight.cs" />
+    <Compile Include="Logic\Sprite.cs" />
     <Compile Include="Logic\Towers\LaserTower.cs" />
     <Compile Include="Logic\Level.cs" />
     <Compile Include="Logic\Tower.cs" />
