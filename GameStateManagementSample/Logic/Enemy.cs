@@ -79,6 +79,8 @@ namespace GameStateManagementSample.Logic
                     velocity = Vector2.Multiply(direction, speed);
 
                     position += velocity;
+
+                    rotation = (float)(Math.Atan2(direction.X, -direction.Y));
                 }
             }
             else
