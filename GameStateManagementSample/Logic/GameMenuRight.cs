@@ -19,9 +19,12 @@ namespace GameStateManagementSample.Logic
         GameStateManagement.ScreenManager screenManager;
         GraphicsDevice graphicsDevice;
 
-        public GameMenuRight(int x, int y, int width, int height) : base (x,y,width,height)
+        // TODO: Nur zum testen hier... denk ich :D
+        WaveManager waveManager;
+
+        public GameMenuRight(int x, int y, int width, int height, WaveManager wm) : base (x,y,width,height)
         {
-            
+            waveManager = wm;
         }
 
         Texture2D txPixel;
@@ -62,6 +65,8 @@ namespace GameStateManagementSample.Logic
         public override void clickaction()
         {
             Console.WriteLine("Wuhu das rechte Menu wurde angeklickt :)");
+            Console.WriteLine("Zum testen pack ich das \"Wellen Senden\" erstmal hier rein...");
+            waveManager.StartNextWave();
         }
     }
 }

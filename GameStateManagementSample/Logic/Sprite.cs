@@ -9,6 +9,7 @@ namespace GameStateManagementSample.Logic
 {
     class Sprite
     {
+        #region Fields
         protected Texture2D texture;
 
         protected Vector2 position;
@@ -18,11 +19,14 @@ namespace GameStateManagementSample.Logic
         protected Vector2 origin;
 
         protected float rotation;
+        #endregion
 
+        #region Properties
         public Vector2 Center
         {
             get { return center; }
         }
+        #endregion
 
         public Sprite(Texture2D tex, Vector2 pos)
         {

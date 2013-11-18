@@ -77,6 +77,8 @@
     <Compile Include="Logic\Level.cs" />
     <Compile Include="Logic\Tower.cs" />
     <Compile Include="Logic\Towers\SlowTower.cs" />
+    <Compile Include="Logic\Wave.cs" />
+    <Compile Include="Logic\WaveManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScreenFactory.cs" />

@@ -29,12 +29,11 @@ namespace GameStateManagementSample
     class GameplayScreen : GameScreen
     {
         #region Fields
-
-        // Sollte hinterher in nen Array oder einer Liste sein.
-        Logic.Enemy enemy1;
-
-        Logic.Level level;
-        Logic.GameMenuRight gmr;
+        Level level;
+        GameMenuRight gmr;
+        //Enemy enemy1;
+        //Wave wave;
+        WaveManager waveManager;
 
         ContentManager content;
         public static SpriteFont gameFont;
@@ -60,7 +59,9 @@ namespace GameStateManagementSample
         public GameplayScreen()
         {
             level = new Logic.Level();
-            gmr = new Logic.GameMenuRight(600,0,200,600);
+            waveManager = new WaveManager(level, 20);
+            gmr = new Logic.GameMenuRight(600,0,200,600, waveManager);
+            
 
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
@@ -84,9 +85,8 @@ namespace GameStateManagementSample
 
                 gameFont = content.Load<SpriteFont>("gamefont");
 
-                Texture2D enemyTexture = content.Load<Texture2D>("enemy");
-                enemy1 = new Enemy(enemyTexture, Vector2.Zero, 100, 10, 1.5f);
-                enemy1.SetWaypoints(level.waypoints);
+                waveManager.Initialize(content);
+                waveManager.InitWaves();
 
                 clickacceptpausetime = 1;
                 level.Initialize(ScreenManager);
@@ -170,8 +170,7 @@ namespace GameStateManagementSample
                 // TODO: this game isn't very fun! You could probably improve
                 // it by inserting something more interesting in this space :-)
 
-                //enemy1.CurrentHealth -= 0.5f;
-                enemy1.Update(gameTime);
+                waveManager.Update(gameTime);
             }
         }
 
@@ -255,18 +254,15 @@ namespace GameStateManagementSample
             // This game has a blue background. Why? Because!
             ScreenManager.GraphicsDevice.Clear(ClearOptions.Target,
                                                Color.CornflowerBlue, 0, 0);
+            SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
             // Level zeichnen
             level.Draw();
-            //Menu rechts zeichnen
+            // Menu rechts zeichnen
             gmr.draw();
 
-
-            // Gegner!
-            SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
             spriteBatch.Begin();
-            enemy1.Draw(spriteBatch);
-
+            waveManager.Draw(spriteBatch);
             spriteBatch.End();
 
 

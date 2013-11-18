@@ -9,6 +9,7 @@ namespace GameStateManagementSample.Logic
 {
     class Enemy : Sprite
     {
+        #region Fields
         protected float startHealth;
         protected float currentHealth;
 
@@ -18,7 +19,9 @@ namespace GameStateManagementSample.Logic
         protected int bountyGiven;
 
         private Queue<Vector2> waypoints = new Queue<Vector2>();
+        #endregion
 
+        #region Properties
         public float CurrentHealth
         {
             get { return currentHealth; }
@@ -27,7 +30,7 @@ namespace GameStateManagementSample.Logic
 
         public bool IsDead
         {
-            get { return currentHealth <= 0; }
+            get { return !alive; }
         }
 
         public int BountyGiven
@@ -39,6 +42,7 @@ namespace GameStateManagementSample.Logic
         {
             get { return Vector2.Distance(position, waypoints.Peek()); }
         }
+        #endregion
 
         public Enemy(Texture2D texture, Vector2 position, float health, int bountyGiven, float speed)
             : base(texture, position)
@@ -83,7 +87,7 @@ namespace GameStateManagementSample.Logic
                     rotation = (float)(Math.Atan2(direction.X, -direction.Y));
                 }
             }
-            else
+            else // Ende erreicht! Darf nun auch nicht mehr leben.
                 alive = false;
         }
 
