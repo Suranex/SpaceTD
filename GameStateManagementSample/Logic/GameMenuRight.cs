@@ -32,23 +32,21 @@ namespace GameStateManagementSample.Logic
             rec = new Rectangle(x, y, width, height);
 
             // Send Wave Button
-            btnWave = new Button(new Vector2(x + (width / 100 * 50), y + (height / 100 * 70)));
+            btnWave = new Button(new Vector2(x + (width / 2), y + (height / 10 * 7)),
+                "Send wave!", Color.White);
             btnWave.Click += new EventHandler(btnWave_Click);
             btnWave.DrawExtra += new Button.DrawExtraHandler(btnWave_DrawExtra);
         }
 
-        #region WaveButton Zeugs
+        #region btnWave Handlers
         void btnWave_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("Clicked!");
             waveManager.StartNextWave();
         }
 
         void btnWave_DrawExtra(SpriteBatch spriteBatch)
         {
-            String str = "Send Wave";
-            Vector2 stringDimensions = GameplayScreen.gameFont.MeasureString(str);
-            spriteBatch.DrawString(GameplayScreen.gameFont, str, btnWave.Position - stringDimensions/2, Color.White);
+            // Hier kann man extra Sachen beim Button zeichnen, z.B. nen Tower Sprite
         }
         #endregion
 

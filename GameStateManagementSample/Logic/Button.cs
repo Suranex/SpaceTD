@@ -20,6 +20,8 @@ namespace GameStateManagementSample.Logic
         private Texture2D texture;
         private Vector2 position;
         private Boolean enabled;
+        private String text;
+        private Color textColor;
 
         public delegate void DrawExtraHandler(SpriteBatch spriteBatch);
         public event DrawExtraHandler DrawExtra;
@@ -48,10 +50,12 @@ namespace GameStateManagementSample.Logic
         }
         #endregion
 
-        public Button(Vector2 position)
+        public Button(Vector2 position, String text, Color textColor)
         {
             this.position = position;
             this.enabled = true;
+            this.text = text;
+            this.textColor = textColor;
         }
 
         public void LoadContent(ContentManager content, String texture)
@@ -87,7 +91,9 @@ namespace GameStateManagementSample.Logic
         {
             if (enabled)
             {
+                Vector2 stringDimensions = GameplayScreen.gameFont.MeasureString(text);
                 spriteBatch.Draw(texture, position, null, Color.White, 0, Origin, 1, SpriteEffects.None, 0);
+                spriteBatch.DrawString(GameplayScreen.gameFont, text, position - stringDimensions / 2, textColor);
             }
 
             if(DrawExtra != null)
