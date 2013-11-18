@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace GameStateManagementSample.Logic
 {
@@ -13,10 +14,11 @@ namespace GameStateManagementSample.Logic
         //statische Liste in der alle Elemente abgelegt werden sollen welche klickbar sind, zum durchlaufen nacher
         public static List<Clickable> clickelements = new List<Clickable>();
 
-        protected int x;
-        protected int y;
-        protected int width;
-        protected int height;
+        Rectangle bounds;
+        //protected int x;
+        //protected int y;
+        //protected int width;
+        //protected int height;
 
         //activelayer sorgt dafür dass bei der überprüfung differenziert werden kann ob das objekt zur zeit überhaupt sichtbar ist, heißt wenn
         //zum beispiel wenn das optionmenü offen ist soll die unterliegende nicht reagieren dazu diese variable, sie muss im einzelfall gesetzt und abgesetzt werden
@@ -30,26 +32,20 @@ namespace GameStateManagementSample.Logic
 
         public Clickable(int x, int y, int width, int height)
         {
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
+            //this.x = x;
+            //this.y = y;
+            //this.width = width;
+            //this.height = height;
+            bounds = new Rectangle(x, y, width, height);
             clickelements.Add(this);
         }
 
-        public bool isClicked(float x,float y)
+        public bool IsInside(int x, int y)
         {
-            if (this.x < x && this.y < y && (this.x + width) > x && (this.y + height) > y && activelayer)
-            {
-                return true;
-            }
-            return false;
+            return bounds.Contains(new Point(x, y)) && activelayer;
         }
 
         //TODO in unterklasse implementieren
         abstract public void clickaction();
-
-
-
     }
 }

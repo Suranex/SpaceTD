@@ -37,7 +37,7 @@ namespace GameStateManagementSample.Logic
         #endregion
 
         #region Content loading
-        public void Initialize(ContentManager content)
+        public void LoadContent(ContentManager content)
         {
             enemyTexture = content.Load<Texture2D>("enemy");
         }

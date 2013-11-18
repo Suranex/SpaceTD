@@ -44,7 +44,9 @@ namespace GameStateManagementSample
         Random random = new Random();
 
         float pauseAlpha;
-        float clickacceptpausetime;
+        //float clickacceptpausetime;
+        MouseState lastMouseState;
+        MouseState currentMouseState;
 
         InputAction pauseAction;
 
@@ -72,7 +74,6 @@ namespace GameStateManagementSample
                 true);
         }
 
-
         /// <summary>
         /// Load graphics content for the game.
         /// </summary>
@@ -85,10 +86,10 @@ namespace GameStateManagementSample
 
                 gameFont = content.Load<SpriteFont>("gamefont");
 
-                waveManager.Initialize(content);
+                waveManager.LoadContent(content);
                 waveManager.InitWaves();
 
-                clickacceptpausetime = 1;
+                //clickacceptpausetime = 1;
                 level.Initialize(ScreenManager);
                 gmr.Initialize(ScreenManager);
                 gmr.Activelayer = true;
@@ -142,31 +143,38 @@ namespace GameStateManagementSample
                 pauseAlpha = Math.Min(pauseAlpha + 1f / 32, 1);
             else
                 pauseAlpha = Math.Max(pauseAlpha - 1f / 32, 0);
+
             if (IsActive)
             {
                 int[] fieldClicked;
-                MouseState mouseState = Mouse.GetState();
-                if (mouseState.LeftButton == ButtonState.Pressed && clickacceptpausetime<0)
+                lastMouseState = currentMouseState;
+                currentMouseState = Mouse.GetState();
+
+                // Klick erkennen
+                if (lastMouseState.LeftButton == ButtonState.Released && currentMouseState.LeftButton == ButtonState.Pressed)
                 {
-                    clickacceptpausetime = 500;
-                    if ((fieldClicked = level.GetFieldCoordinates(mouseState.X, mouseState.Y)) != null)
+                    // Testzeugs
+                    if ((fieldClicked = level.GetFieldCoordinates(currentMouseState.X, currentMouseState.Y)) != null)
                     {
                         level.placerTower(fieldClicked[0], fieldClicked[1], new LaserTower()); // LaserTower for testing
                     }
 
+                    // Klickbare Elemente durchlaufen
                     foreach (Clickable i in Clickable.clickelements)
                     {
-                        if (i.isClicked(mouseState.X, mouseState.Y))
+                        if (i.IsInside(currentMouseState.X, currentMouseState.Y))
                         {
                             i.clickaction();
                         }
                     }
                 }
 
-                if(clickacceptpausetime > 0)
+                // Maustextur ändern wenn über klickbaren Element gehovert wird
+                foreach (Clickable i in Clickable.clickelements)
                 {
-                 clickacceptpausetime=clickacceptpausetime-gameTime.ElapsedGameTime.Milliseconds;
+                    // TODO Maustextur switchen
                 }
+
                 // TODO: this game isn't very fun! You could probably improve
                 // it by inserting something more interesting in this space :-)
 
