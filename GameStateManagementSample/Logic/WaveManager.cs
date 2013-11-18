@@ -55,7 +55,7 @@ namespace GameStateManagementSample.Logic
             {
                 // Hier kann man die Parameter der einzelnen Wellen verändern..
                 // z.B. könnte man auch alle 5 Wellen eine "Schnelle" Welle haben, oder nen Boss
-                // TODO: Polishing
+                // TODO: Auslagerung in XML/ini/whatever anstatt hardcoded, vlt. dann auch einfach für jede Welle einzeln den Parametersatz angeben (Anstatt dieses rumgefrickel mit multiplikatoren)
                 int numOfEnemies = 5 * ((i / 3) + 1);
                 int health = (int)(50 * ((i / 5f) + 1));
                 int bounty = (int)(20 * ((i / 5f) + 1));
