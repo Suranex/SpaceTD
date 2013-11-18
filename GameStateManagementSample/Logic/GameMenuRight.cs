@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using GameStateManagement;
 using GameStateManagementSample.Logic;
-using GameStateManagementSample.Logic.Towers;
 
 namespace GameStateManagementSample.Logic
 {
@@ -14,59 +13,64 @@ namespace GameStateManagementSample.Logic
     //TODO noch ein dickes TODO die einzelnen Menüelemente müssen ausgelagert werden, ich derern zeichnung soll nicht hier stattfinden die beiden kästen die ihr seht sind nur zum testen
     //die werden nacher eigen...
 
-    class GameMenuRight : Clickable
+    class GameMenuRight
     {
-        GameStateManagement.ScreenManager screenManager;
+        #region Fields
+        ScreenManager screenManager;
         GraphicsDevice graphicsDevice;
-
-        // TODO: Nur zum testen hier... denk ich :D
-        WaveManager waveManager;
-
-        public GameMenuRight(int x, int y, int width, int height, WaveManager wm) : base (x,y,width,height)
-        {
-            waveManager = wm;
-        }
-
         Texture2D txPixel;
         Rectangle rec;
 
-        public void Initialize(GameStateManagement.ScreenManager sm)
+        WaveManager waveManager;
+
+        Button btnWave;
+        #endregion
+
+        public GameMenuRight(int x, int y, int width, int height, WaveManager wm)
+        {
+            waveManager = wm;
+            rec = new Rectangle(x, y, width, height);
+
+            // Send Wave Button
+            btnWave = new Button(new Vector2(x + (width / 100 * 50), y + (height / 100 * 70)));
+            btnWave.Click += new EventHandler(btnWave_Click);
+            btnWave.DrawExtra += new Button.DrawExtraHandler(btnWave_DrawExtra);
+        }
+
+        #region WaveButton Zeugs
+        void btnWave_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Clicked!");
+            waveManager.StartNextWave();
+        }
+
+        void btnWave_DrawExtra(SpriteBatch spriteBatch)
+        {
+            String str = "Send Wave";
+            Vector2 stringDimensions = GameplayScreen.gameFont.MeasureString(str);
+            spriteBatch.DrawString(GameplayScreen.gameFont, str, btnWave.Position - stringDimensions/2, Color.White);
+        }
+        #endregion
+
+        public void Initialize(GameStateManagement.ScreenManager sm, ContentManager content)
         {
             this.screenManager = sm;
             graphicsDevice = sm.GraphicsDevice;
             txPixel = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
             txPixel.SetData<Color>(new Color[] { Color.White });
-            rec = new Rectangle(x, y, width, height);
-            
 
+            btnWave.LoadContent(content, "ButtonBG");
         }
 
-        public void draw()
+        public void Draw(SpriteBatch spriteBatch)
         {
-            SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);            
-            spriteBatch.Begin();
-          //  LineRenderer.DrawLine(spriteBatch, txPixel, new Vector2(x, y), new Vector2(600, 600), Color.Black, 1f, 1f);
-            spriteBatch.Draw(txPixel,rec,Color.Black);
-            spriteBatch.Draw(txPixel,new Rectangle(x+(width/100*5),(y+(height/100*70)),width/100*40,height/100*7),Color.Red);
-            spriteBatch.Draw(txPixel, new Rectangle(x + (width / 100 * 55), (y + (height / 100 * 70)), width / 100 * 40, height / 100 * 7), Color.Red);
-            spriteBatch.DrawString(GameplayScreen.gameFont, "Send new", new Vector2(x + (width / 100 * 8), (y + (height / 100 * 70))), Color.White);
-            spriteBatch.DrawString(GameplayScreen.gameFont, "Wave!", new Vector2(x + (width / 100 * 10), (y + (height / 100 * 73))), Color.White);
-            spriteBatch.DrawString(GameplayScreen.gameFont, "Sell", new Vector2(x + (width / 100 * 60), (y + (height / 100 * 70))), Color.White);
-            spriteBatch.DrawString(GameplayScreen.gameFont, "tower", new Vector2(x + (width / 100 * 60), (y + (height / 100 * 73))), Color.White);
-            drawTowerPicture(spriteBatch);
-            spriteBatch.End();
+            spriteBatch.Draw(txPixel, rec, Color.Black); // Schwarzes Feld rechts
+            btnWave.Draw(spriteBatch); // Send Wave button
         }
 
-        private void drawTowerPicture(SpriteBatch spriteBatch)
+        public void Update()
         {
-            //TODO Tower VorschauBilder rendern
-        }
-
-        public override void clickaction()
-        {
-            Console.WriteLine("Wuhu das rechte Menu wurde angeklickt :)");
-            Console.WriteLine("Zum testen pack ich das \"Wellen Senden\" erstmal hier rein...");
-            waveManager.StartNextWave();
+            btnWave.Update();
         }
     }
 }

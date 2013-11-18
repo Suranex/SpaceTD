@@ -91,8 +91,8 @@ namespace GameStateManagementSample
 
                 //clickacceptpausetime = 1;
                 level.Initialize(ScreenManager);
-                gmr.Initialize(ScreenManager);
-                gmr.Activelayer = true;
+                gmr.Initialize(ScreenManager, content);
+                //gmr.Activelayer = true;
 
                 // A real game would probably have more content than this sample, so
                 // it would take longer to load. We simulate that by delaying for a
@@ -146,39 +146,11 @@ namespace GameStateManagementSample
 
             if (IsActive)
             {
-                int[] fieldClicked;
-                lastMouseState = currentMouseState;
-                currentMouseState = Mouse.GetState();
-
-                // Klick erkennen
-                if (lastMouseState.LeftButton == ButtonState.Released && currentMouseState.LeftButton == ButtonState.Pressed)
-                {
-                    // Testzeugs
-                    if ((fieldClicked = level.GetFieldCoordinates(currentMouseState.X, currentMouseState.Y)) != null)
-                    {
-                        level.placerTower(fieldClicked[0], fieldClicked[1], new LaserTower()); // LaserTower for testing
-                    }
-
-                    // Klickbare Elemente durchlaufen
-                    foreach (Clickable i in Clickable.clickelements)
-                    {
-                        if (i.IsInside(currentMouseState.X, currentMouseState.Y))
-                        {
-                            i.clickaction();
-                        }
-                    }
-                }
-
-                // Maustextur ändern wenn über klickbaren Element gehovert wird
-                foreach (Clickable i in Clickable.clickelements)
-                {
-                    // TODO Maustextur switchen
-                }
-
                 // TODO: this game isn't very fun! You could probably improve
                 // it by inserting something more interesting in this space :-)
 
                 waveManager.Update(gameTime);
+                gmr.Update();
             }
         }
 
@@ -266,11 +238,10 @@ namespace GameStateManagementSample
 
             // Level zeichnen
             level.Draw();
-            // Menu rechts zeichnen
-            gmr.draw();
 
             spriteBatch.Begin();
-            waveManager.Draw(spriteBatch);
+            gmr.Draw(spriteBatch); // Menü Rechts
+            waveManager.Draw(spriteBatch); // Gegner
             spriteBatch.End();
 
 
