@@ -25,12 +25,12 @@ namespace GameStateManagementSample
         /// Constructor fills in the menu contents.
         /// </summary>
         public MainMenuScreen()
-            : base("Main Menu")
+            : base("SPACE TD")
         {
             // Create our menu entries.
-            MenuEntry playGameMenuEntry = new MenuEntry("Play Game");
-            MenuEntry optionsMenuEntry = new MenuEntry("Options");
-            MenuEntry exitMenuEntry = new MenuEntry("Exit");
+            MenuEntry playGameMenuEntry = new MenuEntry("Spiel starten");
+            MenuEntry optionsMenuEntry = new MenuEntry("Optionen");
+            MenuEntry exitMenuEntry = new MenuEntry("Beenden");
 
             // Hook up menu event handlers.
             playGameMenuEntry.Selected += PlayGameMenuEntrySelected;
@@ -73,13 +73,15 @@ namespace GameStateManagementSample
         /// </summary>
         protected override void OnCancel(PlayerIndex playerIndex)
         {
-            const string message = "Are you sure you want to exit this sample?";
+            /*const string message = "Are you sure you want to exit this sample?";
 
             MessageBoxScreen confirmExitMessageBox = new MessageBoxScreen(message);
 
             confirmExitMessageBox.Accepted += ConfirmExitMessageBoxAccepted;
 
-            ScreenManager.AddScreen(confirmExitMessageBox, playerIndex);
+            ScreenManager.AddScreen(confirmExitMessageBox, playerIndex);*/
+
+            ScreenManager.Game.Exit();
         }
 
 

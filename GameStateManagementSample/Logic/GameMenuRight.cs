@@ -10,9 +10,6 @@ using GameStateManagementSample.Logic;
 namespace GameStateManagementSample.Logic
 {
 
-    //TODO noch ein dickes TODO die einzelnen Menüelemente müssen ausgelagert werden, ich derern zeichnung soll nicht hier stattfinden die beiden kästen die ihr seht sind nur zum testen
-    //die werden nacher eigen...
-
     class GameMenuRight
     {
         #region Fields
@@ -33,7 +30,7 @@ namespace GameStateManagementSample.Logic
 
             // Send Wave Button
             btnWave = new Button(new Vector2(x + (width / 2), y + (height / 10 * 7)),
-                "Send wave!", Color.White);
+                "Send wave!", Color.White, Color.Red,Color.Gray,Color.Green);
             btnWave.Click += new EventHandler(btnWave_Click);
             btnWave.DrawExtra += new Button.DrawExtraHandler(btnWave_DrawExtra);
         }

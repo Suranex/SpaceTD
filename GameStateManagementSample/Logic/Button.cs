@@ -22,6 +22,11 @@ namespace GameStateManagementSample.Logic
         private Boolean enabled;
         private String text;
         private Color textColor;
+        private ButtonMouseState bmstate;
+        private Color hoverColor;
+        private Color pressedColor;
+        private Color buttonColor;
+        private enum ButtonMouseState{normal,hover,pressed};
 
         public delegate void DrawExtraHandler(SpriteBatch spriteBatch);
         public event DrawExtraHandler DrawExtra;
@@ -50,12 +55,32 @@ namespace GameStateManagementSample.Logic
         }
         #endregion
 
-        public Button(Vector2 position, String text, Color textColor)
+        /// <summary>
+        /// Button ohne hover und pressed Reaktion
+        /// </summary>
+        public Button(Vector2 position, String text, Color textColor,Color buttonColor)
         {
             this.position = position;
             this.enabled = true;
             this.text = text;
             this.textColor = textColor;
+            this.buttonColor = buttonColor;
+            this.hoverColor = buttonColor;
+            this.pressedColor = buttonColor;
+        }
+
+        /// <summary>
+        /// Button mit hover und pressed Reaktion
+        /// </summary>
+        public Button(Vector2 position, String text, Color textColor, Color buttonColor, Color hoverColor, Color pressedColor)
+        {
+            this.position = position;
+            this.enabled = true;
+            this.text = text;
+            this.textColor = textColor;
+            this.buttonColor = buttonColor;
+            this.hoverColor = hoverColor;
+            this.pressedColor = pressedColor;
         }
 
         public void LoadContent(ContentManager content, String texture)
@@ -72,19 +97,39 @@ namespace GameStateManagementSample.Logic
                 this.Click(this, args);
         }
 
+
+
         public void Update()
-        {
-            if (enabled == true)
-            {
-                this.lastState = currentState;
-                this.currentState = Mouse.GetState();
-                if (bounds.Contains(new Point(currentState.X, currentState.Y)) &&
-                    currentState.LeftButton == ButtonState.Pressed &&
-                    lastState.LeftButton == ButtonState.Released)
+        {   
+
+                if (enabled == true)
                 {
-                    this.OnClick(EventArgs.Empty);
+                    this.lastState = currentState;
+                    this.currentState = Mouse.GetState();
+                    if (currentState.LeftButton == ButtonState.Released &&
+                        lastState.LeftButton == ButtonState.Pressed)
+                    {   // Maustaste wird losgelassen -> state = normal
+                        bmstate = ButtonMouseState.normal;
+                    }
+                    else if (currentState.LeftButton == ButtonState.Pressed &&
+                        lastState.LeftButton == ButtonState.Released &&
+                        bounds.Contains(new Point(currentState.X, currentState.Y)))
+                    {   // Maustaste wird gedrückt, Mauszeiger auf Button -> state = pressed
+                        bmstate = ButtonMouseState.pressed;
+                        this.OnClick(EventArgs.Empty);
+                    }
+                    else if (bounds.Contains(new Point(currentState.X, currentState.Y)) &&
+                        currentState.LeftButton == ButtonState.Released &&
+                        lastState.LeftButton == ButtonState.Released)
+                    {   // Maustaste war und ist released, Mauszeiger auf Button -> state = hover
+                        bmstate = ButtonMouseState.hover;
+                    }
+                    else if(bmstate == ButtonMouseState.hover &&
+                        !bounds.Contains(new Point(currentState.X, currentState.Y)))
+                    {   // State == hover und Mauszeiger ist nicht mehr auf Button -> state = normal
+                        bmstate = ButtonMouseState.normal;
+                    }
                 }
-            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -92,7 +137,21 @@ namespace GameStateManagementSample.Logic
             if (enabled)
             {
                 Vector2 stringDimensions = GameplayScreen.gameFont.MeasureString(text);
-                spriteBatch.Draw(texture, position, null, Color.White, 0, Origin, 1, SpriteEffects.None, 0);
+                
+
+                // TODO State Unterscheidung vervollständigen
+                switch (bmstate)
+                {
+                    case ButtonMouseState.normal:
+                        spriteBatch.Draw(texture, position, null, buttonColor, 0, Origin, 1, SpriteEffects.None, 0);
+                        break;
+                    case ButtonMouseState.hover:
+                        spriteBatch.Draw(texture, position, null, hoverColor, 0, Origin, 1, SpriteEffects.None, 0);
+                        break;
+                    case ButtonMouseState.pressed:
+                        spriteBatch.Draw(texture, position, null, pressedColor, 0, Origin, 1, SpriteEffects.None, 0);
+                        break;
+                }
                 spriteBatch.DrawString(GameplayScreen.gameFont, text, position - stringDimensions / 2, textColor);
             }
 
