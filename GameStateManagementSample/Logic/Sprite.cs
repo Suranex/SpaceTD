@@ -12,7 +12,13 @@ namespace GameStateManagementSample.Logic
         #region Fields
         protected Texture2D texture;
 
-        protected Vector2 position;
+        private Vector2 position;
+
+        public Vector2 Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
         protected Vector2 velocity;
 
         protected Vector2 center;

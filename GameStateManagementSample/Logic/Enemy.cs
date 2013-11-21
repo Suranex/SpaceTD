@@ -40,7 +40,12 @@ namespace GameStateManagementSample.Logic
 
         public float DistanceToDestination
         {
-            get { return Vector2.Distance(position, waypoints.Peek()); }
+            get { return Vector2.Distance(Position, waypoints.Peek()); }
+        }
+
+        public Vector2 OriginPosition
+        {
+            get { return new Vector2(texture.Width / 2 + Position.X, texture.Height / 2 + Position.Y); }
         }
         #endregion
 
@@ -58,7 +63,7 @@ namespace GameStateManagementSample.Logic
             foreach (Vector2 waypoint in waypoints)
                 this.waypoints.Enqueue(waypoint);
 
-            this.position = this.waypoints.Dequeue();
+            this.Position = this.waypoints.Dequeue();
         }
 
         public override void Update(GameTime gameTime)
@@ -72,17 +77,17 @@ namespace GameStateManagementSample.Logic
             {
                 if (DistanceToDestination < speed)
                 {
-                    position = waypoints.Peek();
+                    Position = waypoints.Peek();
                     waypoints.Dequeue();
                 }
                 else
                 {
-                    Vector2 direction = waypoints.Peek() - position;
+                    Vector2 direction = waypoints.Peek() - Position;
                     direction.Normalize();
 
                     velocity = Vector2.Multiply(direction, speed);
 
-                    position += velocity;
+                    Position += velocity;
 
                     rotation = (float)(Math.Atan2(direction.X, -direction.Y));
                 }

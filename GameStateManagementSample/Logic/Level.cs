@@ -224,12 +224,22 @@ namespace GameStateManagementSample.Logic
             return feld;
         }
 
-        public void placerTower(int x, int y, Tower tower)
+        public bool placerTower(int x, int y, Texture2D tex)
         {
-            if (gridMap[y, x].build(tower))
-                Console.Out.WriteLine("Gebaut");
-            else
-                Console.Out.WriteLine("Besetzt");
+            return gridMap[y, x].build(tex, GetTowerPos(x, y));
+        }
+
+        public Tower getTowerAtPosition(int x, int y)
+        {
+            return gridMap[y, x].Tower;
+        }
+        
+        public Vector2 GetTowerPos(int x, int y)
+        {
+            Vector2 v;
+            v.X = x * tileWidth + startx;
+            v.Y = y * tileHeight + starty;
+            return v;
         }
     }
 }

@@ -41,12 +41,16 @@ namespace GameStateManagementSample
         Vector2 playerPosition = new Vector2(100, 100);
         Vector2 enemyPosition = new Vector2(100, 100);
 
+        Texture2D testtex;
+
         Random random = new Random();
 
         float pauseAlpha;
         //float clickacceptpausetime;
         MouseState lastMouseState;
         MouseState currentMouseState;
+
+        Tower selectetTower;
 
         InputAction pauseAction;
 
@@ -83,7 +87,7 @@ namespace GameStateManagementSample
             {
                 if (content == null)
                     content = new ContentManager(ScreenManager.Game.Services, "Content");
-
+                testtex = content.Load<Texture2D>("enemy");
                 gameFont = content.Load<SpriteFont>("gamefont");
 
                 waveManager.LoadContent(content);
@@ -97,7 +101,7 @@ namespace GameStateManagementSample
                 // A real game would probably have more content than this sample, so
                 // it would take longer to load. We simulate that by delaying for a
                 // while, giving you a chance to admire the beautiful loading screen.
-                Thread.Sleep(1000);
+                //Thread.Sleep(1000);
 
                 // once the load has finished, we use ResetElapsedTime to tell the game's
                 // timing mechanism that we have just finished a very long frame, and that
@@ -144,6 +148,22 @@ namespace GameStateManagementSample
             else
                 pauseAlpha = Math.Max(pauseAlpha - 1f / 32, 0);
 
+            currentMouseState = Mouse.GetState();
+            if (currentMouseState.LeftButton == ButtonState.Pressed && lastMouseState.LeftButton != ButtonState.Pressed)
+            {
+                bool platziert = false;
+                int[] pos = level.GetFieldCoordinates(currentMouseState.X, currentMouseState.Y);
+                if (pos != null)
+                    platziert = level.placerTower(pos[0], pos[1], testtex);
+                selectetTower = level.getTowerAtPosition(pos[0], pos[1]);
+
+                if (selectetTower == null)
+                    Console.WriteLine("Kein Tower selectet");
+                else
+                    Console.WriteLine("Tower selectiert");
+            }
+            lastMouseState = currentMouseState;
+
             if (IsActive)
             {
                 // TODO: this game isn't very fun! You could probably improve
@@ -151,6 +171,8 @@ namespace GameStateManagementSample
 
                 waveManager.Update(gameTime);
                 gmr.Update();
+                foreach(Tower t in Tower.Towers) // tower update
+                    t.Update(gameTime);
             }
         }
 
@@ -241,8 +263,11 @@ namespace GameStateManagementSample
 
             spriteBatch.Begin();
             gmr.Draw(spriteBatch); // Menü Rechts
+            foreach (Tower t in Tower.Towers) // Tower
+                t.Draw(spriteBatch);
             waveManager.Draw(spriteBatch); // Gegner
             spriteBatch.End();
+
 
 
             // If the game is transitioning on or off, fade it out to black.

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace GameStateManagementSample.Logic
 {
@@ -9,10 +12,10 @@ namespace GameStateManagementSample.Logic
 
     class GameLevelTile
     {
-        private bool buildfield;
-        private int x;
-        private int y;
-        private Tower tower = null;
+        protected bool buildfield;
+        protected int x;
+        protected int y;
+        protected Tower tower = null;
 
         public GameLevelTile(bool buildfield,int x,int y)
         {
@@ -21,12 +24,12 @@ namespace GameStateManagementSample.Logic
             this.y = y;
         }
 
-        public bool build(Tower tower)
+        public bool build(Texture2D tex, Vector2 pos)
         {
             if (!buildfield || this.tower != null)
                 return false;
 
-            this.tower = tower;
+            this.tower = new LaserTower(tex, pos);
             return true;
         }
 

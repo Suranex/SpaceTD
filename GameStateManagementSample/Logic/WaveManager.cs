@@ -11,6 +11,13 @@ namespace GameStateManagementSample.Logic
     class WaveManager
     {
         #region Fields
+        private static WaveManager instance;
+
+        internal static WaveManager Instance
+        {
+            get { return WaveManager.instance; }
+        }
+
         private int numOfWaves; // Wieviele Wellen werden insgesamt erzeugt
         private Queue<Wave> waves = new Queue<Wave>(); // Warteschlange mit den Wellen
         private Texture2D enemyTexture; // Textur für die Gegner
@@ -47,6 +54,7 @@ namespace GameStateManagementSample.Logic
         {
             this.level = level;
             this.numOfWaves = numOfWaves;
+            instance = this;
         }
 
         public void InitWaves()
