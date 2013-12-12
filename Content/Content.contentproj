@@ -88,6 +88,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+  <ItemGroup>
     <Compile Include="bluetower1.png">
       <Name>bluetower1</Name>
       <Importer>TextureImporter</Importer>

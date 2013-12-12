@@ -29,8 +29,8 @@ namespace GameStateManagementSample.Logic
 
         public Queue<Vector2> waypoints = new Queue<Vector2>();
 
-        private int tileWidth = 32;
-        private int tileHeight = 32;
+        private int tileWidth = 26;
+        private int tileHeight = 26;
 
         private int startx = 50;
         private int starty = 50;

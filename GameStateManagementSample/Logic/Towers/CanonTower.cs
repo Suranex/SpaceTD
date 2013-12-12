@@ -12,7 +12,7 @@ namespace GameStateManagementSample.Logic
     class CanonTower : Tower
     {
         public CanonTower(Vector2 position)
-            : base(texturen[2], position)
+            : base(texturen[1], position)
         {
             name = "Canon Tower";
             type = 1;
