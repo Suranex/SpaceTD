@@ -24,13 +24,38 @@ namespace GameStateManagementSample.Logic
             this.y = y;
         }
 
-        public bool build(Texture2D tex, Vector2 pos)
+        public bool build(Vector2 pos, int type)
         {
             if (!buildfield || this.tower != null)
                 return false;
+            switch (type)
+            {
+                case 0: // Laser
+                    if (Player.getInstance().costMoney(20)) // testweise, TODO Balance
+                    {
+                        this.tower = new LaserTower(pos);
+                        return true;
+                    }
+                    break;
+                case 1: // Canon
+                    if (Player.getInstance().costMoney(50)) // testweise kosten von 50. Muss noch abh. von Gui selected Tower werden
+                    {
+                        this.tower = new CanonTower(pos);
+                        return true;
+                    }
+                    break;
+                case 2: // Slow
+                    if (Player.getInstance().costMoney(100)) // testweise kosten von 50. Muss noch abh. von Gui selected Tower werden
+                    {
+                        this.tower = new SlowTower(pos);
+                        return true;
+                    }
+                    break;
+                default:
+                    break;
+            }
 
-            this.tower = new CanonTower(pos);
-            return true;
+            return false;
         }
 
         public void destroy()

@@ -16,7 +16,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using GameStateManagement;
 using GameStateManagementSample.Logic;
-using GameStateManagementSample.Logic.Towers;
 #endregion
 
 namespace GameStateManagementSample
@@ -51,7 +50,8 @@ namespace GameStateManagementSample
         MouseState lastMouseState;
         MouseState currentMouseState;
 
-        Tower selectetTower;
+        Tower selectetTower = null;
+        public static int selectetTowerType = 0;
 
         InputAction pauseAction;
 
@@ -160,7 +160,7 @@ namespace GameStateManagementSample
                 int[] pos = level.GetFieldCoordinates(currentMouseState.X, currentMouseState.Y);
                 if (pos != null)
                 {
-                    platziert = level.placerTower(pos[0], pos[1], testtex);
+                    platziert = level.placerTower(pos[0], pos[1], selectetTowerType);
                     selectetTower = level.getTowerAtPosition(pos[0], pos[1]);
 
                     if (selectetTower == null)

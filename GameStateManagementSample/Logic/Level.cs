@@ -224,9 +224,9 @@ namespace GameStateManagementSample.Logic
             return feld;
         }
 
-        public bool placerTower(int x, int y, Texture2D tex)
+        public bool placerTower(int x, int y, int type)
         {
-            return gridMap[y, x].build(tex, GetTowerPos(x, y));
+            return gridMap[y, x].build(GetTowerPos(x, y), type);
         }
 
         public Tower getTowerAtPosition(int x, int y)

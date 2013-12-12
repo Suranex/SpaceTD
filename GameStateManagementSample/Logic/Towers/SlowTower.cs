@@ -6,12 +6,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GameStateManagementSample.Logic.Towers
+namespace GameStateManagementSample.Logic
 {
     class SlowTower : Tower
     {
-        public SlowTower(Texture2D tex, Vector2 position)
-            : base(tex, position)
+        public SlowTower(Vector2 position)
+            : base(texturen[2], position)
         {
             type = 2;
         }

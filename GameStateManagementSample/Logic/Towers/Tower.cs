@@ -11,6 +11,7 @@ namespace GameStateManagementSample.Logic
     class Tower : Sprite
     {
         protected int type; // e.g. as reference to the power picture
+        protected int cost;                 // wie Teuer der Tower ist
         protected string name;
         protected int towerlevel;
         protected Enemy selectedEnemy;

@@ -76,7 +76,10 @@ namespace GameStateManagementSample.Logic
             base.Update(gameTime);
 
             if (currentHealth <= 0)
+            {
                 alive = false;
+                Player.getInstance().rewardMoney(20); // sollte sich vll irgendwie errechnen
+            }
 
             if (waypoints.Count > 0)
             {
