@@ -6,11 +6,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GameStateManagementSample.Logic.Waffen
+namespace GameStateManagementSample.Logic
 {
     class WeaponManager
     {
-        private static List<Weapon> waffen = new List<Weapon>();
+        public static List<Weapon> waffen = new List<Weapon>();
 
         public static void addWeapon(Weapon w)
         {
@@ -22,13 +22,13 @@ namespace GameStateManagementSample.Logic.Waffen
             waffen.Remove(w);
         }
 
-        public void Update(GameTime gametime)
+        public static void UpdateAll(GameTime gametime)
         {
             foreach (Weapon w in waffen)
                 w.Update(gametime);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public static void DrawAll(SpriteBatch spriteBatch)
         {
             foreach (Weapon w in waffen)
                 w.Draw(spriteBatch);

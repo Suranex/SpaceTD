@@ -46,11 +46,12 @@ namespace GameStateManagementSample.Logic
             // Wenn kein Feind da, tue nichts
             if (selectedEnemy == null)
             {
-                Enemy e = GetEnemyInRange();
-                if (e == null)
+                selectedEnemy = GetEnemyInRange();
+                if (selectedEnemy == null)
                     return;
             }
-            Console.WriteLine("Gegner gefunden");
+            shoot(selectedEnemy); // Feind bekannt, schieße!
+            // Console.WriteLine("Gegner gefunden");
         }
 
         protected virtual void shoot(Enemy e) { }

@@ -41,7 +41,8 @@ namespace GameStateManagementSample
         Vector2 playerPosition = new Vector2(100, 100);
         Vector2 enemyPosition = new Vector2(100, 100);
 
-        Texture2D testtex;
+        public static Texture2D testtex;  // gegener bild
+        public static Texture2D testtex2; // roter kasten
 
         Random random = new Random();
 
@@ -88,6 +89,7 @@ namespace GameStateManagementSample
                 if (content == null)
                     content = new ContentManager(ScreenManager.Game.Services, "Content");
                 testtex = content.Load<Texture2D>("enemy");
+                testtex2 = content.Load<Texture2D>("rot");
                 gameFont = content.Load<SpriteFont>("gamefont");
 
                 waveManager.LoadContent(content);
@@ -173,7 +175,8 @@ namespace GameStateManagementSample
 
                 waveManager.Update(gameTime);
                 gmr.Update();
-                foreach(Tower t in Tower.Towers) // tower update
+                WeaponManager.UpdateAll(gameTime);
+                foreach(Tower t in Tower.Towers) // tower update; Verwaltungsklasse fehlt!
                     t.Update(gameTime);
             }
         }
@@ -268,6 +271,7 @@ namespace GameStateManagementSample
             foreach (Tower t in Tower.Towers) // Tower
                 t.Draw(spriteBatch);
             waveManager.Draw(spriteBatch); // Gegner
+            WeaponManager.DrawAll(spriteBatch);
             spriteBatch.End();
 
 

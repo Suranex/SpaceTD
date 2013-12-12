@@ -17,9 +17,11 @@ namespace GameStateManagementSample.Logic
             type = 3;
         }
 
-        public new void shoot(Enemy e)
+        protected override void shoot(Enemy e)
         {
-            Console.WriteLine("Canon Shoot");
+            if (WeaponManager.waffen.Count==0) // testweise nur 1 schuss auf dem Feld!
+                new Kugel(GameplayScreen.testtex2, this.position, e, 50, 5.0f);
+            // Console.WriteLine("Canon Shoot");
         }
     }
 }
