@@ -27,7 +27,7 @@ namespace GameStateManagementSample.Logic
         {
             texturen.Add(content.Load<Texture2D>("Tower/redtower1")); // 0 Laser
             texturen.Add(content.Load<Texture2D>("Tower/greentower1")); // 1 Canon
-            texturen.Add(content.Load<Texture2D>("bluetower1")); // 2 Slow
+            texturen.Add(content.Load<Texture2D>("Tower/bluetower1")); // 2 Slow
 
         }
         #endregion
