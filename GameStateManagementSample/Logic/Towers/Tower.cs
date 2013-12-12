@@ -20,15 +20,15 @@ namespace GameStateManagementSample.Logic
         protected double cooldown;          // standard cooldown
         protected int damage;               // Schadenswerte eines Turmes
         private static List<Tower> tower = new List<Tower>();
-        protected static List<Texture2D> texturen = new List<Texture2D>();
+        public static List<Texture2D> texturen = new List<Texture2D>();
 
         #region Content loading
         public static void LoadContent(ContentManager content)
         {
-            texturen.Add(content.Load<Texture2D>("Tower/redtower1")); // 0 Laser
+            texturen.Add(content.Load<Texture2D>("Tower/redtower3")); // 0 Laser
             texturen.Add(content.Load<Texture2D>("Tower/greentower1")); // 1 Canon
             texturen.Add(content.Load<Texture2D>("Tower/bluetower1")); // 2 Slow
-
+            texturen.Add(content.Load<Texture2D>("Tower/purpletower")); // 3 single target BEAM :D
         }
         #endregion
 
