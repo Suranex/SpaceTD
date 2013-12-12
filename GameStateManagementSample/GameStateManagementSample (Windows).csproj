@@ -74,6 +74,7 @@
     <Compile Include="Logic\GameMenuRight.cs" />
     <Compile Include="Logic\Player.cs" />
     <Compile Include="Logic\Sprite.cs" />
+    <Compile Include="Logic\Towers\CanonTower.cs" />
     <Compile Include="Logic\Towers\LaserTower.cs" />
     <Compile Include="Logic\Level.cs" />
     <Compile Include="Logic\Tower.cs" />

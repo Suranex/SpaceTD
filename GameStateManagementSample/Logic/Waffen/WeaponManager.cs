@@ -28,10 +28,10 @@ namespace GameStateManagementSample.Logic.Waffen
                 w.Update(gametime);
         }
 
-        public void Draw()
+        public void Draw(SpriteBatch spriteBatch)
         {
             foreach (Weapon w in waffen)
-                w.Draw();
+                w.Draw(spriteBatch);
         }
     }
 }

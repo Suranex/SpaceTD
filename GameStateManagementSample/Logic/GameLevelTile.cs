@@ -29,7 +29,7 @@ namespace GameStateManagementSample.Logic
             if (!buildfield || this.tower != null)
                 return false;
 
-            this.tower = new LaserTower(tex, pos);
+            this.tower = new CanonTower(tex, pos);
             return true;
         }
 

@@ -8,11 +8,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameStateManagementSample.Logic.Waffen
 {
-    class Weapon
+    class Weapon : Sprite
     {
-
-
-        public void Update(GameTime gametime) { }
-        public void Draw() { }
+        public Weapon(Texture2D texture, Vector2 position) : base(texture, position)
+        {
+        }
     }
 }

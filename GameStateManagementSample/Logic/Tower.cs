@@ -14,9 +14,8 @@ namespace GameStateManagementSample.Logic
         protected string name;
         protected int towerlevel;
         protected double cooldown;
-        protected double maxRange;
-        protected Texture2D texture;
-        protected Vector2 Position; // in Pixel
+        protected Enemy selectedEnemy;
+        protected double maxRange = 100; // testweise 100 reichweite
         private static List<Tower> tower = new List<Tower>();
 
         public Vector2 OriginPosition
@@ -39,12 +38,22 @@ namespace GameStateManagementSample.Logic
         {
             base.Update(gameTime);
 
+            if (!IsEnemyInRange()) // Wenn der Gegner außer reichweite ist, habe ihn nicht mehr selektiert
+            {
+                selectedEnemy = null;
+            }
+
             // Wenn kein Feind da, tue nichts
-            Enemy e = GetEnemyInRange();
-            if (e == null)
-                return;
+            if (selectedEnemy == null)
+            {
+                Enemy e = GetEnemyInRange();
+                if (e == null)
+                    return;
+            }
             Console.WriteLine("Gegner gefunden");
         }
+
+        protected virtual void shoot(Enemy e) { }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -52,6 +61,19 @@ namespace GameStateManagementSample.Logic
             base.Draw(spriteBatch, color);
         }
 
+        protected Boolean IsEnemyInRange()
+        {
+            // Wenn kein Gegner da, return
+            if (selectedEnemy == null)
+                return false;
+            double tempRange = Math.Sqrt(Math.Pow(Math.Abs(selectedEnemy.Position.X - this.Position.X), 2) +
+                Math.Pow(Math.Abs(selectedEnemy.Position.Y - this.Position.Y), 2));
+            if (tempRange <= maxRange) // Gegner ist innerhalb Max. Reichweite
+            {
+                return true;
+            }
+            return false;
+        }
 
         protected Enemy GetEnemyInRange()
         {
@@ -61,8 +83,10 @@ namespace GameStateManagementSample.Logic
             Enemy foundEnemy = null;
             foreach (Enemy e in WaveManager.Instance.CurrentWave.Enemies)
             {
+
                 tempRange = Math.Sqrt(Math.Pow(Math.Abs(e.Position.X - this.Position.X), 2) + 
                     Math.Pow(Math.Abs(e.Position.Y - this.Position.Y), 2));
+
                 if (tempRange < range && tempRange <= maxRange)
                 {
                     range = tempRange;
@@ -74,7 +98,7 @@ namespace GameStateManagementSample.Logic
 
         // Laser id 1
         // Slow id 2
-        // Multi target id 3
+        // Canon id 3
         // splash id 4
         //TODO alles bisher nur Platzhalter
     }

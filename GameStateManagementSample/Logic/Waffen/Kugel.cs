@@ -10,17 +10,15 @@ namespace GameStateManagementSample.Logic.Waffen
 {
     class Kugel : Weapon
     {
-        Vector2 position;
         Enemy target;
         double damage;
-        double speed;
+        float speed = 1.0f;
 
         /* 
          * Jeder Schuss wird eigenständig als Objekt behandelt. Diese werden in der Waffen.cs verwaltet
          */
-        public Kugel(Vector2 position, Enemy target, double damage, double speed)
+        public Kugel(Texture2D texture, Vector2 position, Enemy target, double damage, float speed) : base (texture, position)
         {
-            this.position = position;
             this.target = target;
             this.damage = damage;
             this.speed = speed;
@@ -30,21 +28,26 @@ namespace GameStateManagementSample.Logic.Waffen
         /** 
          * Kugelposition bei jeden Update neu berechnen 
          */
-        public void Update(GameTime gametime)
+        public new void Update(GameTime gametime)
         {
             // TODO weg berechnung
             // Dazu eigene aktuelle position neu berechnen im bezug auf Gegener position. 
+            Vector2 direction = target.Position - position;
+            direction.Normalize();
+
+            position += Vector2.Multiply(direction, speed);
         }
 
         /*
          * Kugelposition neu Zeichnen
          */
-        public void Draw()
+        public new void Draw(SpriteBatch spriteBatch)
         {
-
+            if (target.CurrentHealth > 0) // zeichne wenn der Gegner noch lebt
+            {
+                Color color = new Color(255,0,0);
+                base.Draw(spriteBatch, color);
+            }
         }
-
-
-
     }
 }
