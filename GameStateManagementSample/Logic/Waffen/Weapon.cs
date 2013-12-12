@@ -10,8 +10,14 @@ namespace GameStateManagementSample.Logic
 {
     class Weapon : Sprite
     {
-        public Weapon(Texture2D texture, Vector2 position) : base(texture, position)
+        protected Enemy target;
+        protected int damage;
+
+
+        public Weapon(Texture2D texture, Vector2 position, Enemy target, int damage) : base(texture, position)
         {
+            this.target = target;
+            this.damage = damage;
         }
 
         public virtual void Update(GameTime gameTime) { base.Update(gameTime); }

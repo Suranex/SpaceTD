@@ -77,7 +77,7 @@
     <Compile Include="Logic\Towers\CanonTower.cs" />
     <Compile Include="Logic\Towers\LaserTower.cs" />
     <Compile Include="Logic\Level.cs" />
-    <Compile Include="Logic\Tower.cs" />
+    <Compile Include="Logic\Towers\Tower.cs" />
     <Compile Include="Logic\Towers\SlowTower.cs" />
     <Compile Include="Logic\Waffen\Kugel.cs" />
     <Compile Include="Logic\Waffen\Weapon.cs" />

@@ -92,6 +92,8 @@ namespace GameStateManagementSample
                 testtex2 = content.Load<Texture2D>("rot");
                 gameFont = content.Load<SpriteFont>("gamefont");
 
+                Tower.LoadContent(content);
+
                 waveManager.LoadContent(content);
                 waveManager.InitWaves();
 

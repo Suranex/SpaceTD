@@ -58,6 +58,11 @@ namespace GameStateManagementSample.Logic
             this.speed = speed;
         }
 
+        public void hit(int damage)
+        {
+            currentHealth -= damage;
+        }
+
         public void SetWaypoints(Queue<Vector2> waypoints)
         {
             foreach (Vector2 waypoint in waypoints)

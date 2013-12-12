@@ -13,10 +13,21 @@ namespace GameStateManagementSample.Logic
         protected int type; // e.g. as reference to the power picture
         protected string name;
         protected int towerlevel;
-        protected double cooldown;
         protected Enemy selectedEnemy;
         protected double maxRange = 100; // testweise 100 reichweite
+        protected double currentCooldown;
+        protected double cooldown;
         private static List<Tower> tower = new List<Tower>();
+        protected static List<Texture2D> texturen = new List<Texture2D>();
+
+        #region Content loading
+        public static void LoadContent(ContentManager content)
+        {
+            texturen.Add(content.Load<Texture2D>("enemy")); // 0 Laser
+            texturen.Add(content.Load<Texture2D>("enemy")); // 1 Slow
+            texturen.Add(content.Load<Texture2D>("enemy")); // 2 Canon
+        }
+        #endregion
 
         public Vector2 OriginPosition
         {
@@ -37,6 +48,12 @@ namespace GameStateManagementSample.Logic
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            // schaue, ob der Tower wieder bereit ist
+            if (currentCooldown > 0)
+            {
+                currentCooldown -= (double)gameTime.ElapsedGameTime.TotalSeconds;
+                return;
+            }
 
             if (!IsEnemyInRange()) // Wenn der Gegner außer reichweite ist, habe ihn nicht mehr selektiert
             {
@@ -50,8 +67,13 @@ namespace GameStateManagementSample.Logic
                 if (selectedEnemy == null)
                     return;
             }
-            shoot(selectedEnemy); // Feind bekannt, schieße!
-            // Console.WriteLine("Gegner gefunden");
+            if (!selectedEnemy.IsDead)
+            {
+                currentCooldown = cooldown; // Tower schießt, hat demnach cooldown
+                shoot(selectedEnemy); // Feind bekannt, schieße!
+            }
+            else
+                selectedEnemy = null;
         }
 
         protected virtual void shoot(Enemy e) { }
@@ -100,7 +122,6 @@ namespace GameStateManagementSample.Logic
         // Laser id 1
         // Slow id 2
         // Canon id 3
-        // splash id 4
         //TODO alles bisher nur Platzhalter
     }
 }

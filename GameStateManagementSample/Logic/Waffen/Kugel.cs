@@ -10,17 +10,13 @@ namespace GameStateManagementSample.Logic
 {
     class Kugel : Weapon
     {
-        Enemy target;
-        double damage;
         float speed = 1.0f;
 
         /* 
          * Jeder Schuss wird eigenständig als Objekt behandelt. Diese werden in der Waffen.cs verwaltet
          */
-        public Kugel(Texture2D texture, Vector2 position, Enemy target, double damage, float speed) : base (texture, position)
+        public Kugel(Texture2D texture, Vector2 position, Enemy target, int damage, float speed) : base (texture, position, target, damage)
         {
-            this.target = target;
-            this.damage = damage;
             this.speed = speed;
             WeaponManager.addWeapon(this); // füge dich selbst in die Liste ein
         }
@@ -31,19 +27,28 @@ namespace GameStateManagementSample.Logic
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            // TODO weg berechnung
-            // Dazu eigene aktuelle position neu berechnen im bezug auf Gegener position. 
-            if (target == null)
+
+            // Wenn kein Gegner mehr da, lösche Schuss
+            if (target.IsDead)
             {
-                Console.WriteLine("kein Gegner!");
+                
+                WeaponManager.deleteWeapon(this);
                 return;
             }
+
+            // Positionsbestimmung
             Vector2 direction = target.Position - position;
             direction.Normalize();
-
             position += Vector2.Multiply(direction, speed);
-            //position.X += speed;
-            Console.WriteLine(position.X);
+
+            // position stimmt nie genau überein, daher auf ungefähren pixelabstand (max 10 pixel)
+            if (Math.Abs(Position.X - target.Position.X) + Math.Abs(Position.Y - target.Position.Y) < 10)
+            {
+                Console.WriteLine("hit!!!");
+                target.hit(damage);
+                WeaponManager.deleteWeapon(this);
+            }
+
         }
 
         /*
@@ -51,7 +56,7 @@ namespace GameStateManagementSample.Logic
          */
         public override void Draw(SpriteBatch spriteBatch)
         {
-
+            if (!target.IsDead)
                 base.Draw(spriteBatch);
 
         }

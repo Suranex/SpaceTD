@@ -20,12 +20,16 @@ namespace GameStateManagementSample.Logic
         public static void deleteWeapon(Weapon w)
         {
             waffen.Remove(w);
+            Console.WriteLine("Waffe entfernt");
         }
 
-        public static void UpdateAll(GameTime gametime)
+        public static void UpdateAll(GameTime gameTime)
         {
-            foreach (Weapon w in waffen)
-                w.Update(gametime);
+            for (int i = waffen.Count - 1; i >= 0; i--)
+            {
+                if (waffen[i] != null)
+                    waffen[i].Update(gameTime);
+            }
         }
 
         public static void DrawAll(SpriteBatch spriteBatch)
