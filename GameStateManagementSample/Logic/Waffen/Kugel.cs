@@ -30,7 +30,7 @@ namespace GameStateManagementSample.Logic.Waffen
         /** 
          * Kugelposition bei jeden Update neu berechnen 
          */
-        public override void Update(GameTime gametime)
+        public void Update(GameTime gametime)
         {
             // TODO weg berechnung
             // Dazu eigene aktuelle position neu berechnen im bezug auf Gegener position. 
@@ -39,7 +39,7 @@ namespace GameStateManagementSample.Logic.Waffen
         /*
          * Kugelposition neu Zeichnen
          */
-        public override void Draw()
+        public void Draw()
         {
 
         }

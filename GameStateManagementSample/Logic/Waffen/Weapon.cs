@@ -12,7 +12,7 @@ namespace GameStateManagementSample.Logic.Waffen
     {
 
 
-        public abstract void Update(GameTime gametime);
-        public abstract void Draw();
+        public void Update(GameTime gametime) { }
+        public void Draw() { }
     }
 }

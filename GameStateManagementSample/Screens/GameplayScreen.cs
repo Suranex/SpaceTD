@@ -154,13 +154,15 @@ namespace GameStateManagementSample
                 bool platziert = false;
                 int[] pos = level.GetFieldCoordinates(currentMouseState.X, currentMouseState.Y);
                 if (pos != null)
+                {
                     platziert = level.placerTower(pos[0], pos[1], testtex);
-                selectetTower = level.getTowerAtPosition(pos[0], pos[1]);
+                    selectetTower = level.getTowerAtPosition(pos[0], pos[1]);
 
-                if (selectetTower == null)
-                    Console.WriteLine("Kein Tower selectet");
-                else
-                    Console.WriteLine("Tower selectiert");
+                    if (selectetTower == null)
+                        Console.WriteLine("Kein Tower selectet");
+                    else
+                        Console.WriteLine("Tower selectiert");
+                }
             }
             lastMouseState = currentMouseState;
 
