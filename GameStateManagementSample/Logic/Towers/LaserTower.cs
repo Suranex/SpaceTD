@@ -10,12 +10,19 @@ namespace GameStateManagementSample.Logic
 {
     class LaserTower : Tower
     {
-        public LaserTower(Texture2D tex, Vector2 position)
-            : base(tex, position)
+        public LaserTower(Vector2 position)
+            : base(texturen[0], position)
         {
-
-            type = 1;
+            name = "Laser Tower";
+            cooldown = 0.25;
+            type = 0;
+            damage = 4;
+            maxRange = 200;
         }
 
+        protected override void shoot(Enemy e)
+        {
+            new Laser(Center, e, damage);
+        }
     }
 }

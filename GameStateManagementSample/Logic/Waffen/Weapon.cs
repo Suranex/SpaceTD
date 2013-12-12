@@ -12,6 +12,16 @@ namespace GameStateManagementSample.Logic
     {
         protected Enemy target;
         protected int damage;
+        protected static List<Texture2D> texturen = new List<Texture2D>();
+
+        #region Content loading
+        public static void LoadContent(ContentManager content)
+        {
+            texturen.Add(content.Load<Texture2D>("weißPixel")); // 0 Laser
+            texturen.Add(content.Load<Texture2D>("rot")); // 1 Canon
+
+        }
+        #endregion
 
 
         public Weapon(Texture2D texture, Vector2 position, Enemy target, int damage) : base(texture, position)

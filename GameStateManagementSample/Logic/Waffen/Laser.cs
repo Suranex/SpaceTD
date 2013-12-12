@@ -8,16 +8,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameStateManagementSample.Logic
 {
-    class Kugel : Weapon
+    class Laser : Weapon
     {
-        float speed = 1.0f;
-
         /* 
          * Jeder Schuss wird eigenständig als Objekt behandelt. Diese werden in der Waffen.cs verwaltet
          */
-        public Kugel(Vector2 position, Enemy target, int damage, float speed) : base (texturen[1], position, target, damage)
+        public Laser(Vector2 position, Enemy target, int damage) : base (texturen[0], position, target, damage)
         {
-            this.speed = speed;
             WeaponManager.addWeapon(this); // füge dich selbst in die Liste ein
         }
 
@@ -31,23 +28,13 @@ namespace GameStateManagementSample.Logic
             // Wenn kein Gegner mehr da, lösche Schuss
             if (target.IsDead)
             {
-                
                 WeaponManager.deleteWeapon(this);
                 return;
             }
-
-            // Positionsbestimmung
-            Vector2 direction = target.Position - position;
-            direction.Normalize();
-            position += Vector2.Multiply(direction, speed);
-
-            // position stimmt nie genau überein, daher auf ungefähren pixelabstand (max 5 pixel)
-            if (Math.Abs(Position.X - target.Position.X) + Math.Abs(Position.Y - target.Position.Y) < 10)
-            {
                 Console.WriteLine("hit!!!");
                 target.hit(damage);
                 WeaponManager.deleteWeapon(this);
-            }
+
 
         }
 
@@ -57,7 +44,13 @@ namespace GameStateManagementSample.Logic
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (!target.IsDead)
-                base.Draw(spriteBatch);
+            {
+                float distance = Vector2.Distance(Position, target.Center);
+
+                float angle = (float)Math.Atan2((double)(target.Center.Y - Position.Y), (double)(target.Center.X - Position.X));
+                // TODO testtex2 austauschen
+                spriteBatch.Draw(texturen[0], Position, null, Color.Red, angle, Vector2.Zero, new Vector2(distance, 1.2f), SpriteEffects.None, 1);
+            }
 
         }
     }

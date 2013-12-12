@@ -14,13 +14,16 @@ namespace GameStateManagementSample.Logic
         public CanonTower(Vector2 position)
             : base(texturen[2], position)
         {
-            type = 3;
+            name = "Canon Tower";
+            type = 1;
             cooldown = 0.75;
+            damage = 15;
+            maxRange = 100;
         }
 
         protected override void shoot(Enemy e)
         {
-            new Kugel(GameplayScreen.testtex2, this.position, e, 15, 10.0f);
+            new Kugel(Center, e, damage, 10.0f);
         }
     }
 }

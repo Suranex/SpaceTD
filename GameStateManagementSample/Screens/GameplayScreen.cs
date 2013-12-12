@@ -93,6 +93,7 @@ namespace GameStateManagementSample
                 gameFont = content.Load<SpriteFont>("gamefont");
 
                 Tower.LoadContent(content);
+                Weapon.LoadContent(content);
 
                 waveManager.LoadContent(content);
                 waveManager.InitWaves();
@@ -270,7 +271,7 @@ namespace GameStateManagementSample
 
             spriteBatch.Begin();
             gmr.Draw(spriteBatch); // Menü Rechts
-            foreach (Tower t in Tower.Towers) // Tower
+            foreach (Tower t in Tower.Towers) // Tower, sollte vll noch in eine Verwaltungsklasse
                 t.Draw(spriteBatch);
             waveManager.Draw(spriteBatch); // Gegner
             WeaponManager.DrawAll(spriteBatch);

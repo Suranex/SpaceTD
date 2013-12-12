@@ -14,9 +14,10 @@ namespace GameStateManagementSample.Logic
         protected string name;
         protected int towerlevel;
         protected Enemy selectedEnemy;
-        protected double maxRange = 100; // testweise 100 reichweite
-        protected double currentCooldown;
-        protected double cooldown;
+        protected double maxRange;
+        protected double currentCooldown;   // wie lang der Tower noch cooldown hat
+        protected double cooldown;          // standard cooldown
+        protected int damage;               // Schadenswerte eines Turmes
         private static List<Tower> tower = new List<Tower>();
         protected static List<Texture2D> texturen = new List<Texture2D>();
 
@@ -24,10 +25,11 @@ namespace GameStateManagementSample.Logic
         public static void LoadContent(ContentManager content)
         {
             texturen.Add(content.Load<Texture2D>("enemy")); // 0 Laser
-            texturen.Add(content.Load<Texture2D>("enemy")); // 1 Slow
-            texturen.Add(content.Load<Texture2D>("enemy")); // 2 Canon
+            texturen.Add(content.Load<Texture2D>("enemy")); // 1 Canon
+            texturen.Add(content.Load<Texture2D>("enemy")); // 2 Slow
         }
         #endregion
+
 
         public Vector2 OriginPosition
         {
@@ -119,9 +121,5 @@ namespace GameStateManagementSample.Logic
             return foundEnemy;
         }
 
-        // Laser id 1
-        // Slow id 2
-        // Canon id 3
-        //TODO alles bisher nur Platzhalter
     }
 }
