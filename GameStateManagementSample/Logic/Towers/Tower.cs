@@ -13,7 +13,7 @@ namespace GameStateManagementSample.Logic
         protected int type; // e.g. as reference to the power picture
         protected int cost;                 // wie Teuer der Tower ist
         protected string name;
-        protected int towerlevel = 1;
+        protected int towerlevel;
         protected Enemy selectedEnemy;
         protected double maxRange;
         protected double currentCooldown;   // wie lang der Tower noch cooldown hat
@@ -25,10 +25,9 @@ namespace GameStateManagementSample.Logic
         #region Content loading
         public static void LoadContent(ContentManager content)
         {
-            texturen.Add(content.Load<Texture2D>("Tower/redtower1")); // 0 Laser
-            texturen.Add(content.Load<Texture2D>("Tower/greentower1")); // 1 Canon
+            texturen.Add(content.Load<Texture2D>("greentower1")); // 0 Laser
+            texturen.Add(content.Load<Texture2D>("redtower3")); // 1 Canon
             texturen.Add(content.Load<Texture2D>("bluetower1")); // 2 Slow
-            texturen.Add(content.Load<Texture2D>("enemy")); // 2 Slow
         }
         #endregion
 
@@ -47,14 +46,6 @@ namespace GameStateManagementSample.Logic
         {
             this.Position = Position;
             tower.Add(this);
-        }
-
-        public void Upgrade()
-        {
-            towerlevel++;
-            damage += damage / 5;   // damage um ein fünftel steigern
-            cost += cost / 10;      // Kosten immer um ein zentel steigern
-            maxRange += 5;          // reichweite immer um 5 steigern
         }
 
         public override void Update(GameTime gameTime)
@@ -92,8 +83,8 @@ namespace GameStateManagementSample.Logic
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
-            spriteBatch.DrawString(GameplayScreen.gameFont, towerlevel.ToString(), Position, Color.White);
+            Color color = new Color(255, 0, 255);
+            base.Draw(spriteBatch, color);
         }
 
         protected Boolean IsEnemyInRange()
