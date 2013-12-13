@@ -19,7 +19,7 @@ namespace GameStateManagementSample.Logic
         {
             texturen.Add(content.Load<Texture2D>("weißPixel")); // 0 Laser
             texturen.Add(content.Load<Texture2D>("rot")); // 1 Canon
-
+            texturen.Add(content.Load<Texture2D>("blau")); // 2 slow
         }
         #endregion
 

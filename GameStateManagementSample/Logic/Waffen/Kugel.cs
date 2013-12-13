@@ -21,6 +21,12 @@ namespace GameStateManagementSample.Logic
             WeaponManager.addWeapon(this); // füge dich selbst in die Liste ein
         }
 
+        public Kugel(Texture2D tex, Vector2 position, Enemy target, int damage, float speed)
+            : base(tex, position, target, damage)
+        {
+            this.speed = speed;
+            WeaponManager.addWeapon(this); // füge dich selbst in die Liste ein
+        }
         /** 
          * Kugelposition bei jeden Update neu berechnen 
          */
@@ -44,11 +50,15 @@ namespace GameStateManagementSample.Logic
             // position stimmt nie genau überein, daher auf ungefähren pixelabstand (max 5 pixel)
             if (Math.Abs(Position.X - target.Position.X) + Math.Abs(Position.Y - target.Position.Y) < 10)
             {
-                Console.WriteLine("hit!!!");
-                target.hit(damage);
+                dealDamage(damage);
                 WeaponManager.deleteWeapon(this);
             }
 
+        }
+
+        protected virtual void dealDamage(int damage)
+        {
+            target.hit(damage);
         }
 
         /*

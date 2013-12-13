@@ -70,14 +70,14 @@ namespace GameStateManagementSample.Logic
         #region btnTowerBlueOne Handlers
         void btnTowerBlueOne_Click(object sender, EventArgs e)
         {
-            GameplayScreen.selectetTowerType = 3;
+            GameplayScreen.selectetTowerType = 2;
         }
         #endregion
 
         #region btnTowerPurpleOne Handlers
         void btnTowerPurpleOne_Click(object sender, EventArgs e)
         {
-            GameplayScreen.selectetTowerType = 4;
+            GameplayScreen.selectetTowerType = 3;
         }
         #endregion
 
