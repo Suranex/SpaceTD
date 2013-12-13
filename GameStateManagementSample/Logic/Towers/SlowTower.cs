@@ -10,10 +10,23 @@ namespace GameStateManagementSample.Logic
 {
     class SlowTower : Tower
     {
+        private double slowTime;
+        private float factor;
+
         public SlowTower(Vector2 position)
             : base(texturen[2], position)
         {
             type = 2;
+            slowTime = 4;
+            factor = 0.5f;
+            damage = 3;
+            maxRange = 75;
+            cooldown = 2;
+        }
+
+        protected override void shoot(Enemy e)
+        {
+            new SlowKugel(Center, e, damage, 10.0f, slowTime, factor);
         }
     }
 }

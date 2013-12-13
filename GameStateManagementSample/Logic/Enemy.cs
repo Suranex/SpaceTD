@@ -16,6 +16,10 @@ namespace GameStateManagementSample.Logic
         protected bool alive = true;
 
         protected float speed = 0.5f;
+        protected float currentspeed;
+
+        private double slowTime;
+
         protected int bountyGiven;
 
         private Queue<Vector2> waypoints = new Queue<Vector2>();
@@ -56,6 +60,7 @@ namespace GameStateManagementSample.Logic
             this.currentHealth = startHealth;
             this.bountyGiven = bountyGiven;
             this.speed = speed;
+            this.currentspeed = speed;
         }
 
         public void hit(int damage)
@@ -81,9 +86,18 @@ namespace GameStateManagementSample.Logic
                 Player.getInstance().rewardMoney(20); // sollte sich vll irgendwie errechnen
             }
 
+            if (slowTime > 0) // Wenn slowTime > 0 ziehe vergangende zeit ab. 
+                slowTime -= gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (slowTime <= 0) // Wenn slowTime <= 0, dann ist slow vorbei. Setze Speed auf normal
+            {    
+                currentspeed = speed;
+                slowTime = 0;
+            }
+
             if (waypoints.Count > 0)
             {
-                if (DistanceToDestination < speed)
+                if (DistanceToDestination < currentspeed)
                 {
                     Position = waypoints.Peek();
                     waypoints.Dequeue();
@@ -93,7 +107,7 @@ namespace GameStateManagementSample.Logic
                     Vector2 direction = waypoints.Peek() - Position;
                     direction.Normalize();
 
-                    velocity = Vector2.Multiply(direction, speed);
+                    velocity = Vector2.Multiply(direction, currentspeed);
 
                     Position += velocity;
 
@@ -113,6 +127,12 @@ namespace GameStateManagementSample.Logic
                 Color color = new Color(new Vector3(1, healthPercentage, healthPercentage));
                 base.Draw(spriteBatch, color);
             }
+        }
+
+        internal void setSlow(double seconds, float factor)
+        {
+            slowTime = seconds;
+            currentspeed *= factor;
         }
     }
 }
