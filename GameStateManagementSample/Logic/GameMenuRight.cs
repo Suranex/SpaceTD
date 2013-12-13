@@ -18,6 +18,23 @@ namespace GameStateManagementSample.Logic
         Texture2D txPixel;
         Rectangle rec;
 
+        int x;
+        int y;
+        int width;
+        int height;
+        //neubau
+        double name;
+        double price;
+        double maxRange;
+        double currentCooldown; 
+        double cooldown;         
+        int damage;
+        String description;      
+        //upgrade
+        double level;
+        double sellReward;
+
+
         WaveManager waveManager;
 
         TowerButton btnTowerGreenOne;
@@ -31,6 +48,10 @@ namespace GameStateManagementSample.Logic
         public GameMenuRight(int x, int y, int width, int height, WaveManager wm)
         {
             waveManager = wm;
+            this.x = x;
+            this.y = y;
+            this.height = height;
+            this.width = width;
             rec = new Rectangle(x, y, width, height);
 
             // Send Wave Button
@@ -56,7 +77,6 @@ namespace GameStateManagementSample.Logic
         void btnTowerGreenOne_Click(object sender, EventArgs e)
         {
             GameplayScreen.selectetTowerType = 1;
-           // Console.Write("green selected \n");
         }
         #endregion
 
@@ -115,6 +135,9 @@ namespace GameStateManagementSample.Logic
             btnTowerRedOne.Draw(spriteBatch);
             btnTowerBlueOne.Draw(spriteBatch);
             btnTowerPurpleOne.Draw(spriteBatch);
+
+            spriteBatch.DrawString(GameplayScreen.gameFont, "huhu", new Vector2(x + (width / 100 * 20), y + (height / 100 * 40)),Color.White);
+
         }
 
         public void Update()
