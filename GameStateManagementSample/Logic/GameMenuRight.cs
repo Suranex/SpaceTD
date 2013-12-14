@@ -55,11 +55,14 @@ namespace GameStateManagementSample.Logic
         PictureButton btnUpgrade;
         PictureButton btnSell;
 
+        GameplayScreen gameplayscreen;
+
         Button btnWave;
         #endregion
 
-        public GameMenuRight(int x, int y, int width, int height, WaveManager wm)
+        public GameMenuRight(int x, int y, int width, int height, WaveManager wm,GameplayScreen gameplayscreen)
         {
+            this.gameplayscreen = gameplayscreen;
             waveManager = wm;
             this.x = x;
             this.y = y;
@@ -103,6 +106,13 @@ namespace GameStateManagementSample.Logic
         #region btnSell Handlers
         void btnSell_Click(object sender, EventArgs e)
         {
+            
+            if (tower.gameLevelTile.destroy() == true)
+            {
+                Tower.Towers.Remove(tower);
+                Player.getInstance().rewardMoney((int)sellReward);
+            }
+                       
             //TODO
         }
         #endregion
@@ -204,6 +214,14 @@ namespace GameStateManagementSample.Logic
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(txPixel, rec, Color.Black); // Schwarzes Feld rechts
+
+            spriteBatch.DrawString(GameplayScreen.gameFont, Player.getInstance().Name, new Vector2(x + (width / 100 * 5), y + (height / 100 * 2)), Color.White);
+            spriteBatch.DrawString(GameplayScreen.gameFont, "Geld: " + Player.getInstance().Money, new Vector2(x + (width / 100 * 5), y + (height / 100 * 4)), Color.White);
+            spriteBatch.DrawString(GameplayScreen.gameFont, "Leben: "+Player.getInstance().Live, new Vector2(x + (width / 100 * 5), y + (height / 100 * 6)), Color.White);
+            spriteBatch.DrawString(GameplayScreen.gameFont, "Punkte: " +Player.getInstance().Points, new Vector2(x + (width / 100 * 5), y + (height / 100 * 8)), Color.White);
+            spriteBatch.DrawString(GameplayScreen.gameFont, "Kills: "+Player.getInstance().Kills, new Vector2(x + (width / 100 * 5), y + (height / 100 * 10)), Color.White);
+
+            
             btnWave.Draw(spriteBatch); // Send Wave button
             btnTowerGreenOne.Draw(spriteBatch);
             btnTowerRedOne.Draw(spriteBatch);

@@ -29,6 +29,7 @@ namespace GameStateManagementSample
     {
         #region Fields
         Level level;
+
         GameMenuRight gmr;
         //Enemy enemy1;
         //Wave wave;
@@ -55,6 +56,12 @@ namespace GameStateManagementSample
 
         InputAction pauseAction;
 
+        public Level Level
+        {
+            get { return level; }
+            set { level = value; }
+        }
+
         #endregion
 
         #region Initialization
@@ -67,7 +74,7 @@ namespace GameStateManagementSample
         {
             level = new Logic.Level();
             waveManager = new WaveManager(level, 20);
-            gmr = new Logic.GameMenuRight(600,0,200,600, waveManager);
+            gmr = new Logic.GameMenuRight(600,0,200,600, waveManager,this);
             
 
             TransitionOnTime = TimeSpan.FromSeconds(1.5);

@@ -33,21 +33,21 @@ namespace GameStateManagementSample.Logic
                 case 0: // Laser
                     if (Player.getInstance().costMoney(20)) // testweise, TODO Balance
                     {
-                        this.tower = new LaserTower(pos);
+                        this.tower = new LaserTower(pos,this);
                         return true;
                     }
                     break;
                 case 1: // Canon
                     if (Player.getInstance().costMoney(50)) // testweise kosten von 50. Muss noch abh. von Gui selected Tower werden
                     {
-                        this.tower = new CanonTower(pos);
+                        this.tower = new CanonTower(pos,this);
                         return true;
                     }
                     break;
                 case 2: // Slow
                     if (Player.getInstance().costMoney(100)) // testweise kosten von 50. Muss noch abh. von Gui selected Tower werden
                     {
-                        this.tower = new SlowTower(pos);
+                        this.tower = new SlowTower(pos,this);
                         return true;
                     }
                     break;
@@ -58,9 +58,17 @@ namespace GameStateManagementSample.Logic
             return false;
         }
 
-        public void destroy()
+        public bool destroy()
         {
-            tower = null;
+            if (tower != null)
+            {
+                tower = null;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public bool Buildfield

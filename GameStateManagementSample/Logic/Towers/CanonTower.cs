@@ -11,8 +11,8 @@ namespace GameStateManagementSample.Logic
 {
     class CanonTower : Tower
     {
-        public CanonTower(Vector2 position)
-            : base(texturen[1], position)
+        public CanonTower(Vector2 position,GameLevelTile gameLevelTile)
+            : base(texturen[1], position,gameLevelTile)
         {
             name = "Canon Tower";
             type = 1;

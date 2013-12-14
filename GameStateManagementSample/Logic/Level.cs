@@ -27,6 +27,12 @@ namespace GameStateManagementSample.Logic
 
         GameLevelTile[,] gridMap;
 
+        internal GameLevelTile[,] GridMap
+        {
+            get { return gridMap; }
+            set { gridMap = value; }
+        }
+
         public Queue<Vector2> waypoints = new Queue<Vector2>();
 
         private int tileWidth = 32;

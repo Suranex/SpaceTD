@@ -13,8 +13,8 @@ namespace GameStateManagementSample.Logic
         private double slowTime;
         private float factor;
 
-        public SlowTower(Vector2 position)
-            : base(texturen[2], position)
+        public SlowTower(Vector2 position, GameLevelTile gameLevelTile)
+            : base(texturen[2], position,gameLevelTile)
         {
             name = "Slow Tower";
             type = 2;

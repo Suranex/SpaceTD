@@ -19,6 +19,7 @@ namespace GameStateManagementSample.Logic
         protected double currentCooldown;   // wie lang der Tower noch cooldown hat
         public double cooldown;          // standard cooldown
         public int damage;               // Schadenswerte eines Turmes
+        public GameLevelTile gameLevelTile;
         private static List<Tower> tower = new List<Tower>();
         public static List<Texture2D> texturen = new List<Texture2D>();
 
@@ -43,8 +44,9 @@ namespace GameStateManagementSample.Logic
             get { return Tower.tower; }
         }
 
-        protected Tower(Texture2D tex, Vector2 Position) : base (tex, Position)
+        protected Tower(Texture2D tex, Vector2 Position,GameLevelTile gameLevelTile) : base (tex, Position)
         {
+            this.gameLevelTile = gameLevelTile;
             this.Position = Position;
             tower.Add(this);
         }
