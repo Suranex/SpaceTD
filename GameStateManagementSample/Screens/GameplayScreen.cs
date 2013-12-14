@@ -164,9 +164,14 @@ namespace GameStateManagementSample
                     selectetTower = level.getTowerAtPosition(pos[0], pos[1]);
 
                     if (selectetTower == null)
+                    {
                         Console.WriteLine("Kein Tower selectet");
+                    }
                     else
+                    {
                         Console.WriteLine("Tower selectiert");
+                        gmr.TowerSelected(selectetTower);
+                    }
                 }
             }
             lastMouseState = currentMouseState;

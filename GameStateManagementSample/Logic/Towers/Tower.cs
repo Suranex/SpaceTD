@@ -10,15 +10,15 @@ namespace GameStateManagementSample.Logic
 {
     class Tower : Sprite
     {
-        protected int type; // e.g. as reference to the power picture
+        public int type; // e.g. as reference to the power picture
         protected int cost;                 // wie Teuer der Tower ist
-        protected string name;
-        protected int towerlevel = 1;
+        public string name;
+        public int towerlevel = 1;
         protected Enemy selectedEnemy;
-        protected double maxRange;
+        public double maxRange;
         protected double currentCooldown;   // wie lang der Tower noch cooldown hat
-        protected double cooldown;          // standard cooldown
-        protected int damage;               // Schadenswerte eines Turmes
+        public double cooldown;          // standard cooldown
+        public int damage;               // Schadenswerte eines Turmes
         private static List<Tower> tower = new List<Tower>();
         public static List<Texture2D> texturen = new List<Texture2D>();
 

@@ -24,6 +24,7 @@ namespace GameStateManagementSample.Logic
         int height;
 
         //TODO irgendwo zentraler verwalten...
+        bool buildmode = true; // wechsel zwischen update und bauen
         //neubau
         String name="Kanonenturm";
         double price=42;
@@ -39,16 +40,20 @@ namespace GameStateManagementSample.Logic
         double slowTime = 0;
         float factor = 0;
         //upgrade
+        Tower tower;
         double level=0;
         double sellReward=0;
 
 
         WaveManager waveManager;
 
-        TowerButton btnTowerGreenOne;
-        TowerButton btnTowerRedOne;
-        TowerButton btnTowerBlueOne;
-        TowerButton btnTowerPurpleOne;
+        PictureButton btnTowerGreenOne;
+        PictureButton btnTowerRedOne;
+        PictureButton btnTowerBlueOne;
+        PictureButton btnTowerPurpleOne;
+
+        PictureButton btnUpgrade;
+        PictureButton btnSell;
 
         Button btnWave;
         #endregion
@@ -68,23 +73,45 @@ namespace GameStateManagementSample.Logic
             btnWave.Click += new EventHandler(btnWave_Click);
             btnWave.DrawExtra += new Button.DrawExtraHandler(btnWave_DrawExtra);
 
-            btnTowerGreenOne = new TowerButton(new Vector2(x + (width /100 *20 ), y + (height / 100 * 20)));
+            btnTowerGreenOne = new PictureButton(new Vector2(x + (width /100 *20 ), y + (height / 100 * 20)));
             btnTowerGreenOne.Click += new EventHandler(btnTowerGreenOne_Click);
 
-            btnTowerRedOne = new TowerButton(new Vector2(x + (width / 100 * 40), y + (height / 100 * 20)));
+            btnTowerRedOne = new PictureButton(new Vector2(x + (width / 100 * 40), y + (height / 100 * 20)));
             btnTowerRedOne.Click += new EventHandler(btnTowerRedOne_Click);
 
-            btnTowerBlueOne = new TowerButton(new Vector2(x + (width / 100 * 60), y + (height / 100 * 20)));
+            btnTowerBlueOne = new PictureButton(new Vector2(x + (width / 100 * 60), y + (height / 100 * 20)));
             btnTowerBlueOne.Click += new EventHandler(btnTowerBlueOne_Click);
 
-            btnTowerPurpleOne = new TowerButton(new Vector2(x + (width / 100 * 80), y + (height / 100 * 20)));
+            btnTowerPurpleOne = new PictureButton(new Vector2(x + (width / 100 * 80), y + (height / 100 * 20)));
             btnTowerPurpleOne.Click += new EventHandler(btnTowerPurpleOne_Click);
+
+            btnUpgrade = new PictureButton(new Vector2(x + (width / 100 * 30), y + (height / 100 * 62)));
+            btnUpgrade.Click += new EventHandler(btnUpgrade_Click);
+
+            btnSell = new PictureButton(new Vector2(x + (width / 100 * 70), y + (height / 100 * 62)));
+            btnSell.Click += new EventHandler(btnSell_Click);
         }
+
+        #region btnUpgrade Handlers
+        void btnUpgrade_Click(object sender, EventArgs e)
+        {
+            tower.Upgrade();
+            TowerSelected(tower);
+        }
+        #endregion
+
+        #region btnSell Handlers
+        void btnSell_Click(object sender, EventArgs e)
+        {
+            //TODO
+        }
+        #endregion
 
         #region btnTowerGreenOne Handlers
         void btnTowerGreenOne_Click(object sender, EventArgs e)
         {
             GameplayScreen.selectetTowerType = 1;
+            buildmode = true;
             name = "Laserturm";
             damage = 4;
             price = 42;
@@ -102,6 +129,7 @@ namespace GameStateManagementSample.Logic
         void btnTowerRedOne_Click(object sender, EventArgs e)
         {
             GameplayScreen.selectetTowerType = 0;
+            buildmode = true;
             name = "Kanonenturm";
             damage = 15;
             price = 42;
@@ -119,6 +147,7 @@ namespace GameStateManagementSample.Logic
         void btnTowerBlueOne_Click(object sender, EventArgs e)
         {
             GameplayScreen.selectetTowerType = 2;
+            buildmode = true;
             name = "Verlangsamungsturm";
             damage = 3;
             price = 42;
@@ -138,6 +167,7 @@ namespace GameStateManagementSample.Logic
         void btnTowerPurpleOne_Click(object sender, EventArgs e)
         {
             GameplayScreen.selectetTowerType = 3;
+            buildmode = true;
         }
         #endregion
 
@@ -160,11 +190,15 @@ namespace GameStateManagementSample.Logic
             txPixel = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
             txPixel.SetData<Color>(new Color[] { Color.White });
 
+
             btnWave.LoadContent(content, "ButtonBG");
             btnTowerGreenOne.LoadContent(content, Tower.texturen[1]);
             btnTowerRedOne.LoadContent(content, Tower.texturen[0]);
             btnTowerBlueOne.LoadContent(content, Tower.texturen[2]);
             btnTowerPurpleOne.LoadContent(content, Tower.texturen[3]);
+
+            btnUpgrade.LoadContent(content, content.Load<Texture2D>("UIshapes/shape 442"));
+            btnSell.LoadContent(content, content.Load<Texture2D>("UIshapes/shape 442"));
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -177,22 +211,47 @@ namespace GameStateManagementSample.Logic
             btnTowerPurpleOne.Draw(spriteBatch);
             if (!name.Equals(""))
             {
-                spriteBatch.DrawString(GameplayScreen.gameFont, name, new Vector2(x + (width / 100 * 5), y + (height / 100 * 40)), Color.White);
-                spriteBatch.DrawString(GameplayScreen.gameFont, "Preis: " + price, new Vector2(x + (width / 100 * 5), y + (height / 100 * 42)), Color.White);
-                spriteBatch.DrawString(GameplayScreen.gameFont, "Schaden: " + damage, new Vector2(x + (width / 100 * 5), y + (height / 100 * 44)), Color.White);
-                spriteBatch.DrawString(GameplayScreen.gameFont, "Reichweite: " + maxRange, new Vector2(x + (width / 100 * 5), y + (height / 100 * 46)), Color.White);
-                spriteBatch.DrawString(GameplayScreen.gameFont, "Abklingzeit: " + cooldown, new Vector2(x + (width / 100 * 5), y + (height / 100 * 48)), Color.White);
-                spriteBatch.DrawString(GameplayScreen.gameFont, description1, new Vector2(x + (width / 100 * 5), y + (height / 100 * 50)), Color.White);
-                spriteBatch.DrawString(GameplayScreen.gameFont, description2, new Vector2(x + (width / 100 * 5), y + (height / 100 * 52)), Color.White);
-                spriteBatch.DrawString(GameplayScreen.gameFont, description3, new Vector2(x + (width / 100 * 5), y + (height / 100 * 54)), Color.White);
-                spriteBatch.DrawString(GameplayScreen.gameFont, description4, new Vector2(x + (width / 100 * 5), y + (height / 100 * 56)), Color.White);
-                spriteBatch.DrawString(GameplayScreen.gameFont, description5, new Vector2(x + (width / 100 * 5), y + (height / 100 * 58)), Color.White);
-                if(GameplayScreen.selectetTowerType==2)
+                if (buildmode)
                 {
-                    spriteBatch.DrawString(GameplayScreen.gameFont, "Extra:", new Vector2(x + (width / 100 * 5), y + (height / 100 * 60)), Color.White);
-                    spriteBatch.DrawString(GameplayScreen.gameFont, "Verlangsamungsdauer: " + slowTime, new Vector2(x + (width / 100 * 5), y + (height / 100 * 62)), Color.White);
-                    spriteBatch.DrawString(GameplayScreen.gameFont, "Verlangsamung: " + factor*100 + "%", new Vector2(x + (width / 100 * 5), y + (height / 100 * 64)), Color.White);
+                    spriteBatch.DrawString(GameplayScreen.gameFont, name, new Vector2(x + (width / 100 * 5), y + (height / 100 * 32)), Color.White);
+                    spriteBatch.DrawString(GameplayScreen.gameFont, "Preis: " + price, new Vector2(x + (width / 100 * 5), y + (height / 100 * 34)), Color.White);
+                    spriteBatch.DrawString(GameplayScreen.gameFont, "Schaden: " + damage, new Vector2(x + (width / 100 * 5), y + (height / 100 * 36)), Color.White);
+                    spriteBatch.DrawString(GameplayScreen.gameFont, "Reichweite: " + maxRange, new Vector2(x + (width / 100 * 5), y + (height / 100 * 38)), Color.White);
+                    spriteBatch.DrawString(GameplayScreen.gameFont, "Abklingzeit: " + cooldown, new Vector2(x + (width / 100 * 5), y + (height / 100 * 40)), Color.White);
+                    spriteBatch.DrawString(GameplayScreen.gameFont, description1, new Vector2(x + (width / 100 * 5), y + (height / 100 * 42)), Color.White);
+                    spriteBatch.DrawString(GameplayScreen.gameFont, description2, new Vector2(x + (width / 100 * 5), y + (height / 100 * 44)), Color.White);
+                    spriteBatch.DrawString(GameplayScreen.gameFont, description3, new Vector2(x + (width / 100 * 5), y + (height / 100 * 46)), Color.White);
+                    spriteBatch.DrawString(GameplayScreen.gameFont, description4, new Vector2(x + (width / 100 * 5), y + (height / 100 * 48)), Color.White);
+                    spriteBatch.DrawString(GameplayScreen.gameFont, description5, new Vector2(x + (width / 100 * 5), y + (height / 100 * 50)), Color.White);
+                    if (GameplayScreen.selectetTowerType == 2)
+                    {
+                        spriteBatch.DrawString(GameplayScreen.gameFont, "Extra:", new Vector2(x + (width / 100 * 5), y + (height / 100 * 52)), Color.White);
+                        spriteBatch.DrawString(GameplayScreen.gameFont, "Verlangsamungsdauer: " + slowTime, new Vector2(x + (width / 100 * 5), y + (height / 100 * 54)), Color.White);
+                        spriteBatch.DrawString(GameplayScreen.gameFont, "Verlangsamung: " + factor * 100 + "%", new Vector2(x + (width / 100 * 5), y + (height / 100 * 56)), Color.White);
+                    }
                 }
+                else
+                {
+                    spriteBatch.DrawString(GameplayScreen.gameFont, name, new Vector2(x + (width / 100 * 5), y + (height / 100 * 32)), Color.White);
+                    spriteBatch.DrawString(GameplayScreen.gameFont, "Schaden: " + damage, new Vector2(x + (width / 100 * 5), y + (height / 100 * 34)), Color.White);
+                    spriteBatch.DrawString(GameplayScreen.gameFont, "Reichweite: " + maxRange, new Vector2(x + (width / 100 * 5), y + (height / 100 * 36)), Color.White);
+                    spriteBatch.DrawString(GameplayScreen.gameFont, "Abklingzeit: " + cooldown, new Vector2(x + (width / 100 * 5), y + (height / 100 * 38)), Color.White);
+                    spriteBatch.DrawString(GameplayScreen.gameFont, "Upgradekosten: " + price, new Vector2(x + (width / 100 * 5), y + (height / 100 * 40)), Color.White);
+                    spriteBatch.DrawString(GameplayScreen.gameFont, "Verkaufserloes: " + sellReward, new Vector2(x + (width / 100 * 5), y + (height / 100 * 42)), Color.White);
+                    spriteBatch.DrawString(GameplayScreen.gameFont, "Turmlevel: : " + level, new Vector2(x + (width / 100 * 5), y + (height / 100 * 44)), Color.White);
+
+                    if (tower.type == 2)
+                    {
+                        spriteBatch.DrawString(GameplayScreen.gameFont, "Extra:", new Vector2(x + (width / 100 * 5), y + (height / 100 * 46)), Color.White);
+                        spriteBatch.DrawString(GameplayScreen.gameFont, "Verlangsamungsdauer: " + slowTime, new Vector2(x + (width / 100 * 5), y + (height / 100 * 48)), Color.White);
+                        spriteBatch.DrawString(GameplayScreen.gameFont, "Verlangsamung: " + factor * 100 + "%", new Vector2(x + (width / 100 * 5), y + (height / 100 * 50)), Color.White);
+                    }
+                    btnUpgrade.Draw(spriteBatch);
+                    spriteBatch.DrawString(GameplayScreen.gameFont, "Upgrade!", new Vector2(x + (width / 100 * 15), y + (height / 100 * 61)), Color.White);
+                    btnSell.Draw(spriteBatch);
+                    spriteBatch.DrawString(GameplayScreen.gameFont, "Sell!", new Vector2(x + (width / 100 * 65), y + (height / 100 * 61)), Color.White);
+                }
+
             }
 
         }
@@ -203,7 +262,22 @@ namespace GameStateManagementSample.Logic
             btnTowerGreenOne.Update();
             btnTowerRedOne.Update();
             btnTowerBlueOne.Update();
-            btnTowerPurpleOne.Update();            
+            btnTowerPurpleOne.Update();
+            btnUpgrade.Update();
+            btnSell.Update();
+        }
+
+        public void TowerSelected(Tower t)
+        {
+            buildmode = false;
+            this.tower = t;
+            name = t.name;
+            damage = t.damage;
+            price = 42;
+            cooldown = t.cooldown;
+            maxRange = t.maxRange;
+            level = t.towerlevel;
+            sellReward = 21;
         }
     }
 }

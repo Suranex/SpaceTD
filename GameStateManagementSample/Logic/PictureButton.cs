@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace GameStateManagementSample.Logic
 {
-    class TowerButton
+    class PictureButton
     {
                #region Fields
         public event EventHandler Click;
@@ -50,7 +50,7 @@ namespace GameStateManagementSample.Logic
         }
         #endregion
 
-        public TowerButton(Vector2 position)
+        public PictureButton(Vector2 position)
         {
             this.position = position;
             this.enabled = true;

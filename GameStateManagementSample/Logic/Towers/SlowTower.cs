@@ -16,6 +16,7 @@ namespace GameStateManagementSample.Logic
         public SlowTower(Vector2 position)
             : base(texturen[2], position)
         {
+            name = "Slow Tower";
             type = 2;
             slowTime = 4;
             factor = 0.5f;
