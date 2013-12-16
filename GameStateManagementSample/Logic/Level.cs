@@ -96,6 +96,11 @@ namespace GameStateManagementSample.Logic
             get { return gridMap.GetLength(0); }
         }
 
+        public Vector2 Offset
+        {
+            get { return new Vector2(startx, starty); }
+        }
+
         public void DrawRenderTarget()
         {
             graphicsDevice.SetRenderTarget(renderTarget);

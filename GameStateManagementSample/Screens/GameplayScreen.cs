@@ -16,6 +16,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using GameStateManagement;
 using GameStateManagementSample.Logic;
+using GameStateManagementSample.Utility;
 #endregion
 
 namespace GameStateManagementSample
@@ -35,7 +36,7 @@ namespace GameStateManagementSample
         //Wave wave;
         WaveManager waveManager;
 
-        ContentManager content;
+        public static ContentManager content;
         public static SpriteFont gameFont;
 
         Vector2 playerPosition = new Vector2(100, 100);
@@ -55,6 +56,8 @@ namespace GameStateManagementSample
         public static int selectetTowerType = 0;
 
         InputAction pauseAction;
+
+        public static GraphicsDevice gd;
 
         public Level Level
         {
@@ -84,6 +87,8 @@ namespace GameStateManagementSample
                 new Buttons[] { Buttons.Start, Buttons.Back },
                 new Keys[] { Keys.Escape },
                 true);
+
+            
         }
 
         /// <summary>
@@ -109,6 +114,8 @@ namespace GameStateManagementSample
                 level.Initialize(ScreenManager);
                 gmr.Initialize(ScreenManager, content);
                 //gmr.Activelayer = true;
+
+                gd = ScreenManager.GraphicsDevice;
 
                 // A real game would probably have more content than this sample, so
                 // it would take longer to load. We simulate that by delaying for a
@@ -160,6 +167,7 @@ namespace GameStateManagementSample
             else
                 pauseAlpha = Math.Max(pauseAlpha - 1f / 32, 0);
 
+            // Tower auswählen/bauen
             currentMouseState = Mouse.GetState();
             if (currentMouseState.LeftButton == ButtonState.Pressed && lastMouseState.LeftButton != ButtonState.Pressed)
             {
@@ -182,6 +190,9 @@ namespace GameStateManagementSample
                 }
             }
             lastMouseState = currentMouseState;
+
+            // Tower preview
+            //if(GameMenuRight
 
             if (IsActive)
             {
@@ -296,6 +307,9 @@ namespace GameStateManagementSample
                 t.Draw(spriteBatch);
             waveManager.Draw(spriteBatch); // Gegner
             WeaponManager.DrawAll(spriteBatch);
+
+            if (selectetTower != null)
+                spriteBatch.DrawCircle(selectetTower.OriginPosition, selectetTower.maxRange, Color.White);
             spriteBatch.End();
 
 

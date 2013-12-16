@@ -15,7 +15,7 @@ namespace GameStateManagementSample.Logic
         public string name;
         public int towerlevel = 1;
         protected Enemy selectedEnemy;
-        public double maxRange;
+        public int maxRange;
         protected double currentCooldown;   // wie lang der Tower noch cooldown hat
         public double cooldown;          // standard cooldown
         public int damage;               // Schadenswerte eines Turmes
@@ -103,6 +103,7 @@ namespace GameStateManagementSample.Logic
             // Wenn kein Gegner da, return
             if (selectedEnemy == null)
                 return false;
+            // Vector2.Distance...
             double tempRange = Math.Sqrt(Math.Pow(Math.Abs(selectedEnemy.Position.X - this.Position.X), 2) +
                 Math.Pow(Math.Abs(selectedEnemy.Position.Y - this.Position.Y), 2));
             if (tempRange <= maxRange) // Gegner ist innerhalb Max. Reichweite
