@@ -230,12 +230,20 @@ namespace GameStateManagementSample.Logic
             int[] feld = new int[2];
             feld[0] = (int) x / tileWidth;
             feld[1] = (int) y / tileHeight;
-            if (feld[0] >= 10 || feld[1] >= 10) // Check if cklick is out of level field (right or bottom)
+            if (feld[0] >= Width || feld[1] >= Height) // Check if cklick is out of level field (right or bottom)
                 return null;
             return feld;
         }
 
-        public bool placerTower(int x, int y, int type)
+        /// <summary>
+        /// Erwartet array Koordinaten, also Ausgabe von GetFieldCoordinates
+        /// </summary>
+        public bool buildable(int x, int y)
+        {
+            return gridMap[y, x].Buildfield && gridMap[y, x].Tower == null;
+        }
+
+        public bool placeTower(int x, int y, int type)
         {
             return gridMap[y, x].build(GetTowerPos(x, y), type);
         }

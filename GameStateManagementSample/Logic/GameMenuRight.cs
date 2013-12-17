@@ -24,21 +24,21 @@ namespace GameStateManagementSample.Logic
         int height;
 
         //TODO irgendwo zentraler verwalten...
-        bool buildmode = true; // wechsel zwischen update und bauen
-        //neubau
-        String name="Kanonenturm";
-        double price=42;
-        double maxRange=100;
-        double cooldown=0.75;         
-        double damage=15;
-        String description1 = "Ein Single-target-Turm";
-        String description2 = "welcher grossen";
-        String description3 = "Schaden verursacht.";
-        String description4 = "";
-        String description5 = "";
+        bool buildmode = false; // wechsel zwischen update und bauen
+        //neubau - Am anfang leer
+        String name="";
+        double price;
+        double maxRange;
+        double cooldown;         
+        double damage;
+        String description1;
+        String description2;
+        String description3;
+        String description4;
+        String description5;
         //Slow tower attribute:
-        double slowTime = 0;
-        float factor = 0;
+        double slowTime;
+        float factor;
         //upgrade
         Tower tower;
         double level=0;
@@ -69,6 +69,11 @@ namespace GameStateManagementSample.Logic
         public bool DisplayTowerInfo
         {
             get { if (buildmode == true || gameplayscreen.selectedTower != null) return true; else return false; }
+        }
+
+        public double MaxRange
+        {
+            get { return maxRange; }
         }
 
         public GameMenuRight(int x, int y, int width, int height, WaveManager wm,GameplayScreen gameplayscreen)

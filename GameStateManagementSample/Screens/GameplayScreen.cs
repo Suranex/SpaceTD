@@ -54,6 +54,7 @@ namespace GameStateManagementSample
 
         public Tower selectedTower = null;
         public static int selectedTowerType = 0;
+        Sprite towerPreviewSprite;
 
         InputAction pauseAction;
 
@@ -176,7 +177,7 @@ namespace GameStateManagementSample
                 if (pos != null)
                 {
                     if(gmr.Buildmode == true)
-                        platziert = level.placerTower(pos[0], pos[1], selectedTowerType);
+                        platziert = level.placeTower(pos[0], pos[1], selectedTowerType);
                     selectedTower = level.getTowerAtPosition(pos[0], pos[1]);
 
                     if (selectedTower == null)
@@ -198,8 +199,15 @@ namespace GameStateManagementSample
             }
             lastMouseState = currentMouseState;
 
-            // Tower preview
-            //if(GameMenuRight
+            // Vorschau für neu zu bauende Tower, Erstellung des Sprites
+            if (gmr.Buildmode == true)
+            {
+                int[] pos = level.GetFieldCoordinates(currentMouseState.X, currentMouseState.Y);
+                if (pos != null)
+                {
+                    towerPreviewSprite = new Sprite(Tower.texturen[selectedTowerType], level.GetTowerPos(pos[0], pos[1]));
+                }
+            }
 
             if (IsActive)
             {
@@ -315,8 +323,22 @@ namespace GameStateManagementSample
             waveManager.Draw(spriteBatch); // Gegner
             WeaponManager.DrawAll(spriteBatch);
 
+            // Rangeindikator für selectedTower anzeigen
             if (selectedTower != null)
                 spriteBatch.DrawCircle(selectedTower.OriginPosition, selectedTower.maxRange, Color.White);
+
+            // Vorschau des neu zu erstellenden Towers - Rendering des preview Sprites
+            if (gmr.Buildmode == true)
+            {
+                int[] pos = level.GetFieldCoordinates(currentMouseState.X, currentMouseState.Y);
+                if (pos != null && level.buildable(pos[0], pos[1]))
+                {
+                    towerPreviewSprite.Draw(spriteBatch, Color.White * 0.5f);
+                    spriteBatch.DrawCircle(towerPreviewSprite.Center, (int)gmr.MaxRange, Color.White * 0.5f);
+                }
+            }
+
+            
             spriteBatch.End();
 
 
