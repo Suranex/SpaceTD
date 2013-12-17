@@ -175,7 +175,8 @@ namespace GameStateManagementSample
                 int[] pos = level.GetFieldCoordinates(currentMouseState.X, currentMouseState.Y);
                 if (pos != null)
                 {
-                    platziert = level.placerTower(pos[0], pos[1], selectedTowerType);
+                    if(gmr.Buildmode == true)
+                        platziert = level.placerTower(pos[0], pos[1], selectedTowerType);
                     selectedTower = level.getTowerAtPosition(pos[0], pos[1]);
 
                     if (selectedTower == null)

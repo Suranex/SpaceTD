@@ -60,6 +60,17 @@ namespace GameStateManagementSample.Logic
         Button btnWave;
         #endregion
 
+        public bool Buildmode
+        {
+            get { return buildmode; }
+            set { buildmode = value; }
+        }
+
+        public bool DisplayTowerInfo
+        {
+            get { if (buildmode == true || gameplayscreen.selectedTower != null) return true; else return false; }
+        }
+
         public GameMenuRight(int x, int y, int width, int height, WaveManager wm,GameplayScreen gameplayscreen)
         {
             this.gameplayscreen = gameplayscreen;
@@ -228,7 +239,7 @@ namespace GameStateManagementSample.Logic
             btnTowerRedOne.Draw(spriteBatch);
             btnTowerBlueOne.Draw(spriteBatch);
             btnTowerPurpleOne.Draw(spriteBatch);
-            if (!name.Equals(""))
+            if (DisplayTowerInfo)
             {
                 if (buildmode)
                 {
