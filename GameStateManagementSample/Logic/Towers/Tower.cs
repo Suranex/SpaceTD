@@ -54,9 +54,9 @@ namespace GameStateManagementSample.Logic
         public void Upgrade()
         {
             towerlevel++;
-            damage += damage / 5;   // damage um ein fünftel steigern
-            cost += cost / 10;      // Kosten immer um ein zentel steigern
-            maxRange += 5;          // reichweite immer um 5 steigern
+            damage += damage / 10;   // damage um ein zentel steigern
+            cost += cost / 5;      // Kosten immer um ein fünftel steigern
+            maxRange += 2;          // reichweite immer um 2 steigern
         }
 
         public override void Update(GameTime gameTime)
@@ -116,7 +116,7 @@ namespace GameStateManagementSample.Logic
         protected Enemy GetEnemyInRange()
         {
             // TODO untested - function check
-            double range = 100;
+            double range = Double.MaxValue;
             double tempRange;
             Enemy foundEnemy = null;
             foreach (Enemy e in WaveManager.Instance.CurrentWave.Enemies)
