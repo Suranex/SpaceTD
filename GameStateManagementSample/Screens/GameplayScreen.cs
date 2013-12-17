@@ -52,8 +52,8 @@ namespace GameStateManagementSample
         MouseState lastMouseState;
         MouseState currentMouseState;
 
-        Tower selectetTower = null;
-        public static int selectetTowerType = 0;
+        public Tower selectedTower = null;
+        public static int selectedTowerType = 0;
 
         InputAction pauseAction;
 
@@ -175,19 +175,25 @@ namespace GameStateManagementSample
                 int[] pos = level.GetFieldCoordinates(currentMouseState.X, currentMouseState.Y);
                 if (pos != null)
                 {
-                    platziert = level.placerTower(pos[0], pos[1], selectetTowerType);
-                    selectetTower = level.getTowerAtPosition(pos[0], pos[1]);
+                    platziert = level.placerTower(pos[0], pos[1], selectedTowerType);
+                    selectedTower = level.getTowerAtPosition(pos[0], pos[1]);
 
-                    if (selectetTower == null)
+                    if (selectedTower == null)
                     {
                         Console.WriteLine("Kein Tower selectet");
                     }
                     else
                     {
                         Console.WriteLine("Tower selectiert");
-                        gmr.TowerSelected(selectetTower);
+                        gmr.TowerSelected(selectedTower);
                     }
                 }
+            }
+
+            // Tower deselect
+            if (currentMouseState.RightButton == ButtonState.Pressed && lastMouseState.RightButton != ButtonState.Pressed)
+            {
+                selectedTower = null;
             }
             lastMouseState = currentMouseState;
 
@@ -240,12 +246,12 @@ namespace GameStateManagementSample
                 // Otherwise move the player position.
                 Vector2 movement = Vector2.Zero;
                 if (keyboardState.IsKeyDown(Keys.D1))
-                    selectetTowerType = 0;
+                    selectedTowerType = 0;
                 if (keyboardState.IsKeyDown(Keys.D2))
-                    selectetTowerType = 1;
+                    selectedTowerType = 1;
                 if (keyboardState.IsKeyDown(Keys.K))
-                    if (selectetTower != null)
-                        selectetTower.Upgrade();
+                    if (selectedTower != null)
+                        selectedTower.Upgrade();
 
 
 
@@ -308,8 +314,8 @@ namespace GameStateManagementSample
             waveManager.Draw(spriteBatch); // Gegner
             WeaponManager.DrawAll(spriteBatch);
 
-            if (selectetTower != null)
-                spriteBatch.DrawCircle(selectetTower.OriginPosition, selectetTower.maxRange, Color.White);
+            if (selectedTower != null)
+                spriteBatch.DrawCircle(selectedTower.OriginPosition, selectedTower.maxRange, Color.White);
             spriteBatch.End();
 
 

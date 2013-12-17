@@ -111,6 +111,7 @@ namespace GameStateManagementSample.Logic
             {
                 Tower.Towers.Remove(tower);
                 Player.getInstance().rewardMoney((int)sellReward);
+                gameplayscreen.selectedTower = null;
             }
                        
             //TODO
@@ -120,7 +121,7 @@ namespace GameStateManagementSample.Logic
         #region btnTowerGreenOne Handlers
         void btnTowerGreenOne_Click(object sender, EventArgs e)
         {
-            GameplayScreen.selectetTowerType = 0;
+            GameplayScreen.selectedTowerType = 0;
             buildmode = true;
             name = "Laserturm";
             damage = 4;
@@ -138,7 +139,7 @@ namespace GameStateManagementSample.Logic
         #region btnTowerRedOne Handlers
         void btnTowerRedOne_Click(object sender, EventArgs e)
         {
-            GameplayScreen.selectetTowerType = 1;
+            GameplayScreen.selectedTowerType = 1;
             buildmode = true;
             name = "Kanonenturm";
             damage = 15;
@@ -156,7 +157,7 @@ namespace GameStateManagementSample.Logic
         #region btnTowerBlueOne Handlers
         void btnTowerBlueOne_Click(object sender, EventArgs e)
         {
-            GameplayScreen.selectetTowerType = 2;
+            GameplayScreen.selectedTowerType = 2;
             buildmode = true;
             name = "Verlangsamungsturm";
             damage = 3;
@@ -176,7 +177,7 @@ namespace GameStateManagementSample.Logic
         #region btnTowerPurpleOne Handlers
         void btnTowerPurpleOne_Click(object sender, EventArgs e)
         {
-            GameplayScreen.selectetTowerType = 3;
+            GameplayScreen.selectedTowerType = 3;
             buildmode = true;
         }
         #endregion
@@ -241,7 +242,7 @@ namespace GameStateManagementSample.Logic
                     spriteBatch.DrawString(GameplayScreen.gameFont, description3, new Vector2(x + (width / 100 * 5), y + (height / 100 * 46)), Color.White);
                     spriteBatch.DrawString(GameplayScreen.gameFont, description4, new Vector2(x + (width / 100 * 5), y + (height / 100 * 48)), Color.White);
                     spriteBatch.DrawString(GameplayScreen.gameFont, description5, new Vector2(x + (width / 100 * 5), y + (height / 100 * 50)), Color.White);
-                    if (GameplayScreen.selectetTowerType == 2)
+                    if (GameplayScreen.selectedTowerType == 2)
                     {
                         spriteBatch.DrawString(GameplayScreen.gameFont, "Extra:", new Vector2(x + (width / 100 * 5), y + (height / 100 * 52)), Color.White);
                         spriteBatch.DrawString(GameplayScreen.gameFont, "Verlangsamungsdauer: " + slowTime, new Vector2(x + (width / 100 * 5), y + (height / 100 * 54)), Color.White);
