@@ -76,7 +76,7 @@ namespace GameStateManagementSample.Logic
             btnWave.Click += new EventHandler(btnWave_Click);
             btnWave.DrawExtra += new Button.DrawExtraHandler(btnWave_DrawExtra);
 
-            btnTowerGreenOne = new PictureButton(new Vector2(x + (width /100 *20 ), y + (height / 100 * 20)));
+            btnTowerGreenOne = new PictureButton(new Vector2(x + (width / 100 * 20), y + (height / 100 * 20)));
             btnTowerGreenOne.Click += new EventHandler(btnTowerGreenOne_Click);
 
             btnTowerRedOne = new PictureButton(new Vector2(x + (width / 100 * 40), y + (height / 100 * 20)));
@@ -120,7 +120,7 @@ namespace GameStateManagementSample.Logic
         #region btnTowerGreenOne Handlers
         void btnTowerGreenOne_Click(object sender, EventArgs e)
         {
-            GameplayScreen.selectetTowerType = 1;
+            GameplayScreen.selectetTowerType = 0;
             buildmode = true;
             name = "Laserturm";
             damage = 4;
@@ -138,7 +138,7 @@ namespace GameStateManagementSample.Logic
         #region btnTowerRedOne Handlers
         void btnTowerRedOne_Click(object sender, EventArgs e)
         {
-            GameplayScreen.selectetTowerType = 0;
+            GameplayScreen.selectetTowerType = 1;
             buildmode = true;
             name = "Kanonenturm";
             damage = 15;
@@ -202,8 +202,8 @@ namespace GameStateManagementSample.Logic
 
 
             btnWave.LoadContent(content, "ButtonBG");
-            btnTowerGreenOne.LoadContent(content, Tower.texturen[1]);
-            btnTowerRedOne.LoadContent(content, Tower.texturen[0]);
+            btnTowerGreenOne.LoadContent(content, Tower.texturen[0]);
+            btnTowerRedOne.LoadContent(content, Tower.texturen[1]);
             btnTowerBlueOne.LoadContent(content, Tower.texturen[2]);
             btnTowerPurpleOne.LoadContent(content, Tower.texturen[3]);
 
