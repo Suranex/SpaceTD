@@ -25,6 +25,7 @@ namespace GameStateManagementSample
 
         MenuEntry playername;
         MenuEntry sound;
+        MenuEntry healthbar;
 
         public static string name="noname";
         public static bool showHealthbars = true;
@@ -33,9 +34,12 @@ namespace GameStateManagementSample
 
         #region Initialization
 
-        enum Sound {On,Off}
+        enum Health { Lebensbalken, Rotfaerbung}
+        Health currentHealthOption;
 
+        enum Sound {An,Aus}
         Sound currentSoundOption;
+
 
         /// <summary>
         /// Constructor.
@@ -44,8 +48,8 @@ namespace GameStateManagementSample
             : base("Optionen")
         {
             // Create our menu entries.
-            playername = new MenuEntry(string.Empty);
             sound = new MenuEntry(string.Empty);
+            healthbar = new MenuEntry(string.Empty);
             SetMenuEntryText();
 
             MenuEntry back = new MenuEntry("Back");
@@ -57,23 +61,41 @@ namespace GameStateManagementSample
             // Hook up menu event handlers.
             back.Selected += OnCancel;
             sound.Selected += ToggleSound;
+            healthbar.Selected += ToggleHealthBar;
             // Add entries to the menu.
             MenuEntries.Add(sound);
-         //   MenuEntries.Add(playername);
+            MenuEntries.Add(healthbar);
             MenuEntries.Add(back);
         }
 
-
-        void ToggleSound(object sender, PlayerIndexEventArgs e)
+        void ToggleHealthBar(object sender, PlayerIndexEventArgs e)
         {
-            if (currentSoundOption == Sound.On)
+            if (currentHealthOption == Health.Lebensbalken)
             {
-                currentSoundOption = Sound.Off;
+                currentHealthOption = Health.Rotfaerbung;
+                OptionsMenuScreen.showHealthbars = false;
             }
             else
             {
-                currentSoundOption = Sound.On;
+                currentHealthOption = Health.Lebensbalken;
+                OptionsMenuScreen.showHealthbars = true;
             }
+            SetMenuEntryText();
+        }
+
+        void ToggleSound(object sender, PlayerIndexEventArgs e)
+        {
+            if (currentSoundOption == Sound.An)
+            {
+                currentSoundOption = Sound.Aus;
+                GameMenuRight.sound = false;
+            }
+            else
+            {
+                currentSoundOption = Sound.An;
+                GameMenuRight.sound = true;
+            }
+            SetMenuEntryText();
         }
 
         /// <summary>
@@ -81,8 +103,8 @@ namespace GameStateManagementSample
         /// </summary>
         void SetMenuEntryText()
         {
-            playername.Text = "Spielername: " + name;
-            sound.Text = "Sound:" + currentSoundOption;
+            sound.Text = "Sound: " + currentSoundOption;
+            healthbar.Text="Lebensanzeige: " + currentHealthOption;
         }
 
         

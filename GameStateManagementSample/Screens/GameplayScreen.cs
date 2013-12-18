@@ -131,6 +131,10 @@ namespace GameStateManagementSample
                 backgroundSound = content.Load<Song>("bgSound");
                 MediaPlayer.Play(backgroundSound);
                 MediaPlayer.IsRepeating = true;
+                if(!GameMenuRight.sound)
+                {
+                    MediaPlayer.Pause();
+                }
 
                 gd = ScreenManager.GraphicsDevice;
 
