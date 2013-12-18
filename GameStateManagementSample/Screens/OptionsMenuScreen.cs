@@ -24,6 +24,8 @@ namespace GameStateManagementSample
         #region Fields
 
         MenuEntry playername;
+        MenuEntry sound;
+
         public static string name="noname";
         public static bool showHealthbars = true;
 
@@ -33,7 +35,7 @@ namespace GameStateManagementSample
 
         enum Sound {On,Off}
 
-        Sound currentOption=Sound.On;
+        Sound currentSoundOption;
 
         /// <summary>
         /// Constructor.
@@ -43,16 +45,20 @@ namespace GameStateManagementSample
         {
             // Create our menu entries.
             playername = new MenuEntry(string.Empty);
+            sound = new MenuEntry(string.Empty);
             SetMenuEntryText();
 
-            MenuEntry Sound = new MenuEntry("Sound:");
             MenuEntry back = new MenuEntry("Back");
+
+            
+
+
 
             // Hook up menu event handlers.
             back.Selected += OnCancel;
-            Sound.Selected += ToggleSound;
+            sound.Selected += ToggleSound;
             // Add entries to the menu.
-            MenuEntries.Add(Sound);
+            MenuEntries.Add(sound);
          //   MenuEntries.Add(playername);
             MenuEntries.Add(back);
         }
@@ -60,9 +66,13 @@ namespace GameStateManagementSample
 
         void ToggleSound(object sender, PlayerIndexEventArgs e)
         {
-            if (GameMenuRight.sound == true)
+            if (currentSoundOption == Sound.On)
             {
-
+                currentSoundOption = Sound.Off;
+            }
+            else
+            {
+                currentSoundOption = Sound.On;
             }
         }
 
@@ -72,7 +82,7 @@ namespace GameStateManagementSample
         void SetMenuEntryText()
         {
             playername.Text = "Spielername: " + name;
-
+            sound.Text = "Sound:" + currentSoundOption;
         }
 
         
