@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using GameStateManagementSample.Utility;
 
 namespace GameStateManagementSample.Logic
 {
@@ -23,6 +24,7 @@ namespace GameStateManagementSample.Logic
         protected int bountyGiven;
 
         private Queue<Vector2> waypoints = new Queue<Vector2>();
+        private static Texture2D dummyTexture;
         #endregion
 
         #region Properties
@@ -78,7 +80,7 @@ namespace GameStateManagementSample.Logic
             if (currentHealth <= 0)
             {
                 alive = false;
-                Player.getInstance().rewardMoney(20); // sollte sich vll irgendwie errechnen
+                Player.getInstance().rewardMoney(bountyGiven);
             }
 
             if (slowTime > 0) // Wenn slowTime > 0 ziehe vergangende zeit ab. 
@@ -121,6 +123,12 @@ namespace GameStateManagementSample.Logic
                 float healthPercentage = currentHealth / startHealth;
                 Color color = new Color(new Vector3(1, healthPercentage, healthPercentage));
                 base.Draw(spriteBatch, color);
+
+                if (OptionsMenuScreen.showHealthbars)
+                {
+                    Color barColor = new Color(new Vector3(1 - healthPercentage, healthPercentage, 0));
+                    spriteBatch.DrawRectangle(new Rectangle((int)Position.X, (int)Position.Y+3, (int)(texture.Width * healthPercentage * scale), 3), barColor);
+                }
             }
         }
 
