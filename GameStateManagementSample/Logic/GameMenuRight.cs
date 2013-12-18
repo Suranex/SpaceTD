@@ -271,7 +271,7 @@ namespace GameStateManagementSample.Logic
             spriteBatch.Draw(background, backgroundrec, Color.White);
             //spriteBatch.DrawLine(txPixel, new Vector2(600, 0), new Vector2(600, 600), Color.Black,5.0f);
 
-            if (sound)
+            if (sound==true)
             {
                 btnToggleSoundOn.Draw(spriteBatch);
             }
@@ -316,11 +316,34 @@ namespace GameStateManagementSample.Logic
                 else
                 {
                     spriteBatch.DrawString(GameplayScreen.gameFont, name, new Vector2(x + (width / 100 * 5), y + (height / 100 * 32)), Color.White);
-                    spriteBatch.DrawString(GameplayScreen.gameFont, "Schaden: " + damage, new Vector2(x + (width / 100 * 5), y + (height / 100 * 34)), Color.White);
+                    spriteBatch.DrawString(GameplayScreen.gameFont, "Schaden: " + Math.Round(damage, 2), new Vector2(x + (width / 100 * 5), y + (height / 100 * 34)), Color.White);
+                    if (btnUpgrade.isHoverOrPressed())
+                    {
+                        spriteBatch.DrawString(GameplayScreen.gameFont,"+"+Math.Round((damage*0.1),2), new Vector2(x + (width / 100 * 75), y + (height / 100 * 34)), Color.Green);
+                    }
                     spriteBatch.DrawString(GameplayScreen.gameFont, "Reichweite: " + maxRange, new Vector2(x + (width / 100 * 5), y + (height / 100 * 36)), Color.White);
+                    if (btnUpgrade.isHoverOrPressed())
+                    {
+                        spriteBatch.DrawString(GameplayScreen.gameFont, "+" + 2, new Vector2(x + (width / 100 * 75), y + (height / 100 * 36)), Color.Green);
+                    }
                     spriteBatch.DrawString(GameplayScreen.gameFont, "Abklingzeit: " + cooldown, new Vector2(x + (width / 100 * 5), y + (height / 100 * 38)), Color.White);
-                    spriteBatch.DrawString(GameplayScreen.gameFont, "Upgradekosten: " + price, new Vector2(x + (width / 100 * 5), y + (height / 100 * 40)), Color.White);
-                    spriteBatch.DrawString(GameplayScreen.gameFont, "Verkaufserloes: " + sellReward, new Vector2(x + (width / 100 * 5), y + (height / 100 * 42)), Color.White);
+
+                    if (btnUpgrade.isHoverOrPressed()==true)
+                    {
+                        spriteBatch.DrawString(GameplayScreen.gameFont, "Upgradekosten: " + price, new Vector2(x + (width / 100 * 5), y + (height / 100 * 40)), Color.Red);
+                    }
+                    else
+                    {
+                        spriteBatch.DrawString(GameplayScreen.gameFont, "Upgradekosten: " + price, new Vector2(x + (width / 100 * 5), y + (height / 100 * 40)), Color.White);
+                    }
+                    if (btnSell.isHoverOrPressed()==true)
+                    {
+                        spriteBatch.DrawString(GameplayScreen.gameFont, "Verkaufserloes: " + sellReward, new Vector2(x + (width / 100 * 5), y + (height / 100 * 42)), Color.Green);
+                    }
+                    else
+                    {
+                        spriteBatch.DrawString(GameplayScreen.gameFont, "Verkaufserloes: " + sellReward, new Vector2(x + (width / 100 * 5), y + (height / 100 * 42)), Color.White);
+                    }
                     spriteBatch.DrawString(GameplayScreen.gameFont, "Turmlevel: : " + level, new Vector2(x + (width / 100 * 5), y + (height / 100 * 44)), Color.White);
 
                     if (tower.type == 2)
@@ -348,7 +371,7 @@ namespace GameStateManagementSample.Logic
             btnTowerPurpleOne.Update();
             btnUpgrade.Update();
             btnSell.Update();
-            if (sound)
+            if (sound==true)
             {
                 btnToggleSoundOn.Update();
             }
