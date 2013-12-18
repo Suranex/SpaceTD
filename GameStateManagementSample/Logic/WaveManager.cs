@@ -65,10 +65,10 @@ namespace GameStateManagementSample.Logic
                 // z.B. könnte man auch alle 5 Wellen eine "Schnelle" Welle haben, oder nen Boss
                 // TODO: Auslagerung in XML/ini/whatever anstatt hardcoded, vlt. dann auch einfach für jede Welle einzeln den Parametersatz angeben (Anstatt dieses rumgefrickel mit multiplikatoren)
                 int numOfEnemies = 20 * ((i / 3) + 1);
-                int health = (int)(350 * ((i / 5f) + 1));
+                int health = (int)(450 * ((i / 5f) + 1));
                 int bounty = (int)(5 * ((i / 5f) + 1));
                 float speed = 2.0f;
-                int respawnTime = 350;
+                int respawnTime = 450;
 
                 // Schnelle Welle alle 3 Wellen, dafür weniger HP
                 if (i + 1 % 3 == 0) { speed = 4.0f; health = (int) (health / 1.4); }

@@ -11,7 +11,7 @@ namespace GameStateManagementSample.Logic
     class Kugel : Weapon
     {
         float speed = 1.0f;
-        int splashRange = 25;
+        int splashRange = 35;
 
         /* 
          * Jeder Schuss wird eigenständig als Objekt behandelt. Diese werden in der Waffen.cs verwaltet

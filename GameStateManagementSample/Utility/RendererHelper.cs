@@ -9,6 +9,7 @@ namespace GameStateManagementSample.Utility
 {
     public static class RendererHelper
     {
+        private static Texture2D dummyTexture;
         public static void DrawLine(this SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 end, Color color, float thickness, float layer)
         {
             // Distanz
@@ -64,6 +65,18 @@ namespace GameStateManagementSample.Utility
             texture.SetData(data);
 
             spriteBatch.Draw(texture, position - new Vector2(texture.Width/2, texture.Height/2), color);
+        }
+
+        public static void DrawRectangle(this SpriteBatch spriteBatch, Rectangle destinationRectangle, Color color)
+        {
+            if(dummyTexture == null) {
+                dummyTexture = new Texture2D(GameplayScreen.gd, 1, 1);
+                Color[] data = new Color[1];
+                data[0] = Color.White;
+                dummyTexture.SetData(data);
+            }
+
+            spriteBatch.Draw(dummyTexture, destinationRectangle, color);
         }
     }
 }
