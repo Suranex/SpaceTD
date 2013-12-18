@@ -12,7 +12,7 @@ namespace GameStateManagementSample.Logic
     {
         public static int startcost = 40;
         public static String towerName = "Verlangsamungs Turm";
-        public static double startCooldown = 2;
+        public static double startCooldown = 1.5;
         public static int startDamage = 10;
         public static int startMaxRange = 75;
         public static double startSlowTime = 2;

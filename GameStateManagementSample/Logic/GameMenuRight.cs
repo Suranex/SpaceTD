@@ -379,6 +379,12 @@ namespace GameStateManagementSample.Logic
             {
                 btnToggleSoundOff.Update();
             }
+
+
+            // Enable/Disable von Towerbuttons je nach Geldstand
+            btnTowerGreenOne.Enabled = Player.getInstance().Money >= LaserTower.startcost;
+            btnTowerRedOne.Enabled = Player.getInstance().Money >= CanonTower.startcost;
+            btnTowerBlueOne.Enabled = Player.getInstance().Money >= SlowTower.startcost;
         }
 
         public void TowerSelected(Tower t)

@@ -128,6 +128,8 @@ namespace GameStateManagementSample.Logic
                 {
                     spriteBatch.Draw(texture, bounds, Color.White);
                 }
+            } else {
+                spriteBatch.Draw(texture, bounds, Color.White * 0.5f);
             }
 
             if(DrawExtra != null)
