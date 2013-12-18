@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using GameStateManagement;
 using GameStateManagementSample.Logic;
 using GameStateManagementSample.Utility;
@@ -64,6 +65,8 @@ namespace GameStateManagementSample
         Rectangle backgroundrec;
 
         public static GraphicsDevice gd;
+
+        Song backgroundSound;
 
         public Level Level
         {
@@ -123,6 +126,10 @@ namespace GameStateManagementSample
                 gmr.Initialize(ScreenManager, content);
                 //gmr.Activelayer = true;
 
+                backgroundSound = content.Load<Song>("bgSound");
+                MediaPlayer.Play(backgroundSound);
+                MediaPlayer.IsRepeating = true;
+
                 gd = ScreenManager.GraphicsDevice;
 
                 // A real game would probably have more content than this sample, so
@@ -167,7 +174,6 @@ namespace GameStateManagementSample
                                                        bool coveredByOtherScreen)
         {
             base.Update(gameTime, otherScreenHasFocus, false);
-
 
             // Gradually fade in or out depending on whether we are covered by the pause screen.
             if (coveredByOtherScreen)
