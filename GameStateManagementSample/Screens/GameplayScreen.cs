@@ -157,6 +157,7 @@ namespace GameStateManagementSample
         public override void Unload()
         {
             content.Unload();
+            MediaPlayer.Stop();
         }
 
 
