@@ -11,6 +11,7 @@ namespace GameStateManagementSample.Logic
     class Kugel : Weapon
     {
         float speed = 1.0f;
+        int splashRange = 25;
 
         /* 
          * Jeder Schuss wird eigenständig als Objekt behandelt. Diese werden in der Waffen.cs verwaltet
@@ -50,15 +51,18 @@ namespace GameStateManagementSample.Logic
             // position stimmt nie genau überein, daher auf ungefähren pixelabstand (max 5 pixel)
             if (Math.Abs(Position.X - target.Position.X) + Math.Abs(Position.Y - target.Position.Y) < 10)
             {
-                dealDamage(damage);
+                foreach (Enemy e in WaveManager.Instance.CurrentWave.Enemies)
+                {
+                    float range = Vector2.Distance(Center, e.Center);
+
+                    if (range < splashRange)
+                    {
+                        e.hit(damage);
+                    }
+                }
                 WeaponManager.deleteWeapon(this);
             }
 
-        }
-
-        protected virtual void dealDamage(float damage)
-        {
-            target.hit(damage);
         }
 
         /*

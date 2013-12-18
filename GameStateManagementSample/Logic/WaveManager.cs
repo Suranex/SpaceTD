@@ -13,11 +13,6 @@ namespace GameStateManagementSample.Logic
         #region Fields
         private static WaveManager instance;
 
-        internal static WaveManager Instance
-        {
-            get { return WaveManager.instance; }
-        }
-
         private int numOfWaves; // Wieviele Wellen werden insgesamt erzeugt
         private Queue<Wave> waves = new Queue<Wave>(); // Warteschlange mit den Wellen
         private Texture2D enemyTexture; // Textur für die Gegner
@@ -27,6 +22,11 @@ namespace GameStateManagementSample.Logic
         #endregion
 
         #region Properties
+        internal static WaveManager Instance
+        {
+            get { return WaveManager.instance; }
+        }
+
         public Wave CurrentWave
         {
             get { return waves.Peek(); }
@@ -64,15 +64,18 @@ namespace GameStateManagementSample.Logic
                 // Hier kann man die Parameter der einzelnen Wellen verändern..
                 // z.B. könnte man auch alle 5 Wellen eine "Schnelle" Welle haben, oder nen Boss
                 // TODO: Auslagerung in XML/ini/whatever anstatt hardcoded, vlt. dann auch einfach für jede Welle einzeln den Parametersatz angeben (Anstatt dieses rumgefrickel mit multiplikatoren)
-                int numOfEnemies = 5 * ((i / 3) + 1);
-                int health = (int)(50 * ((i / 5f) + 1));
-                int bounty = (int)(20 * ((i / 5f) + 1));
-                float speed = 5.0f;
-                int respawnTime = 500;
+                int numOfEnemies = 20 * ((i / 3) + 1);
+                int health = (int)(350 * ((i / 5f) + 1));
+                int bounty = (int)(5 * ((i / 5f) + 1));
+                float speed = 2.0f;
+                int respawnTime = 350;
 
-                /* Beispiel für ne "Schnelle" Welle alle 5 Wellen:
-                if(i+1 % 5 == 0) { speed = 5.0f; }
-                */
+                // Schnelle Welle alle 3 Wellen, dafür weniger HP
+                if (i + 1 % 3 == 0) { speed = 4.0f; health = (int) (health / 1.4); }
+
+                // Stärkere Gegner alle 10 Wellen, dafür nur halb so viele
+                if (i + 1 % 10 == 0) { numOfEnemies /= 2; health *= 2; bounty = (int)(bounty * 2.3); }
+
 
                 Wave wave = new Wave(i, numOfEnemies, level, enemyTexture, health, speed, bounty, respawnTime);
                 waves.Enqueue(wave);

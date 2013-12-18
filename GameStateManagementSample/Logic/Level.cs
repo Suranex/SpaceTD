@@ -291,8 +291,8 @@ namespace GameStateManagementSample.Logic
         /// </summary>
         public int[] GetFieldCoordinates(int x, int y)
         {
-            x = x - (int)startOffset.X;
-            y = y - (int)startOffset.Y;
+            x -= (int)startOffset.X;
+            y -= (int)startOffset.Y;
             if (x < 0 || y < 0) // Check if click is out of level field (left or top)
                 return null;
             int[] feld = new int[2];

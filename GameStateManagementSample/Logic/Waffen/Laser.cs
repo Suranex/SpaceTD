@@ -5,17 +5,27 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using GameStateManagementSample.Utility;
 
 namespace GameStateManagementSample.Logic
 {
     class Laser : Weapon
     {
+        private Color laserColor;
+
+        public Color LaserColor
+        {
+            get { return laserColor; }
+            set { laserColor = value; }
+        }
+
         /* 
          * Jeder Schuss wird eigenständig als Objekt behandelt. Diese werden in der Waffen.cs verwaltet
          */
         public Laser(Vector2 position, Enemy target, float damage) : base (texturen[0], position, target, damage)
         {
             WeaponManager.addWeapon(this); // füge dich selbst in die Liste ein
+            laserColor = Color.Green;
         }
 
         /** 
@@ -31,11 +41,15 @@ namespace GameStateManagementSample.Logic
                 WeaponManager.deleteWeapon(this);
                 return;
             }
-                Console.WriteLine("hit!!!");
-                target.hit(damage);
-                WeaponManager.deleteWeapon(this);
 
+            Console.WriteLine("hit!!!");
+            hitTarget(damage);
+            WeaponManager.deleteWeapon(this);
+        }
 
+        protected virtual void hitTarget(int dmg)
+        {
+            target.hit(damage);
         }
 
         /*
@@ -45,11 +59,7 @@ namespace GameStateManagementSample.Logic
         {
             if (!target.IsDead)
             {
-                float distance = Vector2.Distance(Position, target.Center);
-
-                float angle = (float)Math.Atan2((double)(target.Center.Y - Position.Y), (double)(target.Center.X - Position.X));
-                // TODO testtex2 austauschen
-                spriteBatch.Draw(texturen[0], Position, null, Color.Red, angle, Vector2.Zero, new Vector2(distance, 1.2f), SpriteEffects.None, 1);
+                spriteBatch.DrawLine(texturen[0], position, target.Center, laserColor, 1f);
             }
 
         }

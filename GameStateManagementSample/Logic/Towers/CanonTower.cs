@@ -11,16 +11,20 @@ namespace GameStateManagementSample.Logic
 {
     class CanonTower : Tower
     {
-        public static int startcost=30;
+        public static int startcost=200;
+        public static String towerName = "Kanonenturm";
+        public static double startCooldown = 0.75;
+        public static int startDamage = 110;
+        public static int startMaxRange = 100;
 
         public CanonTower(Vector2 position,GameLevelTile gameLevelTile)
             : base(texturen[1], position,gameLevelTile)
         {
-            name = "Canon Tower";
+            name = towerName;
             type = 1;
-            cooldown = 0.75;
-            damage = 15;
-            maxRange = 100;
+            cooldown = startCooldown;
+            damage = startDamage;
+            maxRange = startMaxRange;
             Cost = startcost;
         }
 

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameStateManagementSample.Logic
 {
-    class SlowKugel : Kugel
+    class SlowLaser : Laser
     {
         private double seconds;
         private float factor;
@@ -17,12 +17,13 @@ namespace GameStateManagementSample.Logic
         {
             this.seconds = seconds;
             this.factor = factor;
+            this.LaserColor = Color.Aquamarine;
         }
 
         protected override void dealDamage(float damage)
         {
             Console.WriteLine("slow!");
-            base.dealDamage(damage);
+            base.hitTarget(dmg);
             target.setSlow(seconds, factor);
         }
     }

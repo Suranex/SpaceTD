@@ -170,11 +170,11 @@ namespace GameStateManagementSample.Logic
         {
             GameplayScreen.selectedTowerType = 0;
             buildmode = true;
-            name = "Laserturm";
-            damage = 4;
+            name = LaserTower.towerName;
+            damage = LaserTower.startDamage;
             price = LaserTower.startcost;
-            cooldown = 0.25;
-            maxRange = 200;
+            cooldown = LaserTower.startCooldown;
+            maxRange = LaserTower.startMaxRange;
             description1 = "Der Klassiker, ein Turm";
             description2 = "welcher ein Ziel";
             description3 = "angreift.";
@@ -188,11 +188,11 @@ namespace GameStateManagementSample.Logic
         {
             GameplayScreen.selectedTowerType = 1;
             buildmode = true;
-            name = "Kanonenturm";
-            damage = 15;
+            name = CanonTower.towerName;
+            damage = CanonTower.startDamage;
             price = CanonTower.startcost;
-            cooldown = 0.75;
-            maxRange = 100;
+            cooldown = CanonTower.startCooldown;
+            maxRange = CanonTower.startMaxRange;
             description1 = "Ein Single-target-Turm";
             description2 = "welcher grossen";
             description3 = "Schaden verursacht.";
@@ -206,18 +206,18 @@ namespace GameStateManagementSample.Logic
         {
             GameplayScreen.selectedTowerType = 2;
             buildmode = true;
-            name = "Verlangsamungsturm";
-            damage = 3;
+            name = SlowTower.towerName;
+            damage = SlowTower.startDamage;
             price = SlowTower.startcost;
-            cooldown = 2;
-            maxRange = 75;
+            cooldown = SlowTower.startDamage;
+            maxRange = SlowTower.startMaxRange;
             description1 = "Dieser Turm verlangsamt";
             description2 = "Gegner eine gewisse Zeit";
             description3 = "um einen gewissen";
             description4 = "Prozentsatz.";
             description5 = "";
-            slowTime = 4;
-            factor = 0.5f;
+            slowTime = SlowTower.startSlowTime;
+            factor = SlowTower.startSlowFactor;
         }
         #endregion
 
@@ -387,7 +387,7 @@ namespace GameStateManagementSample.Logic
             this.tower = t;
             name = t.name;
             damage = t.damage;
-            price = t.Cost+(t.Cost*0.2);
+            price = t.Cost*1.2;
             cooldown = t.cooldown;
             maxRange = t.maxRange;
             level = t.towerlevel;

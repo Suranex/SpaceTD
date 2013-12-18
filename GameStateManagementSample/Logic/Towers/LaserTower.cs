@@ -10,16 +10,20 @@ namespace GameStateManagementSample.Logic
 {
     class LaserTower : Tower
     {
-        public static int startcost = 20;
+        public static int startcost = 100;
+        public static String towerName = "Laserturm";
+        public static double startCooldown = 0.15;
+        public static int startDamage = 32;
+        public static int startMaxRange = 150;
 
         public LaserTower(Vector2 position,GameLevelTile gameLevelTile)
             : base(texturen[0], position,gameLevelTile)
         {
-            name = "Laser Tower";
-            cooldown = 0.25;
+            name = towerName;
+            cooldown = startCooldown;
             type = 0;
-            damage = 4;
-            maxRange = 200;
+            damage = startDamage;
+            maxRange = startMaxRange;
             Cost = startcost;
         }
 

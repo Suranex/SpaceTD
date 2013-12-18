@@ -29,21 +29,21 @@ namespace GameStateManagementSample.Logic
             switch (type)
             {
                 case 0: // Laser
-                    if (Player.getInstance().costMoney(20)) // testweise, TODO Balance
+                    if (Player.getInstance().costMoney(LaserTower.startcost)) // testweise, TODO Balance
                     {
                         this.tower = new LaserTower(pos,this);
                         return true;
                     }
                     break;
                 case 1: // Canon
-                    if (Player.getInstance().costMoney(50)) // testweise kosten von 50. Muss noch abh. von Gui selected Tower werden
+                    if (Player.getInstance().costMoney(CanonTower.startcost)) // testweise kosten von 50. Muss noch abh. von Gui selected Tower werden
                     {
                         this.tower = new CanonTower(pos,this);
                         return true;
                     }
                     break;
                 case 2: // Slow
-                    if (Player.getInstance().costMoney(100)) // testweise kosten von 50. Muss noch abh. von Gui selected Tower werden
+                    if (Player.getInstance().costMoney(SlowTower.startcost)) // testweise kosten von 50. Muss noch abh. von Gui selected Tower werden
                     {
                         this.tower = new SlowTower(pos,this);
                         return true;

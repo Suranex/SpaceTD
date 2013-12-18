@@ -11,20 +11,27 @@ namespace GameStateManagementSample.Logic
     class SlowTower : Tower
     {
         public static int startcost = 40;
+        public static String towerName = "Verlangsamungs Turm";
+        public static double startCooldown = 2;
+        public static int startDamage = 10;
+        public static int startMaxRange = 75;
+        public static double startSlowTime = 2;
+        public static float startSlowFactor = 0.5f;
 
         private double slowTime;
         private float factor;
+        private int numSlowEnemies = 3;
 
         public SlowTower(Vector2 position, GameLevelTile gameLevelTile)
             : base(texturen[2], position, gameLevelTile)
         {
-            name = "Slow Tower";
+            name = towerName;
             type = 2;
-            slowTime = 4;
-            factor = 0.5f;
-            damage = 3;
-            maxRange = 75;
-            cooldown = 2;
+            slowTime = startSlowTime;
+            factor = startSlowFactor;
+            damage = startDamage;
+            maxRange = startMaxRange;
+            cooldown = startCooldown;
             Cost = startcost;
         }
 
@@ -39,7 +46,26 @@ namespace GameStateManagementSample.Logic
 
         protected override void shoot(Enemy e)
         {
-            new SlowKugel(Center, e, damage, 10.0f, slowTime, factor);
+            List<KeyValuePair<Enemy, Double>> enemyDistances = new List<KeyValuePair<Enemy, Double>>();
+            double tempDistance;
+
+            // shoot schießt normalerweise nur auf einen Tower. Um keine größeren Änderungen zu machen, werd ich hier nochmal alle Gegner in Reichweite suchen.
+            // Alle Gegner mit Distanz in eine Liste speichern
+            foreach (Enemy enemy in WaveManager.Instance.Enemies)
+            {
+                tempDistance = Vector2.Distance(Center, enemy.Center);
+                if (tempDistance < maxRange)
+                    enemyDistances.Add(new KeyValuePair<Enemy, Double>(enemy, tempDistance));
+            }
+
+            // Liste sortieren nach Distanz
+            enemyDistances.Sort((x,y)=>x.Value.CompareTo(y.Value));
+
+            // numSlowEnemies Gegner in der Liste slowen.
+            for (int i = 0; i < numSlowEnemies && i < enemyDistances.Count; i++)
+            {
+                new SlowLaser(Center, enemyDistances[i].Key, damage, slowTime, factor);
+            }
         }
     }
 }
