@@ -212,6 +212,7 @@ namespace GameStateManagementSample
             if (currentMouseState.RightButton == ButtonState.Pressed && lastMouseState.RightButton != ButtonState.Pressed)
             {
                 selectedTower = null;
+                gmr.Buildmode = false;
             }
             lastMouseState = currentMouseState;
 
