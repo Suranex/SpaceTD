@@ -9,6 +9,7 @@
 
 #region Using Statements
 using Microsoft.Xna.Framework;
+using GameStateManagementSample.Logic;
 #endregion
 
 namespace GameStateManagementSample
@@ -30,6 +31,9 @@ namespace GameStateManagementSample
 
         #region Initialization
 
+        enum Sound {On,Off}
+
+        Sound currentOption=Sound.On;
 
         /// <summary>
         /// Constructor.
@@ -41,16 +45,26 @@ namespace GameStateManagementSample
             playername = new MenuEntry(string.Empty);
             SetMenuEntryText();
 
+            MenuEntry Sound = new MenuEntry("Sound:");
             MenuEntry back = new MenuEntry("Back");
 
             // Hook up menu event handlers.
             back.Selected += OnCancel;
-            
+            Sound.Selected += ToggleSound;
             // Add entries to the menu.
-            MenuEntries.Add(playername);
+            MenuEntries.Add(Sound);
+         //   MenuEntries.Add(playername);
             MenuEntries.Add(back);
         }
 
+
+        void ToggleSound(object sender, PlayerIndexEventArgs e)
+        {
+            if (GameMenuRight.sound == true)
+            {
+
+            }
+        }
 
         /// <summary>
         /// Fills in the latest values for the options screen menu text.
@@ -60,6 +74,8 @@ namespace GameStateManagementSample
             playername.Text = "Spielername: " + name;
 
         }
+
+        
         #endregion
 
     }

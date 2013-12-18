@@ -280,7 +280,7 @@ namespace GameStateManagementSample.Logic
                 btnToggleSoundOff.Draw(spriteBatch);
             }
 
-          //  spriteBatch.DrawString(GameplayScreen.gameFont, Player.getInstance().Name, new Vector2(x + (width / 100 * 5), y + (height / 100 * 2)), Color.White);
+            spriteBatch.DrawString(GameplayScreen.gameFont, "Welle: "+waveManager.CurrentWave.RoundNumber, new Vector2(x + (width / 100 * 5), y + (height / 100 * 2)), Color.Silver);
             spriteBatch.DrawString(GameplayScreen.gameFont, "Geld: " + Player.getInstance().Money, new Vector2(x + (width / 100 * 5), y + (height / 100 * 4)), Color.Gold);
             spriteBatch.DrawString(GameplayScreen.gameFont, "Leben: "+Player.getInstance().Live, new Vector2(x + (width / 100 * 5), y + (height / 100 * 6)), Color.Red);
             spriteBatch.DrawString(GameplayScreen.gameFont, "Punkte: " +Player.getInstance().Points, new Vector2(x + (width / 100 * 5), y + (height / 100 * 8)), Color.Green);
