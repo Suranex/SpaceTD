@@ -47,7 +47,7 @@ namespace GameStateManagementSample.Logic
             WeaponManager.deleteWeapon(this);
         }
 
-        protected virtual void hitTarget(int dmg)
+        protected virtual void hitTarget(float dmg)
         {
             target.hit(damage);
         }

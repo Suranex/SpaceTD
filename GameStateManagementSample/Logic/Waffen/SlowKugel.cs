@@ -13,17 +13,17 @@ namespace GameStateManagementSample.Logic
         private double seconds;
         private float factor;
 
-        public SlowKugel(Vector2 position, Enemy target, float damage, float speed, double seconds, float factor) : base (texturen[2], position, target, damage, speed)
+        public SlowLaser(Vector2 position, Enemy target, float damage, double seconds, float factor) : base (position, target, damage)
         {
             this.seconds = seconds;
             this.factor = factor;
             this.LaserColor = Color.Aquamarine;
         }
 
-        protected override void dealDamage(float damage)
+        protected override void hitTarget(float damage)
         {
             Console.WriteLine("slow!");
-            base.hitTarget(dmg);
+            base.hitTarget(damage);
             target.setSlow(seconds, factor);
         }
     }

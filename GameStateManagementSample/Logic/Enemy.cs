@@ -46,11 +46,6 @@ namespace GameStateManagementSample.Logic
         {
             get { return Vector2.Distance(Position, waypoints.Peek()); }
         }
-
-        public Vector2 OriginPosition
-        {
-            get { return new Vector2(texture.Width / 2 + Position.X, texture.Height / 2 + Position.Y); }
-        }
         #endregion
 
         public Enemy(Texture2D texture, Vector2 position, float health, int bountyGiven, float speed)

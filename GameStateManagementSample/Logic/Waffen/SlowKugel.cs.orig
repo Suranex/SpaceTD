@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+
+namespace GameStateManagementSample.Logic
+{
+    class SlowLaser : Laser
+    {
+        private double seconds;
+        private float factor;
+
+<<<<<<< HEAD
+        public SlowKugel(Vector2 position, Enemy target, float damage, float speed, double seconds, float factor) : base (texturen[2], position, target, damage, speed)
+=======
+        public SlowLaser(Vector2 position, Enemy target, int damage, double seconds, float factor) : base (position, target, damage)
+>>>>>>> Unterschiedliche Sachen gefixt, Tower abgeändert
+        {
+            this.seconds = seconds;
+            this.factor = factor;
+            this.LaserColor = Color.Aquamarine;
+        }
+
+<<<<<<< HEAD
+        protected override void dealDamage(float damage)
+=======
+        protected override void hitTarget(int dmg)
+>>>>>>> Unterschiedliche Sachen gefixt, Tower abgeändert
+        {
+            Console.WriteLine("slow!");
+            base.hitTarget(dmg);
+            target.setSlow(seconds, factor);
+        }
+    }
+}
