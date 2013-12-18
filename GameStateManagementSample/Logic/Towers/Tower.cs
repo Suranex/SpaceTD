@@ -39,12 +39,6 @@ namespace GameStateManagementSample.Logic
         }
         #endregion
 
-
-        public Vector2 OriginPosition
-        {
-            get { return new Vector2(texture.Width / 2 + Position.X, texture.Height / 2 + Position.Y); }
-        }
-
         internal static List<Tower> Towers
         {
             get { return Tower.tower; }

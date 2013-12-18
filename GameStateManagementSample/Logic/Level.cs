@@ -67,48 +67,48 @@ namespace GameStateManagementSample.Logic
         RenderTarget2D renderTarget;
         Texture2D txPixel;
 
-        private static int tileWidth = 23;
-        private static int tileHeight = 23;
+        private static int tileWidth = 24;
+        private static int tileHeight = 24;
 
-        private int startx = 5;
-        private int starty = 5;
+        private Vector2 startOffset = new Vector2(10, 10);
+        private Vector2 towerPosOffset = new Vector2(-2, -2);
 
         public Level()
         {
             // Erstmal hardcoden, kann man hinterher aus einer XML auslesen
             // Außerdem wird angenommen das tileWidth == tileHeight... ist eigentlich eh überflüssig dafür zwei Attribute
             // zu haben, wenn die doch eh immer den gleichen Wert haben.
-            /*waypoints.Enqueue(new Vector2(2, 0) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(2, 1) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(5, 1) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(5, 2) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(8, 2) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(8, 4) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(3, 4) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(3, 3) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(1, 3) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(1, 6) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(4, 6) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(4, 9) * tileWidth + new Vector2(startx, starty));
+            /*waypoints.Enqueue(new Vector2(2, 0) * tileWidth + Offset);
+            waypoints.Enqueue(new Vector2(2, 1) * tileWidth + Offset);
+            waypoints.Enqueue(new Vector2(5, 1) * tileWidth + Offset);
+            waypoints.Enqueue(new Vector2(5, 2) * tileWidth + Offset);
+            waypoints.Enqueue(new Vector2(8, 2) * tileWidth + Offset);
+            waypoints.Enqueue(new Vector2(8, 4) * tileWidth + Offset);
+            waypoints.Enqueue(new Vector2(3, 4) * tileWidth + Offset);
+            waypoints.Enqueue(new Vector2(3, 3) * tileWidth + Offset);
+            waypoints.Enqueue(new Vector2(1, 3) * tileWidth + Offset);
+            waypoints.Enqueue(new Vector2(1, 6) * tileWidth + Offset);
+            waypoints.Enqueue(new Vector2(4, 6) * tileWidth + Offset);
+            waypoints.Enqueue(new Vector2(4, 9) * tileWidth + Offset);
              */
-            waypoints.Enqueue(new Vector2(8, 0) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(8, 2) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(13, 2) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(13, 5) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(17, 5) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(17, 8) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(8, 8) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(8, 6) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(2, 6) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(2, 12) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(4, 12) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(4, 15) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(1, 15) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(1, 17) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(6, 17) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(6, 12) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(16, 12) * tileWidth + new Vector2(startx, starty));
-            waypoints.Enqueue(new Vector2(16, 19) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(8, 0) * tileWidth + startOffset);
+            waypoints.Enqueue(new Vector2(8, 2) * tileWidth + startOffset);
+            waypoints.Enqueue(new Vector2(13, 2) * tileWidth + startOffset);
+            waypoints.Enqueue(new Vector2(13, 5) * tileWidth + startOffset);
+            waypoints.Enqueue(new Vector2(17, 5) * tileWidth + startOffset);
+            waypoints.Enqueue(new Vector2(17, 8) * tileWidth + startOffset);
+            waypoints.Enqueue(new Vector2(8, 8) * tileWidth + startOffset);
+            waypoints.Enqueue(new Vector2(8, 6) * tileWidth + startOffset);
+            waypoints.Enqueue(new Vector2(2, 6) * tileWidth + startOffset);
+            waypoints.Enqueue(new Vector2(2, 12) * tileWidth + startOffset);
+            waypoints.Enqueue(new Vector2(4, 12) * tileWidth + startOffset);
+            waypoints.Enqueue(new Vector2(4, 15) * tileWidth + startOffset);
+            waypoints.Enqueue(new Vector2(1, 15) * tileWidth + startOffset);
+            waypoints.Enqueue(new Vector2(1, 17) * tileWidth + startOffset);
+            waypoints.Enqueue(new Vector2(6, 17) * tileWidth + startOffset);
+            waypoints.Enqueue(new Vector2(6, 12) * tileWidth + startOffset);
+            waypoints.Enqueue(new Vector2(16, 12) * tileWidth + startOffset);
+            waypoints.Enqueue(new Vector2(16, 19) * tileWidth + startOffset);
 
 
 
@@ -155,7 +155,7 @@ namespace GameStateManagementSample.Logic
 
         public Vector2 Offset
         {
-            get { return new Vector2(startx, starty); }
+            get { return startOffset; }
         }
 
         public void DrawRenderTarget()
@@ -280,7 +280,7 @@ namespace GameStateManagementSample.Logic
         {
             // renderTarget zeichnen
             spriteBatch.Draw((Texture2D)renderTarget,
-                new Vector2(startx, starty),
+                startOffset,
                 new Rectangle(0, 0, 3+Width*tileWidth, 3+Height*tileHeight),
                 Color.White
             );
@@ -291,8 +291,8 @@ namespace GameStateManagementSample.Logic
         /// </summary>
         public int[] GetFieldCoordinates(int x, int y)
         {
-            x = x - startx;
-            y = y - starty;
+            x = x - (int)startOffset.X;
+            y = y - (int)startOffset.Y;
             if (x < 0 || y < 0) // Check if click is out of level field (left or top)
                 return null;
             int[] feld = new int[2];
@@ -324,8 +324,8 @@ namespace GameStateManagementSample.Logic
         public Vector2 GetTowerPos(int x, int y)
         {
             Vector2 v;
-            v.X = x * tileWidth + startx;
-            v.Y = y * tileHeight + starty;
+            v.X = x * tileWidth + startOffset.X + towerPosOffset.X;
+            v.Y = y * tileHeight + startOffset.Y + towerPosOffset.Y;
             return v;
         }
     }
