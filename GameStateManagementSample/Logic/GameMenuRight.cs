@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using GameStateManagement;
 using GameStateManagementSample.Logic;
 using GameStateManagementSample.Utility;
+using Microsoft.Xna.Framework.Media;
 
 namespace GameStateManagementSample.Logic
 {
@@ -14,6 +15,9 @@ namespace GameStateManagementSample.Logic
     class GameMenuRight
     {
         #region Fields
+
+        public static bool sound = true;
+
         ScreenManager screenManager;
         GraphicsDevice graphicsDevice;
         Texture2D txPixel;
@@ -49,6 +53,9 @@ namespace GameStateManagementSample.Logic
 
 
         WaveManager waveManager;
+
+        PictureButton btnToggleSoundOn;
+        PictureButton btnToggleSoundOff;
 
         PictureButton btnTowerGreenOne;
         PictureButton btnTowerRedOne;
@@ -88,7 +95,10 @@ namespace GameStateManagementSample.Logic
             this.height = height;
             this.width = width;
             
-            
+            btnToggleSoundOn=new PictureButton(new Vector2(x + (width / 100 * 80), y + (height / 100 * 5)),Color.Gray);
+            btnToggleSoundOff = new PictureButton(new Vector2(x + (width / 100 * 80), y + (height / 100 * 5)), Color.Gray);
+            btnToggleSoundOn.Click += new EventHandler(btnToggleSound_Click);
+            btnToggleSoundOff.Click += new EventHandler(btnToggleSound_Click);
 
             // Send Wave Button
             btnWave = new Button(new Vector2(x + (width / 2), y + (height / 10 * 7)),
@@ -125,19 +135,33 @@ namespace GameStateManagementSample.Logic
             TowerSelected(tower);
         }
         #endregion
+        
+
+        #region btnSound Handlers
+        void btnToggleSound_Click(object sender, EventArgs e)
+        {
+            if (GameMenuRight.sound == true)
+            {
+                GameMenuRight.sound = false;
+                MediaPlayer.Pause();
+            }
+            else
+            {
+                GameMenuRight.sound = true;
+                MediaPlayer.Resume();
+            }
+        }
+        #endregion
 
         #region btnSell Handlers
         void btnSell_Click(object sender, EventArgs e)
-        {
-            
+        {            
             if (tower.gameLevelTile.destroy() == true)
             {
                 Tower.Towers.Remove(tower);
                 Player.getInstance().rewardMoney((int)sellReward);
                 gameplayscreen.selectedTower = null;
             }
-                       
-            //TODO
         }
         #endregion
 
@@ -235,6 +259,9 @@ namespace GameStateManagementSample.Logic
             btnSell.LoadContent(content, content.Load<Texture2D>("UIshapes/blueButtonBG"));
             background = content.Load<Texture2D>("UIshapes/rightbackground");
             backgroundrec = new Rectangle(x, y, background.Width, background.Height);
+
+            btnToggleSoundOn.LoadContent(content, content.Load<Texture2D>("audio-volume-high-2"));
+            btnToggleSoundOff.LoadContent(content, content.Load<Texture2D>("audio-volume-muted-2"));
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -243,6 +270,15 @@ namespace GameStateManagementSample.Logic
             spriteBatch.Draw(txPixel, backgroundrec, Color.Black); // Schwarzes Feld rechts
             spriteBatch.Draw(background, backgroundrec, Color.White);
             //spriteBatch.DrawLine(txPixel, new Vector2(600, 0), new Vector2(600, 600), Color.Black,5.0f);
+
+            if (sound)
+            {
+                btnToggleSoundOn.Draw(spriteBatch);
+            }
+            else
+            {
+                btnToggleSoundOff.Draw(spriteBatch);
+            }
 
           //  spriteBatch.DrawString(GameplayScreen.gameFont, Player.getInstance().Name, new Vector2(x + (width / 100 * 5), y + (height / 100 * 2)), Color.White);
             spriteBatch.DrawString(GameplayScreen.gameFont, "Geld: " + Player.getInstance().Money, new Vector2(x + (width / 100 * 5), y + (height / 100 * 4)), Color.Gold);
@@ -312,6 +348,14 @@ namespace GameStateManagementSample.Logic
             btnTowerPurpleOne.Update();
             btnUpgrade.Update();
             btnSell.Update();
+            if (sound)
+            {
+                btnToggleSoundOn.Update();
+            }
+            else
+            {
+                btnToggleSoundOff.Update();
+            }
         }
 
         public void TowerSelected(Tower t)

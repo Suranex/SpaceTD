@@ -10,7 +10,7 @@ namespace GameStateManagementSample.Logic
         private double points;
         private long kills;
         private float money = 2000;
-        private int live = 1;
+        private int live = 40;
         private String name;
         private static Player player; // instance of player
 
