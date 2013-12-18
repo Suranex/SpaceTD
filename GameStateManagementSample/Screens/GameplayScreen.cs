@@ -31,10 +31,12 @@ namespace GameStateManagementSample
         #region Fields
         Level level;
 
+        private static GameplayScreen gameplayscreen;
         GameMenuRight gmr;
         //Enemy enemy1;
         //Wave wave;
         WaveManager waveManager;
+        bool gameOver = false;
 
         public static ContentManager content;
         public static SpriteFont gameFont;
@@ -79,6 +81,7 @@ namespace GameStateManagementSample
         /// </summary>
         public GameplayScreen()
         {
+            gameplayscreen = this;
             level = new Logic.Level();
             waveManager = new WaveManager(level, 20);
             gmr = new Logic.GameMenuRight(600,0,200,600, waveManager,this);
@@ -253,6 +256,10 @@ namespace GameStateManagementSample
             if (pauseAction.Evaluate(input, ControllingPlayer, out player) || gamePadDisconnected)
             {
                 ScreenManager.AddScreen(new PauseMenuScreen(), ControllingPlayer);
+            }else if(gameOver==true)
+            {                
+                ScreenManager.AddScreen(new GameOverScreen(), ControllingPlayer);
+
             }
             else
             {
@@ -316,7 +323,6 @@ namespace GameStateManagementSample
             ScreenManager.GraphicsDevice.Clear(ClearOptions.Target,
                                                Color.Blue, 0, 0);
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-            
 
 
             spriteBatch.Begin();
@@ -359,5 +365,18 @@ namespace GameStateManagementSample
 
 
         #endregion
+
+        public static GameplayScreen getInstance()
+        {
+            if (gameplayscreen == null)
+                gameplayscreen = new GameplayScreen();
+            return gameplayscreen;
+        }
+
+        public void GameOver()
+        {
+            this.gameOver=true;
+        }
+
     }
 }

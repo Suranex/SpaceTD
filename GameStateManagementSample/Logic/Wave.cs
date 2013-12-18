@@ -97,7 +97,7 @@ namespace GameStateManagementSample.Logic
                     if (enemy.CurrentHealth > 0)
                     {
                         enemyAtEnd = true;
-                        Player.getInstance().Live--;
+                        Player.getInstance().reduceLive(1);
 
                     }
                     else

@@ -10,7 +10,7 @@ namespace GameStateManagementSample.Logic
         private double points;
         private long kills;
         private float money = 2000;
-        private int live = 40;
+        private int live = 1;
         private String name;
         private static Player player; // instance of player
 
@@ -29,6 +29,15 @@ namespace GameStateManagementSample.Logic
         public void addPoints(float points)
         {
             this.points = this.points + points;
+        }
+
+        public void reduceLive(int count)
+        {
+            this.live = this.live - count;
+            if (live <= 0)
+            {
+                GameplayScreen.getInstance().GameOver();
+            }
         }
 
         public String Name
