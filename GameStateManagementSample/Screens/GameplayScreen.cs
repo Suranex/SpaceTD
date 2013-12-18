@@ -60,6 +60,7 @@ namespace GameStateManagementSample
         Sprite towerPreviewSprite;
 
         InputAction pauseAction;
+        InputAction healthbarAction;
 
         Texture2D background;
         Rectangle backgroundrec;
@@ -98,6 +99,11 @@ namespace GameStateManagementSample
             pauseAction = new InputAction(
                 new Buttons[] { Buttons.Start, Buttons.Back },
                 new Keys[] { Keys.Escape },
+                true);
+
+            healthbarAction = new InputAction(
+                null,
+                new Keys[] { Keys.LeftAlt, Keys.RightAlt },
                 true);
 
             
@@ -264,10 +270,14 @@ namespace GameStateManagementSample
             if (pauseAction.Evaluate(input, ControllingPlayer, out player) || gamePadDisconnected)
             {
                 ScreenManager.AddScreen(new PauseMenuScreen(), ControllingPlayer);
-            }else if(gameOver==true)
+            }
+            else if(gameOver==true)
             {                
                 ScreenManager.AddScreen(new GameOverScreen(), ControllingPlayer);
 
+            }
+            else if(healthbarAction.Evaluate(input, ControllingPlayer, out player)) {
+                OptionsMenuScreen.showHealthbars = !OptionsMenuScreen.showHealthbars;
             }
             else
             {

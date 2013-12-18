@@ -39,6 +39,7 @@ namespace GameStateManagementSample
 
             // Add entries to the menu.
             MenuEntries.Add(playGameMenuEntry);
+            //MenuEntries.Add(levelEditorEntry);
             MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
         }
@@ -57,6 +58,10 @@ namespace GameStateManagementSample
             LoadingScreen.Load(ScreenManager, true, e.PlayerIndex,
                                new GameplayScreen());
         }
+
+        /// <summary>
+        /// Event handler for when the level editor entry is selected.
+        /// </summary>
 
 
         /// <summary>
