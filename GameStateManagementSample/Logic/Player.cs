@@ -9,7 +9,7 @@ namespace GameStateManagementSample.Logic
     {
         private double points;
         private long kills;
-        private int money = 2000;
+        private float money = 2000;
         private int live = 40;
         private String name;
         private static Player player; // instance of player
@@ -26,6 +26,11 @@ namespace GameStateManagementSample.Logic
             return player;
         }
 
+        public void addPoints(float points)
+        {
+            this.points = this.points + points;
+        }
+
         public String Name
         {
             get { return name; }
@@ -38,7 +43,7 @@ namespace GameStateManagementSample.Logic
             set { live = value; }
         }
 
-        public int Money
+        public float Money
         {
             get { return money; }
             set { money = value; }
@@ -59,7 +64,7 @@ namespace GameStateManagementSample.Logic
         /*
          * Player bekommt Geld 
          */
-        public void rewardMoney(int rewarded)
+        public void rewardMoney(float rewarded)
         {
             money += rewarded;
         }
@@ -67,7 +72,7 @@ namespace GameStateManagementSample.Logic
         /*
          * Player gibt Geld aus, sofern genug vorhanden
          */
-        public bool costMoney(int cost)
+        public bool costMoney(float cost)
         {
             if ((money - cost) > 0)
             {

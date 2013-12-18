@@ -205,17 +205,14 @@ namespace GameStateManagementSample.Logic
             graphicsDevice.SetRenderTarget(null);
         }
 
-        public void Draw()
+        public void Draw(SpriteBatch spriteBatch)
         {
             // renderTarget zeichnen
-            SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);
-            spriteBatch.Begin();
             spriteBatch.Draw((Texture2D)renderTarget,
                 new Vector2(startx, starty),
                 new Rectangle(0, 0, 3+Width*tileWidth, 3+Height*tileHeight),
                 Color.White
             );
-            spriteBatch.End();
         }
 
         /// <summary>

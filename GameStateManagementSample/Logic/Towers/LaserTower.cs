@@ -18,6 +18,7 @@ namespace GameStateManagementSample.Logic
             type = 0;
             damage = 4;
             maxRange = 200;
+            Cost = 20;
         }
 
         protected override void shoot(Enemy e)

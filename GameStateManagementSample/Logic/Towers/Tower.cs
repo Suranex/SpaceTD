@@ -11,7 +11,7 @@ namespace GameStateManagementSample.Logic
     class Tower : Sprite
     {
         public int type; // e.g. as reference to the power picture
-        protected int cost;                 // wie Teuer der Tower ist
+        private int cost;                 // wie Teuer der Tower ist
         public string name;
         public int towerlevel = 1;
         protected Enemy selectedEnemy;
@@ -22,6 +22,12 @@ namespace GameStateManagementSample.Logic
         public GameLevelTile gameLevelTile;
         private static List<Tower> tower = new List<Tower>();
         public static List<Texture2D> texturen = new List<Texture2D>();
+
+        public int Cost
+        {
+            get { return cost; }
+            set { cost = value; }
+        }
 
         #region Content loading
         public static void LoadContent(ContentManager content)
@@ -53,10 +59,13 @@ namespace GameStateManagementSample.Logic
 
         public void Upgrade()
         {
-            towerlevel++;
-            damage += damage / 10;   // damage um ein zentel steigern
-            cost += cost / 5;      // Kosten immer um ein fünftel steigern
-            maxRange += 2;          // reichweite immer um 2 steigern
+            if (Player.getInstance().costMoney(cost + (cost / 5)))
+            {
+                towerlevel++;
+                damage += damage / 10;   // damage um ein zentel steigern
+                cost += cost / 5;      // Kosten immer um ein fünftel steigern
+                maxRange += 2;          // reichweite immer um 2 steigern
+            }
         }
 
         public override void Update(GameTime gameTime)

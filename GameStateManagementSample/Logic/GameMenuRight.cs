@@ -114,6 +114,9 @@ namespace GameStateManagementSample.Logic
         #region btnUpgrade Handlers
         void btnUpgrade_Click(object sender, EventArgs e)
         {
+            // damage um ein zentel steigern
+            // Kosten immer um ein fünftel steigern
+            // reichweite immer um 2 steigern
             tower.Upgrade();
             TowerSelected(tower);
         }
@@ -233,10 +236,10 @@ namespace GameStateManagementSample.Logic
             spriteBatch.Draw(txPixel, rec, Color.Black); // Schwarzes Feld rechts
 
             spriteBatch.DrawString(GameplayScreen.gameFont, Player.getInstance().Name, new Vector2(x + (width / 100 * 5), y + (height / 100 * 2)), Color.White);
-            spriteBatch.DrawString(GameplayScreen.gameFont, "Geld: " + Player.getInstance().Money, new Vector2(x + (width / 100 * 5), y + (height / 100 * 4)), Color.White);
-            spriteBatch.DrawString(GameplayScreen.gameFont, "Leben: "+Player.getInstance().Live, new Vector2(x + (width / 100 * 5), y + (height / 100 * 6)), Color.White);
-            spriteBatch.DrawString(GameplayScreen.gameFont, "Punkte: " +Player.getInstance().Points, new Vector2(x + (width / 100 * 5), y + (height / 100 * 8)), Color.White);
-            spriteBatch.DrawString(GameplayScreen.gameFont, "Kills: "+Player.getInstance().Kills, new Vector2(x + (width / 100 * 5), y + (height / 100 * 10)), Color.White);
+            spriteBatch.DrawString(GameplayScreen.gameFont, "Geld: " + Player.getInstance().Money, new Vector2(x + (width / 100 * 5), y + (height / 100 * 4)), Color.Gold);
+            spriteBatch.DrawString(GameplayScreen.gameFont, "Leben: "+Player.getInstance().Live, new Vector2(x + (width / 100 * 5), y + (height / 100 * 6)), Color.Red);
+            spriteBatch.DrawString(GameplayScreen.gameFont, "Punkte: " +Player.getInstance().Points, new Vector2(x + (width / 100 * 5), y + (height / 100 * 8)), Color.Green);
+            spriteBatch.DrawString(GameplayScreen.gameFont, "Kills: "+Player.getInstance().Kills, new Vector2(x + (width / 100 * 5), y + (height / 100 * 10)), Color.Blue);
 
             
             btnWave.Draw(spriteBatch); // Send Wave button
@@ -308,11 +311,11 @@ namespace GameStateManagementSample.Logic
             this.tower = t;
             name = t.name;
             damage = t.damage;
-            price = 42;
+            price = t.Cost+(t.Cost*0.2);
             cooldown = t.cooldown;
             maxRange = t.maxRange;
             level = t.towerlevel;
-            sellReward = 21;
+            sellReward = t.Cost/2;
         }
     }
 }

@@ -95,9 +95,19 @@ namespace GameStateManagementSample.Logic
                 if (enemy.IsDead)
                 {
                     if (enemy.CurrentHealth > 0)
+                    {
                         enemyAtEnd = true;
+                        Player.getInstance().Live--;
+
+                    }
+                    else
+                    {
+                        Player.getInstance().Kills++;
+                        Player.getInstance().addPoints(enemy.BountyGiven);
+                    }
                     enemies.Remove(enemy);
                     i--;
+
                 }
             }
         }

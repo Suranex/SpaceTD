@@ -58,6 +58,9 @@ namespace GameStateManagementSample
 
         InputAction pauseAction;
 
+        Texture2D background;
+        Rectangle backgroundrec;
+
         public static GraphicsDevice gd;
 
         public Level Level
@@ -79,7 +82,7 @@ namespace GameStateManagementSample
             level = new Logic.Level();
             waveManager = new WaveManager(level, 20);
             gmr = new Logic.GameMenuRight(600,0,200,600, waveManager,this);
-            
+            backgroundrec = new Rectangle(0, 0, 600, 600);
 
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
@@ -104,6 +107,7 @@ namespace GameStateManagementSample
                 testtex = content.Load<Texture2D>("enemy");
                 testtex2 = content.Load<Texture2D>("rot");
                 gameFont = content.Load<SpriteFont>("gamefont");
+                background=content.Load<Texture2D>("background");
 
                 Tower.LoadContent(content);
                 Weapon.LoadContent(content);
@@ -310,13 +314,14 @@ namespace GameStateManagementSample
 
             // This game has a blue background. Why? Because!
             ScreenManager.GraphicsDevice.Clear(ClearOptions.Target,
-                                               Color.CornflowerBlue, 0, 0);
+                                               Color.Blue, 0, 0);
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
+            
 
-            // Level zeichnen
-            level.Draw();
 
             spriteBatch.Begin();
+            spriteBatch.Draw(background, backgroundrec, Color.White);
+            level.Draw(spriteBatch);
             gmr.Draw(spriteBatch); // Menü Rechts
             foreach (Tower t in Tower.Towers) // Tower, sollte vll noch in eine Verwaltungsklasse
                 t.Draw(spriteBatch);
@@ -341,7 +346,7 @@ namespace GameStateManagementSample
             
             spriteBatch.End();
 
-
+            
 
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)
