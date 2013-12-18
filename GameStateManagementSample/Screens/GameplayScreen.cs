@@ -184,52 +184,50 @@ namespace GameStateManagementSample
             else
                 pauseAlpha = Math.Max(pauseAlpha - 1f / 32, 0);
 
-            // Tower auswählen/bauen
-            currentMouseState = Mouse.GetState();
-            if (currentMouseState.LeftButton == ButtonState.Pressed && lastMouseState.LeftButton != ButtonState.Pressed)
-            {
-                bool platziert = false;
-                int[] pos = level.GetFieldCoordinates(currentMouseState.X, currentMouseState.Y);
-                if (pos != null)
-                {
-                    if(gmr.Buildmode == true)
-                        platziert = level.placeTower(pos[0], pos[1], selectedTowerType);
-                    selectedTower = level.getTowerAtPosition(pos[0], pos[1]);
-
-                    if (selectedTower == null)
-                    {
-                        Console.WriteLine("Kein Tower selectet");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Tower selectiert");
-                        gmr.TowerSelected(selectedTower);
-                    }
-                }
-            }
-
-            // Tower deselect
-            if (currentMouseState.RightButton == ButtonState.Pressed && lastMouseState.RightButton != ButtonState.Pressed)
-            {
-                selectedTower = null;
-                gmr.Buildmode = false;
-            }
-            lastMouseState = currentMouseState;
-
-            // Vorschau für neu zu bauende Tower, Erstellung des Sprites
-            if (gmr.Buildmode == true)
-            {
-                int[] pos = level.GetFieldCoordinates(currentMouseState.X, currentMouseState.Y);
-                if (pos != null)
-                {
-                    towerPreviewSprite = new Sprite(Tower.texturen[selectedTowerType], level.GetTowerPos(pos[0], pos[1]));
-                }
-            }
-
             if (IsActive)
             {
-                // TODO: this game isn't very fun! You could probably improve
-                // it by inserting something more interesting in this space :-)
+                // Tower auswählen/bauen
+                currentMouseState = Mouse.GetState();
+                if (currentMouseState.LeftButton == ButtonState.Pressed && lastMouseState.LeftButton != ButtonState.Pressed)
+                {
+                    bool platziert = false;
+                    int[] pos = level.GetFieldCoordinates(currentMouseState.X, currentMouseState.Y);
+                    if (pos != null)
+                    {
+                        if (gmr.Buildmode == true)
+                            platziert = level.placeTower(pos[0], pos[1], selectedTowerType);
+                        selectedTower = level.getTowerAtPosition(pos[0], pos[1]);
+
+                        if (selectedTower == null)
+                        {
+                            Console.WriteLine("Kein Tower selectet");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Tower selectiert");
+                            gmr.TowerSelected(selectedTower);
+                        }
+                    }
+                }
+
+                // Tower deselect
+                if (currentMouseState.RightButton == ButtonState.Pressed && lastMouseState.RightButton != ButtonState.Pressed)
+                {
+                    selectedTower = null;
+                    gmr.Buildmode = false;
+                }
+                lastMouseState = currentMouseState;
+
+                // Vorschau für neu zu bauende Tower, Erstellung des Sprites
+                if (gmr.Buildmode == true)
+                {
+                    int[] pos = level.GetFieldCoordinates(currentMouseState.X, currentMouseState.Y);
+                    if (pos != null)
+                    {
+                        towerPreviewSprite = new Sprite(Tower.texturen[selectedTowerType], level.GetTowerPos(pos[0], pos[1]));
+                    }
+                }
+
 
                 waveManager.Update(gameTime);
                 gmr.Update();
