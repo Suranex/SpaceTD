@@ -33,6 +33,8 @@ namespace GameStateManagementSample
             Content.RootDirectory = "Content";
 
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 500;
             TargetElapsedTime = TimeSpan.FromTicks(333333);
 
             // Create the screen factory and add it to the Services

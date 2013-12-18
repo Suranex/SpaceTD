@@ -14,17 +14,12 @@ namespace GameStateManagementSample.Logic
 
         protected Vector2 position;
 
-        public Vector2 Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
         protected Vector2 velocity;
 
         protected Vector2 center;
         protected Vector2 origin;
 
-        protected float skale;
+        protected float scale;
 
         protected float rotation;
         #endregion
@@ -33,6 +28,17 @@ namespace GameStateManagementSample.Logic
         public Vector2 Center
         {
             get { return center; }
+        }
+
+        public Vector2 Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
+
+        public Vector2 OriginPosition
+        {
+            get { return new Vector2(texture.Width / 2 * scale + Position.X, texture.Height / 2 * scale + Position.Y); }
         }
         #endregion
 
@@ -43,28 +49,28 @@ namespace GameStateManagementSample.Logic
             position = pos;
             velocity = Vector2.Zero;
 
-            skale = (float)Level.TileWidth / texture.Width;
+            scale = (float)Level.TileWidth / texture.Width;
 
-            center = new Vector2(position.X + texture.Width * skale/ 2 - 2,
-                                position.Y + texture.Height * skale / 2 - 2);
-            origin = new Vector2(texture.Width * skale / 2, texture.Height * skale / 2);
+            center = new Vector2(position.X + texture.Width * scale/ 2,
+                                position.Y + texture.Height * scale / 2);
+            origin = new Vector2(texture.Width * scale / 2, texture.Height * scale / 2);
         }
 
         public virtual void Update(GameTime gameTime)
         {
-            this.center = new Vector2(position.X + texture.Width  * skale / 2-2,
-                                      position.Y + texture.Height * skale / 2-2);
+            this.center = new Vector2(position.X + texture.Width  * scale / 2,
+                                      position.Y + texture.Height * scale / 2);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, center, null, Color.White,
-                rotation, origin, skale, SpriteEffects.None, 0);
+                rotation, origin, scale, SpriteEffects.None, 0);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, Color color)
         {
-            spriteBatch.Draw(texture, center, null, color, rotation, origin, skale, SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, center, null, color, rotation, origin, scale, SpriteEffects.None, 0);
         }
     }
 }
