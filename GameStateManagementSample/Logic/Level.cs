@@ -12,7 +12,7 @@ namespace GameStateManagementSample.Logic
     class Level
     {
         //private GameLevelTile[,] gridMap;
-        int[,] initMap = new int[,] {
+        /*int[,] initMap = new int[,] {
             {0,0,1,0,0,0,0,0,0,0,},
             {0,0,1,1,1,1,0,0,0,0,},
             {0,0,0,0,0,1,1,1,1,0,},
@@ -23,8 +23,30 @@ namespace GameStateManagementSample.Logic
             {0,0,0,0,1,0,0,0,0,0,},
             {0,0,0,0,1,0,0,0,0,0,},
             {0,0,0,0,1,0,0,0,0,0,},
-        };
+        };*/
 
+    int[,] initMap = new int[,] {
+    {0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0},
+    {0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,0,0},
+    {0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0},
+    {0,0,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0},
+    {0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+    {0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+    {0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+    {0,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0},
+    {0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0},
+    {0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0},
+    {0,1,1,1,1,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0},
+    {0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0},
+    {0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0},
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0},
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0}
+    };
         GameLevelTile[,] gridMap;
 
         internal GameLevelTile[,] GridMap
@@ -35,23 +57,23 @@ namespace GameStateManagementSample.Logic
 
         public Queue<Vector2> waypoints = new Queue<Vector2>();
 
-        private int tileWidth = 32;
-        private int tileHeight = 32;
-
-        private int startx = 50;
-        private int starty = 50;
-
         GameStateManagement.ScreenManager screenManager;
         GraphicsDevice graphicsDevice;
         RenderTarget2D renderTarget;
         Texture2D txPixel;
+
+        private static int tileWidth = 23;
+        private static int tileHeight = 23;
+
+        private int startx = 5;
+        private int starty = 5;
 
         public Level()
         {
             // Erstmal hardcoden, kann man hinterher aus einer XML auslesen
             // Außerdem wird angenommen das tileWidth == tileHeight... ist eigentlich eh überflüssig dafür zwei Attribute
             // zu haben, wenn die doch eh immer den gleichen Wert haben.
-            waypoints.Enqueue(new Vector2(2, 0) * tileWidth + new Vector2(startx, starty));
+            /*waypoints.Enqueue(new Vector2(2, 0) * tileWidth + new Vector2(startx, starty));
             waypoints.Enqueue(new Vector2(2, 1) * tileWidth + new Vector2(startx, starty));
             waypoints.Enqueue(new Vector2(5, 1) * tileWidth + new Vector2(startx, starty));
             waypoints.Enqueue(new Vector2(5, 2) * tileWidth + new Vector2(startx, starty));
@@ -63,6 +85,25 @@ namespace GameStateManagementSample.Logic
             waypoints.Enqueue(new Vector2(1, 6) * tileWidth + new Vector2(startx, starty));
             waypoints.Enqueue(new Vector2(4, 6) * tileWidth + new Vector2(startx, starty));
             waypoints.Enqueue(new Vector2(4, 9) * tileWidth + new Vector2(startx, starty));
+             */
+            waypoints.Enqueue(new Vector2(8, 0) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(8, 2) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(13, 2) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(13, 5) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(17, 5) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(17, 8) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(8, 8) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(8, 6) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(2, 6) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(2, 12) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(4, 12) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(4, 15) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(1, 15) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(1, 17) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(6, 17) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(6, 12) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(16, 12) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(16, 19) * tileWidth + new Vector2(startx, starty));
 
 
 
@@ -85,6 +126,17 @@ namespace GameStateManagementSample.Logic
             txPixel = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
             txPixel.SetData<Color>(new Color[] { Color.White });
         }
+
+        public static int TileWidth
+        {
+            get { return tileWidth; }
+        }
+
+        public static int TileHeight
+        {
+            get { return tileHeight; }
+        }
+
 
         public int Width
         {

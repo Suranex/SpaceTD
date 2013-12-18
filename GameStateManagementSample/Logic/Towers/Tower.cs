@@ -57,7 +57,7 @@ namespace GameStateManagementSample.Logic
             tower.Add(this);
         }
 
-        public void Upgrade()
+        public virtual void Upgrade()
         {
             if (Player.getInstance().costMoney(cost + (cost / 5)))
             {

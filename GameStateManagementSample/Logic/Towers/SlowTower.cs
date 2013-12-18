@@ -14,7 +14,7 @@ namespace GameStateManagementSample.Logic
         private float factor;
 
         public SlowTower(Vector2 position, GameLevelTile gameLevelTile)
-            : base(texturen[2], position,gameLevelTile)
+            : base(texturen[2], position, gameLevelTile)
         {
             name = "Slow Tower";
             type = 2;
@@ -24,6 +24,15 @@ namespace GameStateManagementSample.Logic
             maxRange = 75;
             cooldown = 2;
             Cost = 40;
+        }
+
+        public override void Upgrade()
+        {
+            slowTime *= 1.1;
+            factor += 0.05f;
+            if (factor > 0.9f)
+                factor = 0.9f;
+            base.Upgrade();
         }
 
         protected override void shoot(Enemy e)
