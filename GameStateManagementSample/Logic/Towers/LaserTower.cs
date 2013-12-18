@@ -10,6 +10,8 @@ namespace GameStateManagementSample.Logic
 {
     class LaserTower : Tower
     {
+        public static int startcost = 20;
+
         public LaserTower(Vector2 position,GameLevelTile gameLevelTile)
             : base(texturen[0], position,gameLevelTile)
         {
@@ -18,7 +20,7 @@ namespace GameStateManagementSample.Logic
             type = 0;
             damage = 4;
             maxRange = 200;
-            Cost = 20;
+            Cost = startcost;
         }
 
         protected override void shoot(Enemy e)

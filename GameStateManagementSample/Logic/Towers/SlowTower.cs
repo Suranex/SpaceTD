@@ -10,6 +10,8 @@ namespace GameStateManagementSample.Logic
 {
     class SlowTower : Tower
     {
+        public static int startcost = 40;
+
         private double slowTime;
         private float factor;
 
@@ -23,7 +25,7 @@ namespace GameStateManagementSample.Logic
             damage = 3;
             maxRange = 75;
             cooldown = 2;
-            Cost = 40;
+            Cost = startcost;
         }
 
         public override void Upgrade()

@@ -11,6 +11,8 @@ namespace GameStateManagementSample.Logic
 {
     class CanonTower : Tower
     {
+        public static int startcost=30;
+
         public CanonTower(Vector2 position,GameLevelTile gameLevelTile)
             : base(texturen[1], position,gameLevelTile)
         {
@@ -19,7 +21,7 @@ namespace GameStateManagementSample.Logic
             cooldown = 0.75;
             damage = 15;
             maxRange = 100;
-            Cost = 30;
+            Cost = startcost;
         }
 
         protected override void shoot(Enemy e)

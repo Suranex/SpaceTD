@@ -148,7 +148,7 @@ namespace GameStateManagementSample.Logic
             buildmode = true;
             name = "Laserturm";
             damage = 4;
-            price = 42;
+            price = LaserTower.startcost;
             cooldown = 0.25;
             maxRange = 200;
             description1 = "Der Klassiker, ein Turm";
@@ -166,7 +166,7 @@ namespace GameStateManagementSample.Logic
             buildmode = true;
             name = "Kanonenturm";
             damage = 15;
-            price = 42;
+            price = CanonTower.startcost;
             cooldown = 0.75;
             maxRange = 100;
             description1 = "Ein Single-target-Turm";
@@ -184,7 +184,7 @@ namespace GameStateManagementSample.Logic
             buildmode = true;
             name = "Verlangsamungsturm";
             damage = 3;
-            price = 42;
+            price = SlowTower.startcost;
             cooldown = 2;
             maxRange = 75;
             description1 = "Dieser Turm verlangsamt";
