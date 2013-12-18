@@ -82,7 +82,7 @@
     <Compile Include="Logic\Towers\SlowTower.cs" />
     <Compile Include="Logic\Waffen\Kugel.cs" />
     <Compile Include="Logic\Waffen\Laser.cs" />
-    <Compile Include="Logic\Waffen\SlowKugel.cs" />
+    <Compile Include="Logic\Waffen\SlowLaser.cs" />
     <Compile Include="Logic\Waffen\Weapon.cs" />
     <Compile Include="Logic\Waffen\WeaponManager.cs" />
     <Compile Include="Logic\Wave.cs" />

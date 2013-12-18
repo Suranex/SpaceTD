@@ -12,7 +12,7 @@ namespace GameStateManagementSample.Logic
 {
     class PictureButton
     {
-               #region Fields
+        #region Fields
         public event EventHandler Click;
 
         private MouseState lastState, currentState;
@@ -79,6 +79,10 @@ namespace GameStateManagementSample.Logic
                 this.Click(this, args);
         }
 
+        public bool isHoverOrPressed()
+        {
+            return bmstate == ButtonMouseState.hover || bmstate == ButtonMouseState.pressed;
+        }
 
 
         public void Update()
