@@ -32,6 +32,7 @@ namespace GameStateManagementSample.Logic
         #region Content loading
         public static void LoadContent(ContentManager content)
         {
+            texturen = new List<Texture2D>();
             texturen.Add(content.Load<Texture2D>("Tower/greentower1")); // 0 Laser
             texturen.Add(content.Load<Texture2D>("Tower/redtower3")); // 1 Canon
             texturen.Add(content.Load<Texture2D>("Tower/bluetower1")); // 2 Slow
