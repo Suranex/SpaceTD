@@ -57,16 +57,16 @@ namespace GameStateManagementSample.Logic
 
         public Queue<Vector2> waypoints = new Queue<Vector2>();
 
-        private int tileWidth = 23;
-        private int tileHeight = 23;
-
-        private int startx = 5;
-        private int starty = 5;
-
         GameStateManagement.ScreenManager screenManager;
         GraphicsDevice graphicsDevice;
         RenderTarget2D renderTarget;
         Texture2D txPixel;
+
+        private static int tileWidth = 23;
+        private static int tileHeight = 23;
+
+        private int startx = 5;
+        private int starty = 5;
 
         public Level()
         {
@@ -86,24 +86,24 @@ namespace GameStateManagementSample.Logic
             waypoints.Enqueue(new Vector2(4, 6) * tileWidth + new Vector2(startx, starty));
             waypoints.Enqueue(new Vector2(4, 9) * tileWidth + new Vector2(startx, starty));
              */
-waypoints.Enqueue(new Vector2(8, 0) * tileWidth + new Vector2(startx, starty));
-waypoints.Enqueue(new Vector2(8, 2) * tileWidth + new Vector2(startx, starty));
-waypoints.Enqueue(new Vector2(13, 2) * tileWidth + new Vector2(startx, starty));
-waypoints.Enqueue(new Vector2(13, 5) * tileWidth + new Vector2(startx, starty));
-waypoints.Enqueue(new Vector2(17, 5) * tileWidth + new Vector2(startx, starty));
-waypoints.Enqueue(new Vector2(17, 8) * tileWidth + new Vector2(startx, starty));
-waypoints.Enqueue(new Vector2(8, 8) * tileWidth + new Vector2(startx, starty));
-waypoints.Enqueue(new Vector2(8, 6) * tileWidth + new Vector2(startx, starty));
-waypoints.Enqueue(new Vector2(2, 6) * tileWidth + new Vector2(startx, starty));
-waypoints.Enqueue(new Vector2(2, 12) * tileWidth + new Vector2(startx, starty));
-waypoints.Enqueue(new Vector2(4, 12) * tileWidth + new Vector2(startx, starty));
-waypoints.Enqueue(new Vector2(4, 15) * tileWidth + new Vector2(startx, starty));
-waypoints.Enqueue(new Vector2(1, 15) * tileWidth + new Vector2(startx, starty));
-waypoints.Enqueue(new Vector2(1, 17) * tileWidth + new Vector2(startx, starty));
-waypoints.Enqueue(new Vector2(6, 17) * tileWidth + new Vector2(startx, starty));
-waypoints.Enqueue(new Vector2(6, 12) * tileWidth + new Vector2(startx, starty));
-waypoints.Enqueue(new Vector2(16, 12) * tileWidth + new Vector2(startx, starty));
-waypoints.Enqueue(new Vector2(16, 19) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(8, 0) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(8, 2) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(13, 2) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(13, 5) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(17, 5) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(17, 8) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(8, 8) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(8, 6) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(2, 6) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(2, 12) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(4, 12) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(4, 15) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(1, 15) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(1, 17) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(6, 17) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(6, 12) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(16, 12) * tileWidth + new Vector2(startx, starty));
+            waypoints.Enqueue(new Vector2(16, 19) * tileWidth + new Vector2(startx, starty));
 
 
 
@@ -126,6 +126,17 @@ waypoints.Enqueue(new Vector2(16, 19) * tileWidth + new Vector2(startx, starty))
             txPixel = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
             txPixel.SetData<Color>(new Color[] { Color.White });
         }
+
+        public static int TileWidth
+        {
+            get { return tileWidth; }
+        }
+
+        public static int TileHeight
+        {
+            get { return tileHeight; }
+        }
+
 
         public int Width
         {

@@ -272,15 +272,6 @@ namespace GameStateManagementSample
             {
                 // Otherwise move the player position.
                 Vector2 movement = Vector2.Zero;
-                if (keyboardState.IsKeyDown(Keys.D1))
-                    selectedTowerType = 0;
-                if (keyboardState.IsKeyDown(Keys.D2))
-                    selectedTowerType = 1;
-                if (keyboardState.IsKeyDown(Keys.K))
-                    if (selectedTower != null)
-                        selectedTower.Upgrade();
-
-
 
                 if (keyboardState.IsKeyDown(Keys.Left))
                     movement.X--;

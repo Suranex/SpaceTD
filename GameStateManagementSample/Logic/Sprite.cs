@@ -24,6 +24,8 @@ namespace GameStateManagementSample.Logic
         protected Vector2 center;
         protected Vector2 origin;
 
+        protected float skale;
+
         protected float rotation;
         #endregion
 
@@ -41,26 +43,28 @@ namespace GameStateManagementSample.Logic
             position = pos;
             velocity = Vector2.Zero;
 
-            center = new Vector2(position.X + texture.Width / 2,
-                                position.Y + texture.Height / 2);
-            origin = new Vector2(texture.Width / 2, texture.Height / 2);
+            skale = (float)Level.TileWidth / texture.Width;
+
+            center = new Vector2(position.X + texture.Width * skale/ 2 - 2,
+                                position.Y + texture.Height * skale / 2 - 2);
+            origin = new Vector2(texture.Width * skale / 2, texture.Height * skale / 2);
         }
 
         public virtual void Update(GameTime gameTime)
         {
-            this.center = new Vector2(position.X + texture.Width / 2,
-                                      position.Y + texture.Height / 2);
+            this.center = new Vector2(position.X + texture.Width  * skale / 2-2,
+                                      position.Y + texture.Height * skale / 2-2);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, center, null, Color.White,
-                rotation, origin, 1.0f, SpriteEffects.None, 0);
+                rotation, origin, skale, SpriteEffects.None, 0);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, Color color)
         {
-            spriteBatch.Draw(texture, center, null, color, rotation, origin, 1.0f, SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, center, null, color, rotation, origin, skale, SpriteEffects.None, 0);
         }
     }
 }

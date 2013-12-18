@@ -8,8 +8,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameStateManagementSample.Logic
 {
-
-
     class GameLevelTile
     {
         protected bool buildfield;
