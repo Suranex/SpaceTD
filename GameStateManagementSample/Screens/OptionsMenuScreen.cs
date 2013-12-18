@@ -24,6 +24,7 @@ namespace GameStateManagementSample
 
         MenuEntry playername;
         public static string name="noname";
+        public static bool showHealthbars = true;
 
         #endregion
 
