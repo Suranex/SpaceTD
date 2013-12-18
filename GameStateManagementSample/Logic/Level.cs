@@ -57,6 +57,11 @@ namespace GameStateManagementSample.Logic
 
         public Queue<Vector2> waypoints = new Queue<Vector2>();
 
+        private Color normalLineColor = new Color(24, 66, 107);
+        private Color pathLineColor = new Color(121, 208, 231);
+        private float buildFieldAlpha = 0.2f; // Schwarz * Alpha
+        private float pathFieldAlpha = 0.4f;
+
         GameStateManagement.ScreenManager screenManager;
         GraphicsDevice graphicsDevice;
         RenderTarget2D renderTarget;
@@ -156,13 +161,13 @@ namespace GameStateManagementSample.Logic
         public void DrawRenderTarget()
         {
             graphicsDevice.SetRenderTarget(renderTarget);
-            graphicsDevice.Clear(ClearOptions.Target, new Color(0, 82, 82), 0, 0);
+            graphicsDevice.Clear(ClearOptions.Target, Color.Transparent, 0, 0);
 
             SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);
             Matrix Transform = Matrix.CreateTranslation(2, 2, 0);
 
             spriteBatch.Begin(
-                SpriteSortMode.FrontToBack,
+                SpriteSortMode.BackToFront, // 0f = Vorne, 1f = Hinten
                 BlendState.AlphaBlend,
                 SamplerState.LinearClamp,
                 DepthStencilState.Default,
@@ -171,10 +176,24 @@ namespace GameStateManagementSample.Logic
                 Transform
             );
 
+            
             for (int y = 0; y <= Height; y++)
             {
                 for (int x = 0; x <= Width; x++)
                 {
+                    // -------------------------- Felderbackground selbst
+                    // Noch nen Check damit es kein ArrayOutOfBounds gibt. Bei Linien muss es <= Width/Height sein, bei Feldern < Width/Height
+                    if (y != Height && x != Width)
+                    {
+                        if (gridMap[y, x].Buildfield)
+                            spriteBatch.Draw(txPixel, new Rectangle(x * tileWidth, y * tileHeight, tileWidth, tileHeight), null, Color.Black * buildFieldAlpha, 0f, Vector2.Zero, SpriteEffects.None, 1f);
+                        else
+                            spriteBatch.Draw(txPixel, new Rectangle(x * tileWidth, y * tileHeight, tileWidth, tileHeight), null, Color.Black * pathFieldAlpha, 0f, Vector2.Zero, SpriteEffects.None, 1f);
+                    }
+
+
+
+                    // -------------------------- Linien zwischen Feldern
                     // Nach rechts
                     if (x < Width) // Nur wenn wir noch nicht am Rand sind, ergo ein x+1 auch existiert
                     {
@@ -186,29 +205,29 @@ namespace GameStateManagementSample.Logic
                         // Falls keins der beiden Fälle zutrifft: [y,x] mit [y-1,x] vergleichen
                         if (y == 0)
                         {
-                            spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2((x + 1) * tileWidth, y * tileWidth), Color.White, 3f, 1f);
+                            spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2((x + 1) * tileWidth, y * tileWidth), normalLineColor, 1f, 0.5f);
                         }
                         else if (y == Height)
                         {
-                            spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2((x + 1) * tileWidth, y * tileWidth), Color.White, 3f, 1f);
+                            spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2((x + 1) * tileWidth, y * tileWidth), normalLineColor, 1f, 0.5f);
                         }
                         else
                         {
                             // Wand/Wand
                             if (gridMap[y, x].Buildfield && gridMap[y - 1, x].Buildfield)
                             {
-                                spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2((x + 1) * tileWidth, y * tileWidth), Color.White, 1f);
+                                spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2((x + 1) * tileWidth, y * tileWidth), normalLineColor, 1f, 0.5f);
                             }
                             // Wand/Pfad
                             else if (gridMap[y, x].Buildfield != gridMap[y - 1, x].Buildfield)
                             {
-                                spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2((x + 1) * tileWidth, y * tileWidth), Color.Red, 3f, 0.5f);
+                                spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2((x + 1) * tileWidth, y * tileWidth), pathLineColor, 1f, 0f);
                             }
                             // Pfad/Pfad
-                            else if (gridMap[y, x].Buildfield && gridMap[y - 1, x].Buildfield)
-                            {
+                            //else if (gridMap[y, x].Buildfield && gridMap[y - 1, x].Buildfield)
+                            //{
                                 // Keine Linie!
-                            }
+                            //}
                         }
                     }
 
@@ -224,23 +243,23 @@ namespace GameStateManagementSample.Logic
                         // Falls keins der beiden Fälle zutrifft: [y,x] mit [y,x-1] vergleichen
                         if (x == 0)
                         {
-                            spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2(x * tileWidth, (y+1) * tileWidth), Color.White, 3f, 1f);
+                            spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2(x * tileWidth, (y + 1) * tileWidth), normalLineColor, 1f, 0.5f);
                         }
                         else if (x == Width)
                         {
-                            spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2(x * tileWidth, (y+1) * tileWidth), Color.White, 3f, 1f);
+                            spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2(x * tileWidth, (y + 1) * tileWidth), normalLineColor, 1f, 0.5f);
                         }
                         else
                         {
                             // Wand/Wand
                             if (gridMap[y, x].Buildfield && gridMap[y, x - 1].Buildfield)
                             {
-                                spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2(x * tileWidth, (y+1) * tileWidth), Color.White, 1f);
+                                spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2(x * tileWidth, (y + 1) * tileWidth), normalLineColor, 1f, 0.5f);
                             }
                             // Wand/Pfad
                             else if (gridMap[y, x].Buildfield != gridMap[y, x - 1].Buildfield)
                             {
-                                spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2(x * tileWidth, (y+1) * tileWidth), Color.Red, 3f, 0.5f);
+                                spriteBatch.DrawLine(txPixel, new Vector2(x * tileWidth, y * tileWidth), new Vector2(x * tileWidth, (y + 1) * tileWidth), pathLineColor, 1f, 0f);
                             }
                             // Pfad/Pfad
                             //else if (!gridMap[y, x].Buildfield && !gridMap[y, x - 1].Buildfield)
