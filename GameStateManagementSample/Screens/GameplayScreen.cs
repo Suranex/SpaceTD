@@ -64,6 +64,8 @@ namespace GameStateManagementSample
         Texture2D background;
         Rectangle backgroundrec;
 
+
+
         public static GraphicsDevice gd;
 
         Song backgroundSound;

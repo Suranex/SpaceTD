@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using GameStateManagement;
 using GameStateManagementSample.Logic;
+using GameStateManagementSample.Utility;
 
 namespace GameStateManagementSample.Logic
 {
@@ -16,7 +17,9 @@ namespace GameStateManagementSample.Logic
         ScreenManager screenManager;
         GraphicsDevice graphicsDevice;
         Texture2D txPixel;
-        Rectangle rec;
+
+        Rectangle backgroundrec;
+        Texture2D background;
 
         int x;
         int y;
@@ -84,7 +87,8 @@ namespace GameStateManagementSample.Logic
             this.y = y;
             this.height = height;
             this.width = width;
-            rec = new Rectangle(x, y, width, height);
+            
+            
 
             // Send Wave Button
             btnWave = new Button(new Vector2(x + (width / 2), y + (height / 10 * 7)),
@@ -220,20 +224,25 @@ namespace GameStateManagementSample.Logic
             txPixel = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
             txPixel.SetData<Color>(new Color[] { Color.White });
 
-
+            
             btnWave.LoadContent(content, "ButtonBG");
             btnTowerGreenOne.LoadContent(content, Tower.texturen[0]);
             btnTowerRedOne.LoadContent(content, Tower.texturen[1]);
             btnTowerBlueOne.LoadContent(content, Tower.texturen[2]);
             btnTowerPurpleOne.LoadContent(content, Tower.texturen[3]);
 
-            btnUpgrade.LoadContent(content, content.Load<Texture2D>("UIshapes/shape 442"));
-            btnSell.LoadContent(content, content.Load<Texture2D>("UIshapes/shape 442"));
+            btnUpgrade.LoadContent(content, content.Load<Texture2D>("UIshapes/blueButtonBG"));
+            btnSell.LoadContent(content, content.Load<Texture2D>("UIshapes/blueButtonBG"));
+            background = content.Load<Texture2D>("UIshapes/rightbackground");
+            backgroundrec = new Rectangle(x, y, background.Width, background.Height);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(txPixel, rec, Color.Black); // Schwarzes Feld rechts
+            
+            spriteBatch.Draw(txPixel, backgroundrec, Color.Black); // Schwarzes Feld rechts
+            spriteBatch.Draw(background, backgroundrec, Color.White);
+            //spriteBatch.DrawLine(txPixel, new Vector2(600, 0), new Vector2(600, 600), Color.Black,5.0f);
 
             spriteBatch.DrawString(GameplayScreen.gameFont, Player.getInstance().Name, new Vector2(x + (width / 100 * 5), y + (height / 100 * 2)), Color.White);
             spriteBatch.DrawString(GameplayScreen.gameFont, "Geld: " + Player.getInstance().Money, new Vector2(x + (width / 100 * 5), y + (height / 100 * 4)), Color.Gold);
