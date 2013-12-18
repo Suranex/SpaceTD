@@ -348,7 +348,7 @@ namespace GameStateManagementSample
                     spriteBatch.DrawCircle(towerPreviewSprite.Center, (int)gmr.MaxRange, Color.White * 0.5f);
                 }
             }
-
+            
             
             spriteBatch.End();
 

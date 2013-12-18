@@ -92,22 +92,22 @@ namespace GameStateManagementSample.Logic
             btnWave.Click += new EventHandler(btnWave_Click);
             btnWave.DrawExtra += new Button.DrawExtraHandler(btnWave_DrawExtra);
 
-            btnTowerGreenOne = new PictureButton(new Vector2(x + (width / 100 * 20), y + (height / 100 * 20)));
+            btnTowerGreenOne = new PictureButton(new Vector2(x + (width / 100 * 20), y + (height / 100 * 20)),Color.Gray);
             btnTowerGreenOne.Click += new EventHandler(btnTowerGreenOne_Click);
 
-            btnTowerRedOne = new PictureButton(new Vector2(x + (width / 100 * 40), y + (height / 100 * 20)));
+            btnTowerRedOne = new PictureButton(new Vector2(x + (width / 100 * 40), y + (height / 100 * 20)),Color.Gray);
             btnTowerRedOne.Click += new EventHandler(btnTowerRedOne_Click);
 
-            btnTowerBlueOne = new PictureButton(new Vector2(x + (width / 100 * 60), y + (height / 100 * 20)));
+            btnTowerBlueOne = new PictureButton(new Vector2(x + (width / 100 * 60), y + (height / 100 * 20)),Color.Gray);
             btnTowerBlueOne.Click += new EventHandler(btnTowerBlueOne_Click);
 
-            btnTowerPurpleOne = new PictureButton(new Vector2(x + (width / 100 * 80), y + (height / 100 * 20)));
+            btnTowerPurpleOne = new PictureButton(new Vector2(x + (width / 100 * 80), y + (height / 100 * 20)), Color.Gray);
             btnTowerPurpleOne.Click += new EventHandler(btnTowerPurpleOne_Click);
 
-            btnUpgrade = new PictureButton(new Vector2(x + (width / 100 * 30), y + (height / 100 * 62)));
+            btnUpgrade = new PictureButton(new Vector2(x + (width / 100 * 30), y + (height / 100 * 62)), Color.Gray);
             btnUpgrade.Click += new EventHandler(btnUpgrade_Click);
 
-            btnSell = new PictureButton(new Vector2(x + (width / 100 * 70), y + (height / 100 * 62)));
+            btnSell = new PictureButton(new Vector2(x + (width / 100 * 70), y + (height / 100 * 62)), Color.Gray);
             btnSell.Click += new EventHandler(btnSell_Click);
         }
 

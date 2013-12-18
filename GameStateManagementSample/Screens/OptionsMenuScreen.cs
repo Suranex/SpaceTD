@@ -61,11 +61,5 @@ namespace GameStateManagementSample
         }
         #endregion
 
-        #region Handle Input
-
-
-
-
-        #endregion
     }
 }

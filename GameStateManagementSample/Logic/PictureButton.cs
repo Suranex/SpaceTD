@@ -22,6 +22,7 @@ namespace GameStateManagementSample.Logic
         private Boolean enabled;
         private ButtonMouseState bmstate;
         private enum ButtonMouseState{normal,hover,pressed};
+        private Color hoverColor;        
 
         public delegate void DrawExtraHandler(SpriteBatch spriteBatch);
         public event DrawExtraHandler DrawExtra;
@@ -52,6 +53,14 @@ namespace GameStateManagementSample.Logic
 
         public PictureButton(Vector2 position)
         {
+            this.position = position;
+            this.enabled = true;
+            hoverColor = Color.White;
+        }
+
+        public PictureButton(Vector2 position,Color hover)
+        {
+            this.hoverColor = hover;
             this.position = position;
             this.enabled = true;
         }
@@ -109,7 +118,12 @@ namespace GameStateManagementSample.Logic
         {
             if (enabled)
             {
-                spriteBatch.Draw(texture,bounds,Color.White);
+                if (bmstate == ButtonMouseState.hover)
+                    spriteBatch.Draw(texture, bounds, hoverColor);
+                else
+                {
+                    spriteBatch.Draw(texture, bounds, Color.White);
+                }
             }
 
             if(DrawExtra != null)
