@@ -63,7 +63,7 @@ namespace GameStateManagementSample.Logic
             this.currentspeed = speed;
         }
 
-        public void hit(int damage)
+        public void hit(float damage)
         {
             currentHealth -= damage;
         }

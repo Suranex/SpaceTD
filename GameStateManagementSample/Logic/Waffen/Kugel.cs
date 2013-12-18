@@ -15,13 +15,13 @@ namespace GameStateManagementSample.Logic
         /* 
          * Jeder Schuss wird eigenständig als Objekt behandelt. Diese werden in der Waffen.cs verwaltet
          */
-        public Kugel(Vector2 position, Enemy target, int damage, float speed) : base (texturen[1], position, target, damage)
+        public Kugel(Vector2 position, Enemy target, float damage, float speed) : base (texturen[1], position, target, damage)
         {
             this.speed = speed;
             WeaponManager.addWeapon(this); // füge dich selbst in die Liste ein
         }
 
-        public Kugel(Texture2D tex, Vector2 position, Enemy target, int damage, float speed)
+        public Kugel(Texture2D tex, Vector2 position, Enemy target, float damage, float speed)
             : base(tex, position, target, damage)
         {
             this.speed = speed;
@@ -56,7 +56,7 @@ namespace GameStateManagementSample.Logic
 
         }
 
-        protected virtual void dealDamage(int damage)
+        protected virtual void dealDamage(float damage)
         {
             target.hit(damage);
         }

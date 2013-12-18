@@ -18,7 +18,7 @@ namespace GameStateManagementSample.Logic
         public int maxRange;
         protected double currentCooldown;   // wie lang der Tower noch cooldown hat
         public double cooldown;          // standard cooldown
-        public int damage;               // Schadenswerte eines Turmes
+        public float damage;               // Schadenswerte eines Turmes
         public GameLevelTile gameLevelTile;
         private static List<Tower> tower = new List<Tower>();
         public static List<Texture2D> texturen = new List<Texture2D>();

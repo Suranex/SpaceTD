@@ -11,7 +11,7 @@ namespace GameStateManagementSample.Logic
     class Weapon : Sprite
     {
         protected Enemy target;
-        protected int damage;
+        protected float damage;
         protected static List<Texture2D> texturen = new List<Texture2D>();
 
         #region Content loading
@@ -24,7 +24,7 @@ namespace GameStateManagementSample.Logic
         #endregion
 
 
-        public Weapon(Texture2D texture, Vector2 position, Enemy target, int damage) : base(texture, position)
+        public Weapon(Texture2D texture, Vector2 position, Enemy target, float damage) : base(texture, position)
         {
             this.target = target;
             this.damage = damage;

@@ -13,7 +13,7 @@ namespace GameStateManagementSample.Logic
         /* 
          * Jeder Schuss wird eigenständig als Objekt behandelt. Diese werden in der Waffen.cs verwaltet
          */
-        public Laser(Vector2 position, Enemy target, int damage) : base (texturen[0], position, target, damage)
+        public Laser(Vector2 position, Enemy target, float damage) : base (texturen[0], position, target, damage)
         {
             WeaponManager.addWeapon(this); // füge dich selbst in die Liste ein
         }

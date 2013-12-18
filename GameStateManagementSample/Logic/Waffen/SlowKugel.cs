@@ -13,13 +13,13 @@ namespace GameStateManagementSample.Logic
         private double seconds;
         private float factor;
 
-        public SlowKugel(Vector2 position, Enemy target, int damage, float speed, double seconds, float factor) : base (texturen[2], position, target, damage, speed)
+        public SlowKugel(Vector2 position, Enemy target, float damage, float speed, double seconds, float factor) : base (texturen[2], position, target, damage, speed)
         {
             this.seconds = seconds;
             this.factor = factor;
         }
 
-        protected override void dealDamage(int damage)
+        protected override void dealDamage(float damage)
         {
             Console.WriteLine("slow!");
             base.dealDamage(damage);
