@@ -209,7 +209,7 @@ namespace GameStateManagementSample.Logic
             name = SlowTower.towerName;
             damage = SlowTower.startDamage;
             price = SlowTower.startcost;
-            cooldown = SlowTower.startDamage;
+            cooldown = SlowTower.startCooldown;
             maxRange = SlowTower.startMaxRange;
             description1 = "Dieser Turm verlangsamt";
             description2 = "Gegner eine gewisse Zeit";
