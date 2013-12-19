@@ -30,13 +30,12 @@ namespace GameStateManagementSample.Logic
             set { slowTime = value; }
         }
         private float factor;
-
+        private int numSlowEnemies = 4;
         public float Factor
         {
             get { return factor; }
             set { factor = value; }
         }
-        private int numSlowEnemies = 3;
 
         public int NumSlowEnemies
         {
