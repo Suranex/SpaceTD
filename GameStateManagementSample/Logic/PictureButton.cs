@@ -88,34 +88,35 @@ namespace GameStateManagementSample.Logic
         public void Update()
         {   
 
-                if (enabled == true)
-                {
-                    this.lastState = currentState;
-                    this.currentState = Mouse.GetState();
-                    if (currentState.LeftButton == ButtonState.Released &&
-                        lastState.LeftButton == ButtonState.Pressed)
-                    {   // Maustaste wird losgelassen -> state = normal
-                        bmstate = ButtonMouseState.normal;
-                    }
-                    else if (currentState.LeftButton == ButtonState.Pressed &&
-                        lastState.LeftButton == ButtonState.Released &&
-                        bounds.Contains(new Point(currentState.X, currentState.Y)))
-                    {   // Maustaste wird gedrückt, Mauszeiger auf Button -> state = pressed
-                        bmstate = ButtonMouseState.pressed;
-                        this.OnClick(EventArgs.Empty);
-                    }
-                    else if (bounds.Contains(new Point(currentState.X, currentState.Y)) &&
-                        currentState.LeftButton == ButtonState.Released &&
-                        lastState.LeftButton == ButtonState.Released)
-                    {   // Maustaste war und ist released, Mauszeiger auf Button -> state = hover
-                        bmstate = ButtonMouseState.hover;
-                    }
-                    else if(bmstate == ButtonMouseState.hover &&
-                        !bounds.Contains(new Point(currentState.X, currentState.Y)))
-                    {   // State == hover und Mauszeiger ist nicht mehr auf Button -> state = normal
-                        bmstate = ButtonMouseState.normal;
-                    }
+            //if (enabled == true)
+            //{
+                this.lastState = currentState;
+                this.currentState = Mouse.GetState();
+                if (currentState.LeftButton == ButtonState.Released &&
+                    lastState.LeftButton == ButtonState.Pressed)
+                {   // Maustaste wird losgelassen -> state = normal
+                    bmstate = ButtonMouseState.normal;
                 }
+                else if (currentState.LeftButton == ButtonState.Pressed &&
+                    lastState.LeftButton == ButtonState.Released &&
+                    bounds.Contains(new Point(currentState.X, currentState.Y))
+                    && enabled)
+                {   // Maustaste wird gedrückt, Mauszeiger auf Button -> state = pressed
+                    bmstate = ButtonMouseState.pressed;
+                    this.OnClick(EventArgs.Empty);
+                }
+                else if (bounds.Contains(new Point(currentState.X, currentState.Y)) &&
+                    currentState.LeftButton == ButtonState.Released &&
+                    lastState.LeftButton == ButtonState.Released)
+                {   // Maustaste war und ist released, Mauszeiger auf Button -> state = hover
+                    bmstate = ButtonMouseState.hover;
+                }
+                else if(bmstate == ButtonMouseState.hover &&
+                    !bounds.Contains(new Point(currentState.X, currentState.Y)))
+                {   // State == hover und Mauszeiger ist nicht mehr auf Button -> state = normal
+                    bmstate = ButtonMouseState.normal;
+                }
+            //}
         }
 
         public void Draw(SpriteBatch spriteBatch)
