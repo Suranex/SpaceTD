@@ -19,6 +19,7 @@ namespace GameStateManagementSample.Logic
         protected double currentCooldown;   // wie lang der Tower noch cooldown hat
         public double cooldown;          // standard cooldown
         public float damage;               // Schadenswerte eines Turmes
+        private int killcounter = 0;
         public GameLevelTile gameLevelTile;
         private static List<Tower> tower;
         public static List<Texture2D> texturen;
@@ -27,6 +28,11 @@ namespace GameStateManagementSample.Logic
         public static float upgradeDamageFactor = 1.1f;
         public static float upgradeCostFactor = 1.3f; 
         public static float upgradeRangeFactor = 1.02f;
+
+        public int Killcounter
+        {
+            get { return killcounter; }
+        }
 
         public int Cost
         {
@@ -60,6 +66,11 @@ namespace GameStateManagementSample.Logic
             this.gameLevelTile = gameLevelTile;
             this.Position = Position;
             tower.Add(this);
+        }
+
+        public void killDone()
+        {
+            killcounter++;
         }
 
         public virtual void Upgrade()
