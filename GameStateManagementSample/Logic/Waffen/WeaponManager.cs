@@ -25,7 +25,6 @@ namespace GameStateManagementSample.Logic
         public static void deleteWeapon(Weapon w)
         {
             waffen.Remove(w);
-            Console.WriteLine("Waffe entfernt");
         }
 
         public static void UpdateAll(GameTime gameTime)

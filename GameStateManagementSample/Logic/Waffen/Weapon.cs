@@ -12,6 +12,7 @@ namespace GameStateManagementSample.Logic
     {
         protected Enemy target;
         protected float damage;
+        protected Tower tower;      // welcher Tower diese Waffe gefeuert hat
         protected static List<Texture2D> texturen;
 
         #region Content loading
@@ -25,12 +26,13 @@ namespace GameStateManagementSample.Logic
         #endregion
 
 
-        public Weapon(Texture2D texture, Vector2 position, Enemy target, float damage) : base(texture, position)
+        public Weapon(Texture2D texture, Vector2 position, Enemy target, float damage, Tower tower) : base(texture, position)
         {
             this.target = target;
             this.damage = damage;
             this.scale = 1f;
             origin = new Vector2(texture.Width / 2, texture.Height / 2);
+            this.tower = tower;
         }
 
         //public virtual void Update(GameTime gameTime) { base.Update(gameTime); }

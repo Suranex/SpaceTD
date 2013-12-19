@@ -86,7 +86,7 @@ namespace GameStateManagementSample.Logic
             // numSlowEnemies Gegner in der Liste slowen.
             for (int i = 0; i < numSlowEnemies && i < enemyDistances.Count; i++)
             {
-                new SlowLaser(Center, enemyDistances[i].Key, damage, slowTime, factor);
+                new SlowLaser(Center, enemyDistances[i].Key, damage, slowTime, factor, this);
             }
         }
     }

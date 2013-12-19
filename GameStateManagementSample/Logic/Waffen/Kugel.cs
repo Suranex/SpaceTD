@@ -16,7 +16,7 @@ namespace GameStateManagementSample.Logic
         /* 
          * Jeder Schuss wird eigenständig als Objekt behandelt. Diese werden in der Waffen.cs verwaltet
          */
-        public Kugel(Vector2 position, Enemy target, float damage, float speed) : base (texturen[1], position, target, damage)
+        public Kugel(Vector2 position, Enemy target, float damage, float speed, Tower tower) : base (texturen[1], position, target, damage, tower)
         {
             this.speed = speed;
             WeaponManager.addWeapon(this); // füge dich selbst in die Liste ein
@@ -51,7 +51,7 @@ namespace GameStateManagementSample.Logic
 
                     if (range < splashRange)
                     {
-                        new Laser(Center, e, damage).LaserColor = Color.Red;
+                        new Laser(Center, e, damage, tower).LaserColor = Color.Red;
                         //e.hit(damage);
                     }
                 }

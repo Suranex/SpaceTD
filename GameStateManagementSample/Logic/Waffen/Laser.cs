@@ -22,7 +22,7 @@ namespace GameStateManagementSample.Logic
         /* 
          * Jeder Schuss wird eigenständig als Objekt behandelt. Diese werden in der Waffen.cs verwaltet
          */
-        public Laser(Vector2 position, Enemy target, float damage) : base (texturen[0], position, target, damage)
+        public Laser(Vector2 position, Enemy target, float damage, Tower tower) : base (texturen[0], position, target, damage, tower)
         {
             WeaponManager.addWeapon(this); // füge dich selbst in die Liste ein
             laserColor = Color.Green;
@@ -42,7 +42,6 @@ namespace GameStateManagementSample.Logic
                 return;
             }
 
-            Console.WriteLine("hit!!!");
             hitTarget(damage);
             ParticleManager.Instance.GenerateExplosion(target.Center, laserColor, 4);
             WeaponManager.deleteWeapon(this);
@@ -50,7 +49,9 @@ namespace GameStateManagementSample.Logic
 
         protected virtual void hitTarget(float dmg)
         {
-            target.hit(damage);
+            if (target.hit(damage)) // Wenn true, dann war der schuss tötlich
+                if (tower != null)  // Check ob der Tower noch existiert
+                    tower.killDone();   // erhöhe killcounter um 1
         }
 
         /*

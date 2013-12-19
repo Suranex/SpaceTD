@@ -29,7 +29,7 @@ namespace GameStateManagementSample.Logic
 
         protected override void shoot(Enemy e)
         {
-            new Laser(Center, e, damage);
+            new Laser(Center, e, damage, this);
         }
     }
 }

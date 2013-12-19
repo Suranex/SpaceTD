@@ -30,7 +30,7 @@ namespace GameStateManagementSample.Logic
 
         protected override void shoot(Enemy e)
         {
-            new Kugel(Center, e, damage, 10.0f);
+            new Kugel(Center, e, damage, 10.0f, this);
         }
     }
 }

@@ -62,9 +62,12 @@ namespace GameStateManagementSample.Logic
             this.spinning = spinning;
         }
 
-        public void hit(float damage)
+        public bool hit(float damage)
         {
             currentHealth -= damage;
+            if (currentHealth < 0)
+                return true;    // Schuss war tötlich
+            return false;       // Gegner lebt noch
         }
 
         public void SetWaypoints(Queue<Vector2> waypoints)

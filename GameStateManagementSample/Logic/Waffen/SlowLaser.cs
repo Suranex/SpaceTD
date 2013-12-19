@@ -13,7 +13,7 @@ namespace GameStateManagementSample.Logic
         private double seconds;
         private float factor;
 
-        public SlowLaser(Vector2 position, Enemy target, float damage, double seconds, float factor) : base (position, target, damage)
+        public SlowLaser(Vector2 position, Enemy target, float damage, double seconds, float factor, Tower tower) : base (position, target, damage, tower)
         {
             this.seconds = seconds;
             this.factor = factor;
