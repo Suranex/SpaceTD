@@ -449,9 +449,9 @@ namespace GameStateManagementSample.Logic
             btnTowerBlueOne.Enabled = Player.getInstance().Money >= SlowTower.startcost;
 
             // Hover über einen der Tower buttons...
-            if (btnTowerBlueOne.isHoverOrPressed()) { setBlueDesc(); towerButtonHover = true; }
-            else if (btnTowerRedOne.isHoverOrPressed()) { setRedDesc(); towerButtonHover = true; }
-            else if (btnTowerGreenOne.isHoverOrPressed()) { setGreenDesc(); towerButtonHover = true; }
+            if (btnTowerBlueOne.isHoverOrPressed() && !buildmode) { setBlueDesc(); towerButtonHover = true; }
+            else if (btnTowerRedOne.isHoverOrPressed() && !buildmode) { setRedDesc(); towerButtonHover = true; }
+            else if (btnTowerGreenOne.isHoverOrPressed() && !buildmode) { setGreenDesc(); towerButtonHover = true; }
             else { towerButtonHover = false; }
         }
 
