@@ -11,6 +11,12 @@ namespace GameStateManagementSample.Logic
     {
         #region Fields
         private int numOfEnemies; // Anzahl der Gegner die gespawnt werden sollen
+
+        public int NumOfEnemies
+        {
+            get { return numOfEnemies; }
+            set { numOfEnemies = value; }
+        }
         private int waveNumber; // Bei welcher Welle sind wir?
         private float spawnTimer = 0; // Vergangene Zeit wird hier festgehalten
         private int enemiesSpawned = 0; // Wieviele Gegner wurden schon gespawnt?
@@ -21,9 +27,33 @@ namespace GameStateManagementSample.Logic
 
         private Texture2D enemyTexture; // Textur die von den Gegnern benutzt werden soll
         private float enemyHealth; // Wieviel HP sollen die Gegner haben?
+
+        public float EnemyHealth
+        {
+            get { return enemyHealth; }
+            set { enemyHealth = value; }
+        }
         private float enemySpeed; // Wie schnell sollen die Gegner sein?
+
+        public float EnemySpeed
+        {
+            get { return enemySpeed; }
+            set { enemySpeed = value; }
+        }
         private int enemyBounty; // Wieviel Geld gibt es wenn man einen Gegner killt?
+
+        public int EnemyBounty
+        {
+            get { return enemyBounty; }
+            set { enemyBounty = value; }
+        }
         private int respawnTime; // Wieviel Zeit vergeht zwischen den spawns? WICHTIG: Angabe in ms!
+
+        public int RespawnTime
+        {
+            get { return respawnTime; }
+            set { respawnTime = value; }
+        }
         private bool hasSpinningEnemies; // Drehen sich die Gegner ständig? Oder zeigen sie in Richtung des nächsten Waypoints?
         public List<Enemy> enemies = new List<Enemy>(); // Liste mit allen Gegnern
         #endregion

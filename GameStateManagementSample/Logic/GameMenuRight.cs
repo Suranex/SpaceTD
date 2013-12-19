@@ -404,7 +404,12 @@ namespace GameStateManagementSample.Logic
                 }               
 
             }
-
+            //spriteBatch.DrawString(GameplayScreen.gameFont, "Aktuelle Welle:", new Vector2(x + (width / 100 * 5), y + (height / 100 * 73)), Color.White);
+            spriteBatch.DrawString(GameplayScreen.gameFont,"Anzahl: "+waveManager.CurrentWave.NumOfEnemies, new Vector2(x + (width / 100 * 5), y + (height / 100 * 73)), Color.White);
+            spriteBatch.DrawString(GameplayScreen.gameFont, "Leben: "+waveManager.CurrentWave.EnemyHealth, new Vector2(x + (width / 100 * 50), y + (height / 100 * 73)), Color.White);
+            spriteBatch.DrawString(GameplayScreen.gameFont, "Speed: "+waveManager.CurrentWave.EnemySpeed, new Vector2(x + (width / 100 * 5), y + (height / 100 * 75)), Color.White);
+            spriteBatch.DrawString(GameplayScreen.gameFont, "Delay: "+waveManager.CurrentWave.RespawnTime, new Vector2(x + (width / 100 * 50), y + (height / 100 * 75)), Color.White);
+            spriteBatch.DrawString(GameplayScreen.gameFont, "Geld: "+waveManager.CurrentWave.EnemyBounty, new Vector2(x + (width / 100 * 5), y + (height / 100 * 77)), Color.White);
         }
 
         public void Update()
