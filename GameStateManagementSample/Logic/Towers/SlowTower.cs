@@ -18,6 +18,10 @@ namespace GameStateManagementSample.Logic
         public static double startSlowTime = 2;
         public static float startSlowFactor = 0.5f;
 
+        public static float upgradeSlowFactor = 0.05f;
+        public static double upgradeSlowTime = 1.1;
+        public static float minimumSlowFactor = 0.1f;
+
         private double slowTime;
         private float factor;
         private int numSlowEnemies = 3;
@@ -37,10 +41,10 @@ namespace GameStateManagementSample.Logic
 
         public override void Upgrade()
         {
-            slowTime *= 1.1;
-            factor += 0.05f;
-            if (factor > 0.9f)
-                factor = 0.9f;
+            slowTime *= upgradeSlowTime;
+            factor -= upgradeSlowFactor;
+            if (factor < minimumSlowFactor)
+                factor = minimumSlowFactor;
             base.Upgrade();
         }
 
