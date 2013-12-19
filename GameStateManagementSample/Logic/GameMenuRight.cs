@@ -25,6 +25,12 @@ namespace GameStateManagementSample.Logic
         Rectangle backgroundrec;
         Texture2D background;
 
+        Texture2D soundOn;
+        Texture2D soundOff;
+
+        Texture2D lifebarOn;
+        Texture2D lifebarOff;
+
         int x;
         int y;
         int width;
@@ -54,8 +60,10 @@ namespace GameStateManagementSample.Logic
 
         WaveManager waveManager;
 
-        PictureButton btnToggleSoundOn;
-        PictureButton btnToggleSoundOff;
+        PictureButton btnToggleSound;
+      //  PictureButton btnToggleSoundOff;
+
+        PictureButton btnToggleLifebar;
 
         PictureButton btnTowerGreenOne;
         PictureButton btnTowerRedOne;
@@ -95,10 +103,11 @@ namespace GameStateManagementSample.Logic
             this.height = height;
             this.width = width;
             
-            btnToggleSoundOn=new PictureButton(new Vector2(x + (width / 100 * 80), y + (height / 100 * 5)),Color.Gray);
-            btnToggleSoundOff = new PictureButton(new Vector2(x + (width / 100 * 80), y + (height / 100 * 5)), Color.Gray);
-            btnToggleSoundOn.Click += new EventHandler(btnToggleSound_Click);
-            btnToggleSoundOff.Click += new EventHandler(btnToggleSound_Click);
+            btnToggleSound=new PictureButton(new Vector2(x + (width / 100 * 80), y + (height / 100 * 5)),Color.Gray);
+            btnToggleSound.Click += new EventHandler(btnToggleSound_Click);
+
+            btnToggleLifebar = new PictureButton(new Vector2(x + (width / 100 * 80), y + (height / 100 * 11)), Color.Gray);
+            btnToggleLifebar.Click += new EventHandler(btnLifebar_Click);
 
             // Send Wave Button
             btnWave = new Button(new Vector2(x + (width / 2), y + (height / 10 * 7)),
@@ -144,12 +153,31 @@ namespace GameStateManagementSample.Logic
             {
                 GameMenuRight.sound = false;
                 MediaPlayer.Pause();
+                btnToggleSound.ChangeTexture(soundOff);
             }
             else
             {
                 GameMenuRight.sound = true;
                 MediaPlayer.Resume();
+                btnToggleSound.ChangeTexture(soundOn);
             }
+        }
+        #endregion
+
+        #region btnLifebar Handlers
+        void btnLifebar_Click(object sender, EventArgs e)
+        {
+            if (OptionsMenuScreen.showHealthbars == true)
+            {
+                OptionsMenuScreen.showHealthbars = false;
+                btnToggleLifebar.ChangeTexture(lifebarOff);
+            }
+            else
+            {
+                OptionsMenuScreen.showHealthbars = true;
+                btnToggleLifebar.ChangeTexture(lifebarOn);
+            }
+            
         }
         #endregion
 
@@ -260,8 +288,31 @@ namespace GameStateManagementSample.Logic
             background = content.Load<Texture2D>("UIshapes/rightbackground");
             backgroundrec = new Rectangle(x, y, background.Width, background.Height);
 
-            btnToggleSoundOn.LoadContent(content, content.Load<Texture2D>("audio-volume-high-2"));
-            btnToggleSoundOff.LoadContent(content, content.Load<Texture2D>("audio-volume-muted-2"));
+            soundOn=content.Load<Texture2D>("audio-volume-high-2");
+            soundOff = content.Load<Texture2D>("audio-volume-muted-2");
+
+            lifebarOn = content.Load<Texture2D>("heart");
+            lifebarOff = content.Load<Texture2D>("blood");
+            if (GameMenuRight.sound == true)
+            {
+                btnToggleSound.LoadContent(content, soundOn);
+            }
+            else
+            {
+                btnToggleSound.LoadContent(content, soundOff);
+            }
+
+            if (OptionsMenuScreen.showHealthbars == true)
+            {
+                btnToggleLifebar.LoadContent(content, lifebarOn);
+            }
+            else
+            {
+                btnToggleLifebar.LoadContent(content, lifebarOff);
+            }
+            
+            
+            
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -271,14 +322,8 @@ namespace GameStateManagementSample.Logic
             spriteBatch.Draw(background, backgroundrec, Color.White);
             //spriteBatch.DrawLine(txPixel, new Vector2(600, 0), new Vector2(600, 600), Color.Black,5.0f);
 
-            if (sound==true)
-            {
-                btnToggleSoundOn.Draw(spriteBatch);
-            }
-            else
-            {
-                btnToggleSoundOff.Draw(spriteBatch);
-            }
+            btnToggleSound.Draw(spriteBatch);
+            btnToggleLifebar.Draw(spriteBatch);
 
             spriteBatch.DrawString(GameplayScreen.gameFont, "Welle: "+waveManager.CurrentWave.RoundNumber, new Vector2(x + (width / 100 * 5), y + (height / 100 * 2)), Color.Silver);
             spriteBatch.DrawString(GameplayScreen.gameFont, "Geld: " + Player.getInstance().Money, new Vector2(x + (width / 100 * 5), y + (height / 100 * 4)), Color.Gold);
@@ -291,7 +336,7 @@ namespace GameStateManagementSample.Logic
             btnTowerGreenOne.Draw(spriteBatch);
             btnTowerRedOne.Draw(spriteBatch);
             btnTowerBlueOne.Draw(spriteBatch);
-            btnTowerPurpleOne.Draw(spriteBatch);
+         //   btnTowerPurpleOne.Draw(spriteBatch);
             if (DisplayTowerInfo)
             {
                 if (buildmode)
@@ -368,18 +413,11 @@ namespace GameStateManagementSample.Logic
             btnTowerGreenOne.Update();
             btnTowerRedOne.Update();
             btnTowerBlueOne.Update();
-            btnTowerPurpleOne.Update();
+           // btnTowerPurpleOne.Update();
             btnUpgrade.Update();
             btnSell.Update();
-            if (sound==true)
-            {
-                btnToggleSoundOn.Update();
-            }
-            else
-            {
-                btnToggleSoundOff.Update();
-            }
-
+            btnToggleSound.Update();
+            btnToggleLifebar.Update();
 
             // Enable/Disable von Towerbuttons je nach Geldstand
             btnTowerGreenOne.Enabled = Player.getInstance().Money >= LaserTower.startcost;

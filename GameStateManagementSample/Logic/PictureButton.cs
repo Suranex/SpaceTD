@@ -135,5 +135,10 @@ namespace GameStateManagementSample.Logic
             if(DrawExtra != null)
                 DrawExtra(spriteBatch);
         }
+
+        public void ChangeTexture(Texture2D tex)
+        {
+            texture = tex;
+        }
     }
 }
