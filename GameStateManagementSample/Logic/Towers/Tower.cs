@@ -64,7 +64,7 @@ namespace GameStateManagementSample.Logic
 
         public virtual void Upgrade()
         {
-            if (Player.getInstance().costMoney(cost * (upgradeCostFactor - 1f)))
+            if (Player.getInstance().costMoney((int)(cost * (upgradeCostFactor - 1f))))
             {
                 towerlevel++;
                 damage *= upgradeDamageFactor;
