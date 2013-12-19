@@ -23,7 +23,6 @@ namespace GameStateManagementSample
     {
         #region Fields
 
-        MenuEntry playername;
         MenuEntry sound;
         MenuEntry healthbar;
 

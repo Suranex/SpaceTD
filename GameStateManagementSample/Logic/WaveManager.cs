@@ -40,7 +40,12 @@ namespace GameStateManagementSample.Logic
 
         public int Round
         {
-            get { return CurrentWave.RoundNumber; }
+            get { return CurrentWave.RoundNumber + 1; }
+        }
+
+        public bool AllWavesFinished
+        {
+            get { return waves.Count <= 1 && CurrentWave.IsRoundOver; }
         }
         #endregion
 
@@ -116,7 +121,8 @@ namespace GameStateManagementSample.Logic
             if (CurrentWave.IsRoundOver)
             {
                 waveFinished = true;
-                waves.Dequeue();
+                if(!AllWavesFinished) // Letzte Welle sollte hinterher nicht entfernt werden, sonst gibt's Fehler an einigen Stellen.
+                    waves.Dequeue();
             }
         }
 

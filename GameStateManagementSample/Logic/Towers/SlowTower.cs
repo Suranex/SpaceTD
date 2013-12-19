@@ -54,6 +54,7 @@ namespace GameStateManagementSample.Logic
             maxRange = startMaxRange;
             cooldown = startCooldown;
             Cost = startcost;
+            upgradeCostFactor = 1.6f;
         }
 
         public override void Upgrade()

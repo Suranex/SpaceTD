@@ -249,11 +249,19 @@ namespace GameStateManagementSample
 
 
                 waveManager.Update(gameTime);
-                particleManager.Update();
-                gmr.Update();
-                WeaponManager.UpdateAll(gameTime);
-                foreach(Tower t in Tower.Towers) // tower update; Verwaltungsklasse fehlt!
-                    t.Update(gameTime);
+                if (waveManager.AllWavesFinished)
+                {
+                    GameSuccess();
+                    return;
+                }
+                else
+                {
+                    particleManager.Update();
+                    gmr.Update();
+                    WeaponManager.UpdateAll(gameTime);
+                    foreach (Tower t in Tower.Towers) // tower update; Verwaltungsklasse fehlt!
+                        t.Update(gameTime);
+                }
             }
         }
 
@@ -290,7 +298,8 @@ namespace GameStateManagementSample
                 ScreenManager.AddScreen(new GameOverScreen(), ControllingPlayer);
 
             }
-            else if(healthbarAction.Evaluate(input, ControllingPlayer, out player)) {
+            else if (healthbarAction.Evaluate(input, ControllingPlayer, out player))
+            {
                 OptionsMenuScreen.showHealthbars = !OptionsMenuScreen.showHealthbars;
             }
             else
@@ -336,6 +345,7 @@ namespace GameStateManagementSample
         /// </summary>
         public override void Draw(GameTime gameTime)
         {
+            
             // -----------------------
             // http://stackoverflow.com/questions/3270507/changing-rendertarget-results-in-purple-screen
             // Laut einer Antwort, muss man aufs RenderTarget schreiben, bevor man clear benutzt.
@@ -403,6 +413,11 @@ namespace GameStateManagementSample
         public void GameOver()
         {
             this.gameOver=true;
+        }
+
+        public void GameSuccess()
+        {
+            ScreenManager.AddScreen(new GameSuccessScreen(), ControllingPlayer);
         }
 
     }

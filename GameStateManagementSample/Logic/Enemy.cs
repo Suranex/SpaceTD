@@ -26,7 +26,6 @@ namespace GameStateManagementSample.Logic
         protected int bountyGiven;
 
         private Queue<Vector2> waypoints = new Queue<Vector2>();
-        private static Texture2D dummyTexture;
         #endregion
 
         #region Properties

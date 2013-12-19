@@ -15,7 +15,7 @@ namespace GameStateManagementSample.Logic
         public static String towerName = "Kanonenturm";
         public static double startCooldown = 0.75;
         public static int startDamage = 160;
-        public static int startMaxRange = 100;
+        public static int startMaxRange = 75;
 
         public CanonTower(Vector2 position,GameLevelTile gameLevelTile)
             : base(texturen[1], position,gameLevelTile)

@@ -13,8 +13,8 @@ namespace GameStateManagementSample.Logic
         public static int startcost = 60;
         public static String towerName = "Laserturm";
         public static double startCooldown = 0.15;
-        public static int startDamage = 32;
-        public static int startMaxRange = 150;
+        public static int startDamage = 29;
+        public static int startMaxRange = 100;
 
         public LaserTower(Vector2 position,GameLevelTile gameLevelTile)
             : base(texturen[0], position,gameLevelTile)

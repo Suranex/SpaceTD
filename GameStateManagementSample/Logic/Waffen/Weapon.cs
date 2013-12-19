@@ -33,7 +33,7 @@ namespace GameStateManagementSample.Logic
             origin = new Vector2(texture.Width / 2, texture.Height / 2);
         }
 
-        public virtual void Update(GameTime gameTime) { base.Update(gameTime); }
-        public virtual void Draw(SpriteBatch spriteBatch) { base.Draw(spriteBatch); }
+        //public virtual void Update(GameTime gameTime) { base.Update(gameTime); }
+        //public virtual void Draw(SpriteBatch spriteBatch) { base.Draw(spriteBatch); }
     }
 }
