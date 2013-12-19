@@ -18,6 +18,8 @@ namespace GameStateManagementSample.Logic
 
         public static bool sound = true;
 
+        private bool towerButtonHover = false;
+
         ScreenManager screenManager;
         GraphicsDevice graphicsDevice;
         Texture2D txPixel;
@@ -134,6 +136,52 @@ namespace GameStateManagementSample.Logic
             btnSell.Click += new EventHandler(btnSell_Click);
         }
 
+        #region Description settings
+        private void setGreenDesc()
+        {
+            name = LaserTower.towerName;
+            damage = LaserTower.startDamage;
+            price = LaserTower.startcost;
+            cooldown = LaserTower.startCooldown;
+            maxRange = LaserTower.startMaxRange;
+            description1 = "Der Klassiker, ein Turm";
+            description2 = "welcher ein Ziel";
+            description3 = "angreift.";
+            description4 = "Pew Pew Pew";
+            description5 = "";
+        }
+
+        private void setRedDesc()
+        {
+            name = CanonTower.towerName;
+            damage = CanonTower.startDamage;
+            price = CanonTower.startcost;
+            cooldown = CanonTower.startCooldown;
+            maxRange = CanonTower.startMaxRange;
+            description1 = "Ein Single-target-Turm";
+            description2 = "welcher grossen";
+            description3 = "Schaden verursacht.";
+            description4 = "";
+            description5 = "";
+        }
+
+        private void setBlueDesc()
+        {
+            name = SlowTower.towerName;
+            damage = SlowTower.startDamage;
+            price = SlowTower.startcost;
+            cooldown = SlowTower.startCooldown;
+            maxRange = SlowTower.startMaxRange;
+            description1 = "Dieser Turm verlangsamt";
+            description2 = "Gegner eine gewisse Zeit";
+            description3 = "um einen gewissen";
+            description4 = "Prozentsatz.";
+            description5 = "";
+            slowTime = SlowTower.startSlowTime;
+            factor = SlowTower.startSlowFactor;
+        }
+        #endregion
+
         #region btnUpgrade Handlers
         void btnUpgrade_Click(object sender, EventArgs e)
         {
@@ -198,16 +246,7 @@ namespace GameStateManagementSample.Logic
         {
             GameplayScreen.selectedTowerType = 0;
             buildmode = true;
-            name = LaserTower.towerName;
-            damage = LaserTower.startDamage;
-            price = LaserTower.startcost;
-            cooldown = LaserTower.startCooldown;
-            maxRange = LaserTower.startMaxRange;
-            description1 = "Der Klassiker, ein Turm";
-            description2 = "welcher ein Ziel";
-            description3 = "angreift.";
-            description4 = "Pew Pew Pew";
-            description5 = "";
+            setGreenDesc();
         }
         #endregion
 
@@ -216,16 +255,7 @@ namespace GameStateManagementSample.Logic
         {
             GameplayScreen.selectedTowerType = 1;
             buildmode = true;
-            name = CanonTower.towerName;
-            damage = CanonTower.startDamage;
-            price = CanonTower.startcost;
-            cooldown = CanonTower.startCooldown;
-            maxRange = CanonTower.startMaxRange;
-            description1 = "Ein Single-target-Turm";
-            description2 = "welcher grossen";
-            description3 = "Schaden verursacht.";
-            description4 = "";
-            description5 = "";
+            setRedDesc();
         }
         #endregion
 
@@ -234,18 +264,7 @@ namespace GameStateManagementSample.Logic
         {
             GameplayScreen.selectedTowerType = 2;
             buildmode = true;
-            name = SlowTower.towerName;
-            damage = SlowTower.startDamage;
-            price = SlowTower.startcost;
-            cooldown = SlowTower.startCooldown;
-            maxRange = SlowTower.startMaxRange;
-            description1 = "Dieser Turm verlangsamt";
-            description2 = "Gegner eine gewisse Zeit";
-            description3 = "um einen gewissen";
-            description4 = "Prozentsatz.";
-            description5 = "";
-            slowTime = SlowTower.startSlowTime;
-            factor = SlowTower.startSlowFactor;
+            setBlueDesc();
         }
         #endregion
 
@@ -337,9 +356,9 @@ namespace GameStateManagementSample.Logic
             btnTowerRedOne.Draw(spriteBatch);
             btnTowerBlueOne.Draw(spriteBatch);
          //   btnTowerPurpleOne.Draw(spriteBatch);
-            if (DisplayTowerInfo)
+            if (DisplayTowerInfo || towerButtonHover)
             {
-                if (buildmode)
+                if (buildmode || towerButtonHover)
                 {
                     spriteBatch.DrawString(GameplayScreen.gameFont, name, new Vector2(x + (width / 100 * 5), y + (height / 100 * 32)), Color.White);
                     spriteBatch.DrawString(GameplayScreen.gameFont, "Preis: " + price, new Vector2(x + (width / 100 * 5), y + (height / 100 * 34)), Color.White);
@@ -428,6 +447,12 @@ namespace GameStateManagementSample.Logic
             btnTowerGreenOne.Enabled = Player.getInstance().Money >= LaserTower.startcost;
             btnTowerRedOne.Enabled = Player.getInstance().Money >= CanonTower.startcost;
             btnTowerBlueOne.Enabled = Player.getInstance().Money >= SlowTower.startcost;
+
+            // Hover über einen der Tower buttons...
+            if (btnTowerBlueOne.isHoverOrPressed()) { setBlueDesc(); towerButtonHover = true; }
+            else if (btnTowerRedOne.isHoverOrPressed()) { setRedDesc(); towerButtonHover = true; }
+            else if (btnTowerGreenOne.isHoverOrPressed()) { setGreenDesc(); towerButtonHover = true; }
+            else { towerButtonHover = false; }
         }
 
         public void TowerSelected(Tower t)
