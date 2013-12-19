@@ -10,7 +10,12 @@ namespace GameStateManagementSample.Logic
 {
     class WeaponManager
     {
-        public static List<Weapon> waffen = new List<Weapon>();
+        public static List<Weapon> waffen;
+
+        public static void Initialize()
+        {
+            waffen = new List<Weapon>();
+        }
 
         public static void addWeapon(Weapon w)
         {

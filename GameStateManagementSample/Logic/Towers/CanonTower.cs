@@ -11,7 +11,7 @@ namespace GameStateManagementSample.Logic
 {
     class CanonTower : Tower
     {
-        public static int startcost=160;
+        public static int startcost=140;
         public static String towerName = "Kanonenturm";
         public static double startCooldown = 0.75;
         public static int startDamage = 160;

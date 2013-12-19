@@ -50,16 +50,13 @@ namespace GameStateManagementSample.Logic
             velocity = Vector2.Zero;
 
             scale = (float)Level.TileWidth / texture.Width;
-
-            center = new Vector2(position.X + texture.Width * scale/ 2,
-                                position.Y + texture.Height * scale / 2);
             origin = new Vector2(texture.Width * scale / 2, texture.Height * scale / 2);
+            center = position + origin;
         }
 
         public virtual void Update(GameTime gameTime)
         {
-            this.center = new Vector2(position.X + texture.Width  * scale / 2,
-                                      position.Y + texture.Height * scale / 2);
+            this.center = position + origin;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

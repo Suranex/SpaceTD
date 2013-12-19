@@ -12,11 +12,12 @@ namespace GameStateManagementSample.Logic
     {
         protected Enemy target;
         protected float damage;
-        protected static List<Texture2D> texturen = new List<Texture2D>();
+        protected static List<Texture2D> texturen;
 
         #region Content loading
         public static void LoadContent(ContentManager content)
         {
+            texturen = new List<Texture2D>();
             texturen.Add(content.Load<Texture2D>("weißPixel")); // 0 Laser
             texturen.Add(content.Load<Texture2D>("rot")); // 1 Canon
             texturen.Add(content.Load<Texture2D>("blau")); // 2 slow

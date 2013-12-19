@@ -22,12 +22,6 @@ namespace GameStateManagementSample.Logic
             WeaponManager.addWeapon(this); // füge dich selbst in die Liste ein
         }
 
-        public Kugel(Texture2D tex, Vector2 position, Enemy target, float damage, float speed)
-            : base(tex, position, target, damage)
-        {
-            this.speed = speed;
-            WeaponManager.addWeapon(this); // füge dich selbst in die Liste ein
-        }
         /** 
          * Kugelposition bei jeden Update neu berechnen 
          */

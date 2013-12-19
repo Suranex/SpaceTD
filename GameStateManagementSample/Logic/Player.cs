@@ -9,8 +9,10 @@ namespace GameStateManagementSample.Logic
     {
         private double points;
         private long kills;
-        private float money = 275;
-        private int live = 20;
+        private float startMoney = 300;
+        private float money;
+        private int startLive = 25;
+        private int live;
         private String name;
         private static Player player; // instance of player
 
@@ -18,6 +20,12 @@ namespace GameStateManagementSample.Logic
         {
             //TODO Werte aus optionen ziehen und startwerte anpassen
             name = OptionsMenuScreen.name;
+        }
+
+        public void resetStats()
+        {
+            money = startMoney;
+            live = startLive;
         }
 
         public static Player getInstance(){
