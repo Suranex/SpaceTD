@@ -23,8 +23,26 @@ namespace GameStateManagementSample.Logic
         public static float minimumSlowFactor = 0.1f;
 
         private double slowTime;
+
+        public double SlowTime
+        {
+            get { return slowTime; }
+            set { slowTime = value; }
+        }
         private float factor;
+
+        public float Factor
+        {
+            get { return factor; }
+            set { factor = value; }
+        }
         private int numSlowEnemies = 3;
+
+        public int NumSlowEnemies
+        {
+            get { return numSlowEnemies; }
+            set { numSlowEnemies = value; }
+        }
 
         public SlowTower(Vector2 position, GameLevelTile gameLevelTile)
             : base(texturen[2], position, gameLevelTile)

@@ -345,7 +345,7 @@ namespace GameStateManagementSample.Logic
             btnToggleLifebar.Draw(spriteBatch);
 
             spriteBatch.DrawString(GameplayScreen.gameFont, "Welle: "+(waveManager.CurrentWave.RoundNumber + 1), new Vector2(x + (width / 100 * 5), y + (height / 100 * 2)), Color.Silver);
-            spriteBatch.DrawString(GameplayScreen.gameFont, "Geld: " + Player.getInstance().Money, new Vector2(x + (width / 100 * 5), y + (height / 100 * 4)), Color.Gold);
+            spriteBatch.DrawString(GameplayScreen.gameFont, "Geld: " + Math.Round(Player.getInstance().Money,2), new Vector2(x + (width / 100 * 5), y + (height / 100 * 4)), Color.Gold);
             spriteBatch.DrawString(GameplayScreen.gameFont, "Leben: "+Player.getInstance().Live, new Vector2(x + (width / 100 * 5), y + (height / 100 * 6)), Color.Red);
             spriteBatch.DrawString(GameplayScreen.gameFont, "Punkte: " +Player.getInstance().Points, new Vector2(x + (width / 100 * 5), y + (height / 100 * 8)), Color.Green);
             spriteBatch.DrawString(GameplayScreen.gameFont, "Kills: "+Player.getInstance().Kills, new Vector2(x + (width / 100 * 5), y + (height / 100 * 10)), Color.Blue);
@@ -413,8 +413,16 @@ namespace GameStateManagementSample.Logic
                     if (tower.type == 2)
                     {
                         spriteBatch.DrawString(GameplayScreen.gameFont, "Extra:", new Vector2(x + (width / 100 * 5), y + (height / 100 * 46)), Color.White);
-                        spriteBatch.DrawString(GameplayScreen.gameFont, "Verlangsamungsdauer: " + slowTime, new Vector2(x + (width / 100 * 5), y + (height / 100 * 48)), Color.White);
-                        spriteBatch.DrawString(GameplayScreen.gameFont, "Verlangsamung: " + factor * 100 + "%", new Vector2(x + (width / 100 * 5), y + (height / 100 * 50)), Color.White);
+                        spriteBatch.DrawString(GameplayScreen.gameFont, "Slowdauer: " + Math.Round(slowTime,2), new Vector2(x + (width / 100 * 5), y + (height / 100 * 48)), Color.White);
+                        if (btnUpgrade.isHoverOrPressed())
+                        {
+                            spriteBatch.DrawString(GameplayScreen.gameFont, "+" + Math.Round((slowTime*SlowTower.upgradeSlowTime)-slowTime, 2), new Vector2(x + (width / 100 * 75), y + (height / 100 * 48)), Color.Green);
+                        }
+                        spriteBatch.DrawString(GameplayScreen.gameFont, "Slow: " + Math.Round(100-(factor * 100),2) + "%", new Vector2(x + (width / 100 * 5), y + (height / 100 * 50)), Color.White);
+                        if (btnUpgrade.isHoverOrPressed() && SlowTower.minimumSlowFactor != factor)
+                        {
+                            spriteBatch.DrawString(GameplayScreen.gameFont, "+5%", new Vector2(x + (width / 100 * 75), y + (height / 100 * 50)), Color.Green);
+                        }
                     }
                     btnUpgrade.Draw(spriteBatch);
                     spriteBatch.DrawString(GameplayScreen.gameFont, "Upgrade!", new Vector2(x + (width / 100 * 15), y + (height / 100 * 61)), Color.White);
@@ -466,6 +474,13 @@ namespace GameStateManagementSample.Logic
             maxRange = t.maxRange;
             level = t.towerlevel;
             sellReward = t.Cost/2;
+            if(t.type==2)
+            {
+                SlowTower tslow=(SlowTower)t;
+                slowTime = tslow.SlowTime;
+                factor = tslow.Factor;
+                
+            }
         }
     }
 }
