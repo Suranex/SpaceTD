@@ -57,9 +57,11 @@ namespace GameStateManagementSample.Logic
 
                     if (range < splashRange)
                     {
-                        e.hit(damage);
+                        new Laser(Center, e, damage).LaserColor = Color.Red;
+                        //e.hit(damage);
                     }
                 }
+                ParticleManager.Instance.GenerateExplosion(Center, Color.Red, 5);
                 WeaponManager.deleteWeapon(this);
             }
 

@@ -37,6 +37,7 @@ namespace GameStateManagementSample
         //Enemy enemy1;
         //Wave wave;
         WaveManager waveManager;
+        ParticleManager particleManager;
         bool gameOver = false;
 
         public static ContentManager content;
@@ -92,6 +93,7 @@ namespace GameStateManagementSample
             waveManager = new WaveManager(level, 20);
             gmr = new Logic.GameMenuRight(600,0,200,600, waveManager,this);
             backgroundrec = new Rectangle(0, 0, 600, 600);
+            particleManager = new ParticleManager();
 
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
@@ -128,6 +130,8 @@ namespace GameStateManagementSample
 
                 waveManager.LoadContent(content);
                 waveManager.InitWaves();
+
+                particleManager.LoadContent(content);
 
                 //clickacceptpausetime = 1;
                 level.Initialize(ScreenManager);
@@ -240,6 +244,7 @@ namespace GameStateManagementSample
 
 
                 waveManager.Update(gameTime);
+                particleManager.Update();
                 gmr.Update();
                 WeaponManager.UpdateAll(gameTime);
                 foreach(Tower t in Tower.Towers) // tower update; Verwaltungsklasse fehlt!
@@ -344,7 +349,8 @@ namespace GameStateManagementSample
             gmr.Draw(spriteBatch); // Menü Rechts
             foreach (Tower t in Tower.Towers) // Tower, sollte vll noch in eine Verwaltungsklasse
                 t.Draw(spriteBatch);
-            waveManager.Draw(spriteBatch); // Gegner
+            //waveManager.Draw(spriteBatch); // Gegner
+            //particleManager.Draw(spriteBatch);
             WeaponManager.DrawAll(spriteBatch);
 
             // Rangeindikator für selectedTower anzeigen
@@ -361,11 +367,13 @@ namespace GameStateManagementSample
                     spriteBatch.DrawCircle(towerPreviewSprite.Center, (int)gmr.MaxRange, Color.White * 0.5f);
                 }
             }
-            
-            
             spriteBatch.End();
 
-            
+            // Partikel und Gegner mit Additive Blending zeichnen!
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.Additive);
+            waveManager.Draw(spriteBatch);
+            particleManager.Draw(spriteBatch);
+            spriteBatch.End();
 
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)

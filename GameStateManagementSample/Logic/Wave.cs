@@ -24,6 +24,7 @@ namespace GameStateManagementSample.Logic
         private float enemySpeed; // Wie schnell sollen die Gegner sein?
         private int enemyBounty; // Wieviel Geld gibt es wenn man einen Gegner killt?
         private int respawnTime; // Wieviel Zeit vergeht zwischen den spawns? WICHTIG: Angabe in ms!
+        private bool hasSpinningEnemies; // Drehen sich die Gegner ständig? Oder zeigen sie in Richtung des nächsten Waypoints?
         public List<Enemy> enemies = new List<Enemy>(); // Liste mit allen Gegnern
         #endregion
 
@@ -49,7 +50,7 @@ namespace GameStateManagementSample.Logic
         }
         #endregion
 
-        public Wave(int waveNumber, int numOfEnemies, Level level, Texture2D enemyTexture, float health, float speed, int bounty, int respawnTime)
+        public Wave(int waveNumber, int numOfEnemies, Level level, Texture2D enemyTexture, float health, float speed, int bounty, int respawnTime, bool hasSpinningEnemies)
         {
             this.waveNumber = waveNumber;
             this.numOfEnemies = numOfEnemies;
@@ -59,12 +60,13 @@ namespace GameStateManagementSample.Logic
             this.enemySpeed = speed;
             this.enemyBounty = bounty;
             this.respawnTime = respawnTime;
+            this.hasSpinningEnemies = hasSpinningEnemies;
         }
 
         private void AddEnemy()
         {
             Enemy enemy = new Enemy(enemyTexture, level.waypoints.Peek(),
-                enemyHealth, enemyBounty, enemySpeed);
+                enemyHealth, enemyBounty, enemySpeed, hasSpinningEnemies);
             enemy.SetWaypoints(level.waypoints);
             enemies.Add(enemy);
             spawnTimer = 0;

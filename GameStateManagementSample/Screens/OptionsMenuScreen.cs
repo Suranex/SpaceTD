@@ -54,10 +54,6 @@ namespace GameStateManagementSample
 
             MenuEntry back = new MenuEntry("Back");
 
-            
-
-
-
             // Hook up menu event handlers.
             back.Selected += OnCancel;
             sound.Selected += ToggleSound;

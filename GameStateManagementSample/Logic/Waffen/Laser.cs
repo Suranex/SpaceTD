@@ -44,6 +44,7 @@ namespace GameStateManagementSample.Logic
 
             Console.WriteLine("hit!!!");
             hitTarget(damage);
+            ParticleManager.Instance.GenerateExplosion(target.Center, laserColor, 4);
             WeaponManager.deleteWeapon(this);
         }
 

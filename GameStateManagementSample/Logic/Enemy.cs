@@ -19,6 +19,8 @@ namespace GameStateManagementSample.Logic
         protected float speed = 0.5f;
         protected float currentspeed;
 
+        protected bool spinning;
+
         private double slowTime;
 
         protected int bountyGiven;
@@ -50,7 +52,7 @@ namespace GameStateManagementSample.Logic
         }
         #endregion
 
-        public Enemy(Texture2D texture, Vector2 position, float health, int bountyGiven, float speed)
+        public Enemy(Texture2D texture, Vector2 position, float health, int bountyGiven, float speed, bool spinning)
             : base(texture, position)
         {
             this.startHealth = health;
@@ -58,6 +60,7 @@ namespace GameStateManagementSample.Logic
             this.bountyGiven = bountyGiven;
             this.speed = speed;
             this.currentspeed = speed;
+            this.spinning = spinning;
         }
 
         public void hit(float damage)
@@ -94,6 +97,8 @@ namespace GameStateManagementSample.Logic
 
             if (waypoints.Count > 0)
             {
+                if (spinning)
+                    rotation = (float)((rotation + 0.2f) % (MathHelper.Pi * 2));
                 if (DistanceToDestination < currentspeed)
                 {
                     Position = waypoints.Peek();
@@ -108,7 +113,8 @@ namespace GameStateManagementSample.Logic
 
                     Position += velocity;
 
-                    rotation = (float)(Math.Atan2(direction.X, -direction.Y));
+                    if(!spinning)
+                        rotation = (float)(Math.Atan2(direction.X, -direction.Y));
                 }
             }
             else // Ende erreicht! Darf nun auch nicht mehr leben.
@@ -122,7 +128,7 @@ namespace GameStateManagementSample.Logic
             {
                 float healthPercentage = currentHealth / startHealth;
                 Color color = new Color(new Vector3(1, healthPercentage, healthPercentage));
-                base.Draw(spriteBatch, color);
+                base.Draw(spriteBatch, OptionsMenuScreen.showHealthbars ? Color.White : color);
 
                 if (OptionsMenuScreen.showHealthbars)
                 {
@@ -135,7 +141,7 @@ namespace GameStateManagementSample.Logic
         internal void setSlow(double seconds, float factor)
         {
             slowTime = seconds;
-            currentspeed *= factor;
+            currentspeed = Math.Max(currentspeed * factor, 0.2f);
         }
     }
 }

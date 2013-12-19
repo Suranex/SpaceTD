@@ -23,6 +23,11 @@ namespace GameStateManagementSample.Logic
         private static List<Tower> tower = new List<Tower>();
         public static List<Texture2D> texturen = new List<Texture2D>();
 
+
+        public static float upgradeDamageFactor = 1.1f;
+        public static float upgradeCostFactor = 1.3f; 
+        public static float upgradeRangeFactor = 1.02f;
+
         public int Cost
         {
             get { return cost; }
@@ -54,12 +59,12 @@ namespace GameStateManagementSample.Logic
 
         public virtual void Upgrade()
         {
-            if (Player.getInstance().costMoney(cost + (cost / 5)))
+            if (Player.getInstance().costMoney(cost * (upgradeCostFactor - 1f)))
             {
                 towerlevel++;
-                damage += damage / 10;   // damage um ein zentel steigern
-                cost += cost / 5;      // Kosten immer um ein fünftel steigern
-                maxRange += 2;          // reichweite immer um 2 steigern
+                damage *= upgradeDamageFactor;
+                cost = (int)(cost * upgradeCostFactor);
+                maxRange = (int)(maxRange * upgradeRangeFactor);
             }
         }
 

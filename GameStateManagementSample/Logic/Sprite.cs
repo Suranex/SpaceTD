@@ -38,7 +38,7 @@ namespace GameStateManagementSample.Logic
 
         public Vector2 OriginPosition
         {
-            get { return new Vector2(texture.Width / 2 * scale + Position.X, texture.Height / 2 * scale + Position.Y); }
+            get { return Vector2.Add(Position, origin); }
         }
         #endregion
 

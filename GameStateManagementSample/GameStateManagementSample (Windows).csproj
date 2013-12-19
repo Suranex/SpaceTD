@@ -72,6 +72,8 @@
     <Compile Include="Logic\Button.cs" />
     <Compile Include="Logic\Enemy.cs" />
     <Compile Include="Logic\GameMenuRight.cs" />
+    <Compile Include="Logic\Particle.cs" />
+    <Compile Include="Logic\ParticleManager.cs" />
     <Compile Include="Logic\Player.cs" />
     <Compile Include="Logic\Sprite.cs" />
     <Compile Include="Logic\PictureButton.cs" />

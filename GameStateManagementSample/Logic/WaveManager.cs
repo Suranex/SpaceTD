@@ -15,8 +15,9 @@ namespace GameStateManagementSample.Logic
 
         private int numOfWaves; // Wieviele Wellen werden insgesamt erzeugt
         private Queue<Wave> waves = new Queue<Wave>(); // Warteschlange mit den Wellen
-        private Texture2D enemyTexture; // Textur für die Gegner
+        //private Texture2D enemyTexture; // Textur für die Gegner
                                         // TODO: Unterschiedliche Texturen
+        private List<Texture2D> textures;
         private bool waveFinished = true; // Welle geschafft?
         private Level level; // Referenz zum Level
         #endregion
@@ -46,7 +47,10 @@ namespace GameStateManagementSample.Logic
         #region Content loading
         public void LoadContent(ContentManager content)
         {
-            enemyTexture = content.Load<Texture2D>("enemy");
+            textures = new List<Texture2D>();
+            textures.Add(content.Load<Texture2D>("Enemies/pinkpinwheel"));  // standard, spin
+            textures.Add(content.Load<Texture2D>("Enemies/orangetriangle")); // schnell, nonspin
+            textures.Add(content.Load<Texture2D>("Enemies/purplesquare2")); // stark, nonspin
         }
         #endregion
 
@@ -69,15 +73,28 @@ namespace GameStateManagementSample.Logic
                 int bounty = (int)(5 * ((i / 5f) + 1));
                 float speed = 2.0f;
                 int respawnTime = 450;
+                bool spins = true;
+                Texture2D texture = textures[0];
 
                 // Schnelle Welle alle 3 Wellen, dafür weniger HP
-                if (i + 1 % 3 == 0) { speed = 4.0f; health = (int) (health / 1.4); }
+                if (i + 1 % 3 == 0) {
+                    speed = 4.0f;
+                    health = (int) (health / 1.4);
+                    texture = textures[1];
+                    spins = false;
+                } 
+                // Stärkere Gegner alle 5 Wellen, dafür nur halb so viele
+                else if(i + 1 % 10 == 0)
+                {
+                    numOfEnemies /= 2;
+                    health *= 2;
+                    bounty = (int)(bounty * 2.3);
+                    texture = textures[2];
+                    spins = false;
+                }
 
-                // Stärkere Gegner alle 10 Wellen, dafür nur halb so viele
-                if (i + 1 % 10 == 0) { numOfEnemies /= 2; health *= 2; bounty = (int)(bounty * 2.3); }
 
-
-                Wave wave = new Wave(i, numOfEnemies, level, enemyTexture, health, speed, bounty, respawnTime);
+                Wave wave = new Wave(i, numOfEnemies, level, texture, health, speed, bounty, respawnTime, spins);
                 waves.Enqueue(wave);
             }
         }
