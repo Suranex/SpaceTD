@@ -19,7 +19,6 @@ namespace GameStateManagementSample.Logic
         protected double currentCooldown;   // wie lang der Tower noch cooldown hat
         public double cooldown;          // standard cooldown
         public float damage;               // Schadenswerte eines Turmes
-        private int killcounter = 0;
         public GameLevelTile gameLevelTile;
         private static List<Tower> tower;
         public static List<Texture2D> texturen;
@@ -33,11 +32,6 @@ namespace GameStateManagementSample.Logic
         {
             get { return cost; }
             set { cost = value; }
-        }
-
-        public int Killcounter
-        {
-            get { return killcounter; }
         }
 
         #region Content loading
@@ -131,11 +125,6 @@ namespace GameStateManagementSample.Logic
                 return true;
             }
             return false;
-        }
-
-        public void killDone()
-        {
-            killcounter++;
         }
 
         protected Enemy GetEnemyInRange()

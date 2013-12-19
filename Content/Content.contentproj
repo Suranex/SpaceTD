@@ -93,12 +93,12 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Tower\bluetower2.png">
+    <Compile Include="Tower\unused\bluetower2.png">
       <Name>bluetower2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Tower\bluetower3.png">
+    <Compile Include="Tower\unused\bluetower3.png">
       <Name>bluetower3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -108,17 +108,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Tower\greentower2.png">
+    <Compile Include="Tower\unused\greentower2.png">
       <Name>greentower2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Tower\greentower3.png">
+    <Compile Include="Tower\unused\greentower3.png">
       <Name>greentower3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Tower\greentower4.png">
+    <Compile Include="Tower\unused\greentower4.png">
       <Name>greentower4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -128,22 +128,22 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Tower\purpletower2.png">
+    <Compile Include="Tower\unused\purpletower2.png">
       <Name>purpletower2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Tower\purpletower3.png">
+    <Compile Include="Tower\unused\purpletower3.png">
       <Name>purpletower3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Tower\redtower1.png">
+    <Compile Include="Tower\unused\redtower1.png">
       <Name>redtower1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Tower\redtower2.png">
+    <Compile Include="Tower\unused\redtower2.png">
       <Name>redtower2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -153,12 +153,12 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Tower\redtower4.png">
+    <Compile Include="Tower\unused\redtower4.png">
       <Name>redtower4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Tower\redtower5.png">
+    <Compile Include="Tower\unused\redtower5.png">
       <Name>redtower5</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
