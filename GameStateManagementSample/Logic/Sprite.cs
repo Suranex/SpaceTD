@@ -50,7 +50,7 @@ namespace GameStateManagementSample.Logic
             velocity = Vector2.Zero;
 
             scale = (float)Level.TileWidth / texture.Width;
-            origin = new Vector2(texture.Width * scale / 2, texture.Height * scale / 2);
+            origin = new Vector2(texture.Width / 2 * scale, texture.Height / 2 * scale);
             center = position + origin;
         }
 

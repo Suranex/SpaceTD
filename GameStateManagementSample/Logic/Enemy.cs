@@ -133,7 +133,7 @@ namespace GameStateManagementSample.Logic
                 if (OptionsMenuScreen.showHealthbars)
                 {
                     Color barColor = new Color(new Vector3(1 - healthPercentage, healthPercentage, 0));
-                    spriteBatch.DrawRectangle(new Rectangle((int)Position.X, (int)Position.Y+3, (int)(texture.Width * healthPercentage * scale), 3), barColor);
+                    spriteBatch.DrawRectangle(new Rectangle((int)Position.X, (int)Position.Y+3, (int)(texture.Width * healthPercentage), 3), barColor);
                 }
             }
         }

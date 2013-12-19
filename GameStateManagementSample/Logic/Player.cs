@@ -9,7 +9,7 @@ namespace GameStateManagementSample.Logic
     {
         private double points;
         private long kills;
-        private float startMoney = 3000;
+        private float startMoney = 275;
         private float money;
         private int startLive = 25;
         private int live;

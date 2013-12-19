@@ -42,8 +42,8 @@ namespace GameStateManagementSample.Logic
             direction.Normalize();
             position += Vector2.Multiply(direction, speed);
 
-            // position stimmt nie genau überein, daher auf ungefähren pixelabstand (max 5 pixel)
-            if (Math.Abs(Position.X - target.Position.X) + Math.Abs(Position.Y - target.Position.Y) < 10)
+            // position stimmt nie genau überein, daher auf ungefähren pixelabstand
+            if (Vector2.Distance(Center, target.Center) <= speed)
             {
                 foreach (Enemy e in WaveManager.Instance.CurrentWave.Enemies)
                 {
@@ -55,7 +55,7 @@ namespace GameStateManagementSample.Logic
                         //e.hit(damage);
                     }
                 }
-                ParticleManager.Instance.GenerateExplosion(Center, Color.Red, 5);
+                ParticleManager.Instance.GenerateExplosion(Center, Color.Red, 7);
                 WeaponManager.deleteWeapon(this);
             }
 

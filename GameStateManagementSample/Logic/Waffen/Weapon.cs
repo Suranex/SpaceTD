@@ -19,7 +19,7 @@ namespace GameStateManagementSample.Logic
         {
             texturen = new List<Texture2D>();
             texturen.Add(content.Load<Texture2D>("weißPixel")); // 0 Laser
-            texturen.Add(content.Load<Texture2D>("rot")); // 1 Canon
+            texturen.Add(content.Load<Texture2D>("redProjectile")); // 1 Canon
             texturen.Add(content.Load<Texture2D>("blau")); // 2 slow
         }
         #endregion
@@ -29,6 +29,8 @@ namespace GameStateManagementSample.Logic
         {
             this.target = target;
             this.damage = damage;
+            this.scale = 1f;
+            origin = new Vector2(texture.Width / 2, texture.Height / 2);
         }
 
         public virtual void Update(GameTime gameTime) { base.Update(gameTime); }
