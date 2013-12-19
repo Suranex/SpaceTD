@@ -401,6 +401,7 @@ namespace GameStateManagementSample.Logic
 
                     if (tower.type == 2)
                     {
+                       
                         spriteBatch.DrawString(GameplayScreen.gameFont, "Extra:", new Vector2(x + (width / 100 * 5), y + (height / 100 * (textheight += 2))), Color.White);
                         spriteBatch.DrawString(GameplayScreen.gameFont, "Slowdauer: " + Math.Round(slowTime, 2), new Vector2(x + (width / 100 * 5), y + (height / 100 * (textheight += 2))), Color.White);
                         if (btnUpgrade.isHoverOrPressed())
@@ -408,6 +409,7 @@ namespace GameStateManagementSample.Logic
                         spriteBatch.DrawString(GameplayScreen.gameFont, "Slow: " + Math.Round(100 - (factor * 100), 2) + "%", new Vector2(x + (width / 100 * 5), y + (height / 100 * (textheight += 2))), Color.White);
                         if (btnUpgrade.isHoverOrPressed() && SlowTower.minimumSlowFactor != factor)
                             spriteBatch.DrawString(GameplayScreen.gameFont, "+" + SlowTower.upgradeSlowFactor * 100 + "%", new Vector2(x + (width / 100 * 75), y + (height / 100 * (textheight +=0))), Color.Green);
+                        textheight -= 6;
                     }
                     btnUpgrade.Draw(spriteBatch);
                     spriteBatch.DrawString(GameplayScreen.gameFont, "Upgrade!", new Vector2(x + (width / 100 * 15), y + (height / 100 * (textheight += 15))), Color.White);
