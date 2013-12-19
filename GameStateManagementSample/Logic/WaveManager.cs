@@ -14,7 +14,7 @@ namespace GameStateManagementSample.Logic
         private static WaveManager instance;
 
         private int numOfWaves; // Wieviele Wellen werden insgesamt erzeugt
-        private Queue<Wave> waves = new Queue<Wave>(); // Warteschlange mit den Wellen
+        private Queue<Wave> waves; // Warteschlange mit den Wellen
         //private Texture2D enemyTexture; // Textur für die Gegner
                                         // TODO: Unterschiedliche Texturen
         private List<Texture2D> textures;
@@ -63,6 +63,7 @@ namespace GameStateManagementSample.Logic
 
         public void InitWaves()
         {
+            waves = new Queue<Wave>();
             for (int i = 0; i < numOfWaves; i++)
             {
                 // Hier kann man die Parameter der einzelnen Wellen verändern..
@@ -77,14 +78,14 @@ namespace GameStateManagementSample.Logic
                 Texture2D texture = textures[0];
 
                 // Schnelle Welle alle 3 Wellen, dafür weniger HP
-                if (i + 1 % 3 == 0) {
+                if ((i + 1) % 3 == 0) {
                     speed = 4.0f;
                     health = (int) (health / 1.4);
                     texture = textures[1];
                     spins = false;
                 } 
                 // Stärkere Gegner alle 5 Wellen, dafür nur halb so viele
-                else if(i + 1 % 10 == 0)
+                else if((i + 1) % 5 == 0)
                 {
                     numOfEnemies /= 2;
                     health *= 2;

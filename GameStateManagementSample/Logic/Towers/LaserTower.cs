@@ -10,7 +10,7 @@ namespace GameStateManagementSample.Logic
 {
     class LaserTower : Tower
     {
-        public static int startcost = 80;
+        public static int startcost = 60;
         public static String towerName = "Laserturm";
         public static double startCooldown = 0.15;
         public static int startDamage = 32;

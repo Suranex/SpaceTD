@@ -12,13 +12,21 @@ namespace GameStateManagementSample.Utility
         private static Texture2D dummyTexture;
         public static void DrawLine(this SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 end, Color color, float thickness, float layer)
         {
+            if (dummyTexture == null)
+            {
+                dummyTexture = new Texture2D(GameplayScreen.gd, 1, 1);
+                Color[] data = new Color[1];
+                data[0] = Color.White;
+                dummyTexture.SetData(data);
+            }
+
             // Distanz
             float distance = Vector2.Distance(start, end);
 
             // Winkel
             float angle = (float)Math.Atan2((double)(end.Y - start.Y), (double)(end.X - start.X));
 
-            spriteBatch.Draw(texture,
+            spriteBatch.Draw(dummyTexture,
                 start + 0.5f * (end - start),
                 null,
                 color,

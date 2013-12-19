@@ -125,16 +125,21 @@ namespace GameStateManagementSample
                 gameFont = content.Load<SpriteFont>("gamefont");
                 background=content.Load<Texture2D>("background");
 
+                Tower.Initialize();
                 Tower.LoadContent(content);
                 Weapon.LoadContent(content);
+                WeaponManager.Initialize();
 
                 waveManager.LoadContent(content);
                 waveManager.InitWaves();
+
+                Player.getInstance().resetStats();
 
                 particleManager.LoadContent(content);
 
                 //clickacceptpausetime = 1;
                 level.Initialize(ScreenManager);
+                level.LoadContent(content);
                 gmr.Initialize(ScreenManager, content);
                 //gmr.Activelayer = true;
 
@@ -343,6 +348,7 @@ namespace GameStateManagementSample
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
 
+            //spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             spriteBatch.Begin();
             spriteBatch.Draw(background, backgroundrec, Color.White);
             level.Draw(spriteBatch);

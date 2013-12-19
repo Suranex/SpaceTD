@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 using GameStateManagementSample.Utility;
 
 
@@ -73,6 +74,9 @@ namespace GameStateManagementSample.Logic
         private Vector2 startOffset = new Vector2(10, 10);
         private Vector2 towerPosOffset = new Vector2(-2, -2);
 
+        private Texture2D gradientTexture;
+        private Vector2 gradientOrigin;
+
         public Level()
         {
             // Erstmal hardcoden, kann man hinterher aus einer XML auslesen
@@ -110,12 +114,16 @@ namespace GameStateManagementSample.Logic
             waypoints.Enqueue(new Vector2(16, 12) * tileWidth + startOffset);
             waypoints.Enqueue(new Vector2(16, 19) * tileWidth + startOffset);
 
-
-
             gridMap = new GameLevelTile[initMap.GetLength(1), initMap.GetLength(0)];
             for (int i = 0; i<Width; i++)
                 for (int j = 0; j < Height; j++)
                     gridMap[j,i] = new GameLevelTile(initMap[j,i] == 0, i, j);
+        }
+
+        public void LoadContent(ContentManager content)
+        {
+            gradientTexture = content.Load<Texture2D>("levelGradient");
+            gradientOrigin = new Vector2(gradientTexture.Width / 2, gradientTexture.Height / 2);
         }
 
         public void Initialize(GameStateManagement.ScreenManager sm)
@@ -164,7 +172,7 @@ namespace GameStateManagementSample.Logic
             graphicsDevice.Clear(ClearOptions.Target, Color.Transparent, 0, 0);
 
             SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);
-            Matrix Transform = Matrix.CreateTranslation(2, 2, 0);
+            Matrix Transform = Matrix.CreateTranslation(-towerPosOffset.X, -towerPosOffset.Y, 0);
 
             spriteBatch.Begin(
                 SpriteSortMode.BackToFront, // 0f = Vorne, 1f = Hinten
@@ -271,6 +279,26 @@ namespace GameStateManagementSample.Logic
                 }
             }
 
+            // Gradienten ----------------
+            Vector2 pos1, pos2;
+            Vector2 direction;
+            float rotation;
+
+            // Levelanfang
+            pos1 = waypoints.ElementAt(0) - startOffset;
+            pos2 = waypoints.ElementAt(1) - startOffset;
+            direction = Vector2.Normalize(pos1 - pos2);
+            rotation = (float)(Math.Atan2(direction.X, -direction.Y));
+            spriteBatch.Draw(gradientTexture, pos1+gradientOrigin, null, Color.Green, rotation, gradientOrigin, 1f, SpriteEffects.None, 0.3f);
+
+            // Levelende
+            pos1 = waypoints.Last() - startOffset;
+            pos2 = waypoints.ElementAt(waypoints.Count - 2) - startOffset;
+            direction = Vector2.Normalize(pos1 - pos2);
+            rotation = (float)(Math.Atan2(direction.X, -direction.Y));
+            spriteBatch.Draw(gradientTexture, pos1+gradientOrigin, null, Color.Red, rotation, gradientOrigin, 1f, SpriteEffects.None, 0.3f);
+            // Gradienten finish ---------
+
             spriteBatch.End();
 
             graphicsDevice.SetRenderTarget(null);
@@ -281,7 +309,7 @@ namespace GameStateManagementSample.Logic
             // renderTarget zeichnen
             spriteBatch.Draw((Texture2D)renderTarget,
                 startOffset,
-                new Rectangle(0, 0, 3+Width*tileWidth, 3+Height*tileHeight),
+                new Rectangle(0, 0, 2+Width*tileWidth, 2+Height*tileHeight),
                 Color.White
             );
         }

@@ -20,8 +20,8 @@ namespace GameStateManagementSample.Logic
         public double cooldown;          // standard cooldown
         public float damage;               // Schadenswerte eines Turmes
         public GameLevelTile gameLevelTile;
-        private static List<Tower> tower = new List<Tower>();
-        public static List<Texture2D> texturen = new List<Texture2D>();
+        private static List<Tower> tower;
+        public static List<Texture2D> texturen;
 
 
         public static float upgradeDamageFactor = 1.1f;
@@ -37,11 +37,16 @@ namespace GameStateManagementSample.Logic
         #region Content loading
         public static void LoadContent(ContentManager content)
         {
-            texturen = new List<Texture2D>();
             texturen.Add(content.Load<Texture2D>("Tower/greentower1")); // 0 Laser
             texturen.Add(content.Load<Texture2D>("Tower/redtower3")); // 1 Canon
             texturen.Add(content.Load<Texture2D>("Tower/bluetower1")); // 2 Slow
-            texturen.Add(content.Load<Texture2D>("Tower/purpletower")); // 3 single target BEAM :D
+            texturen.Add(content.Load<Texture2D>("Tower/purpletower")); // 3 single target BEAM :D - unimplemented?
+        }
+
+        public static void Initialize()
+        {
+            tower = new List<Tower>();
+            texturen = new List<Texture2D>();
         }
         #endregion
 
@@ -104,7 +109,7 @@ namespace GameStateManagementSample.Logic
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            spriteBatch.DrawString(GameplayScreen.gameFont, towerlevel.ToString(), Position, Color.White);
+            spriteBatch.DrawString(GameplayScreen.gameFont, towerlevel.ToString(), Position + new Vector2(5, 1), Color.White);
         }
 
         protected Boolean IsEnemyInRange()
