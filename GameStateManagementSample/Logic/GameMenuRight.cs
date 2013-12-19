@@ -364,22 +364,22 @@ namespace GameStateManagementSample.Logic
                     spriteBatch.DrawString(GameplayScreen.gameFont, "Schaden: " + Math.Round(damage, 2), new Vector2(x + (width / 100 * 5), y + (height / 100 * 34)), Color.White);
                     if (btnUpgrade.isHoverOrPressed())
                     {
-                        spriteBatch.DrawString(GameplayScreen.gameFont,"+"+Math.Round((damage*0.1),2), new Vector2(x + (width / 100 * 75), y + (height / 100 * 34)), Color.Green);
+                        spriteBatch.DrawString(GameplayScreen.gameFont,"+"+Math.Round((damage*Tower.upgradeDamageFactor)-damage,2), new Vector2(x + (width / 100 * 75), y + (height / 100 * 34)), Color.Green);
                     }
                     spriteBatch.DrawString(GameplayScreen.gameFont, "Reichweite: " + maxRange, new Vector2(x + (width / 100 * 5), y + (height / 100 * 36)), Color.White);
                     if (btnUpgrade.isHoverOrPressed())
                     {
-                        spriteBatch.DrawString(GameplayScreen.gameFont, "+" + 2, new Vector2(x + (width / 100 * 75), y + (height / 100 * 36)), Color.Green);
+                        spriteBatch.DrawString(GameplayScreen.gameFont, "+" + ((int)(maxRange*Tower.upgradeRangeFactor)-maxRange), new Vector2(x + (width / 100 * 75), y + (height / 100 * 36)), Color.Green);
                     }
                     spriteBatch.DrawString(GameplayScreen.gameFont, "Abklingzeit: " + cooldown, new Vector2(x + (width / 100 * 5), y + (height / 100 * 38)), Color.White);
 
                     if (btnUpgrade.isHoverOrPressed()==true)
                     {
-                        spriteBatch.DrawString(GameplayScreen.gameFont, "Upgradekosten: " + price, new Vector2(x + (width / 100 * 5), y + (height / 100 * 40)), Color.Red);
+                        spriteBatch.DrawString(GameplayScreen.gameFont, "Upgradekosten: " + Math.Round((price*Tower.upgradeCostFactor)-price,2), new Vector2(x + (width / 100 * 5), y + (height / 100 * 40)), Color.Red);
                     }
                     else
                     {
-                        spriteBatch.DrawString(GameplayScreen.gameFont, "Upgradekosten: " + price, new Vector2(x + (width / 100 * 5), y + (height / 100 * 40)), Color.White);
+                        spriteBatch.DrawString(GameplayScreen.gameFont, "Upgradekosten: " + Math.Round((price * Tower.upgradeCostFactor) - price, 2), new Vector2(x + (width / 100 * 5), y + (height / 100 * 40)), Color.White);
                     }
                     if (btnSell.isHoverOrPressed()==true)
                     {
@@ -401,7 +401,7 @@ namespace GameStateManagementSample.Logic
                     spriteBatch.DrawString(GameplayScreen.gameFont, "Upgrade!", new Vector2(x + (width / 100 * 15), y + (height / 100 * 61)), Color.White);
                     btnSell.Draw(spriteBatch);
                     spriteBatch.DrawString(GameplayScreen.gameFont, "Sell!", new Vector2(x + (width / 100 * 65), y + (height / 100 * 61)), Color.White);
-                }
+                }               
 
             }
 
@@ -431,7 +431,7 @@ namespace GameStateManagementSample.Logic
             this.tower = t;
             name = t.name;
             damage = t.damage;
-            price = t.Cost*1.2;
+            price = t.Cost;
             cooldown = t.cooldown;
             maxRange = t.maxRange;
             level = t.towerlevel;
