@@ -60,7 +60,7 @@ namespace GameStateManagementSample.Logic
         {
             if (!target.IsDead)
             {
-                spriteBatch.DrawLine(texturen[0], position, target.Center, laserColor, 1f);
+                spriteBatch.DrawLine(texturen[0], position, target.Center, laserColor, 2f);
             }
 
         }

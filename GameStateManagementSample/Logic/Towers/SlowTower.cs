@@ -24,7 +24,7 @@ namespace GameStateManagementSample.Logic
 
         private double slowTime;
         private float factor;
-        private int numSlowEnemies = 3;
+        private int numSlowEnemies = 4;
 
         public SlowTower(Vector2 position, GameLevelTile gameLevelTile)
             : base(texturen[2], position, gameLevelTile)
